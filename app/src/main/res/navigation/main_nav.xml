@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.thinkdiffai.futurelove.view.fragment.HomeFragment"
+        android:label="HomeFragment">
+
+
+        <action
+            android:id="@+id/action_homeFragment_to_commentFragment"
+            app:destination="@id/commentFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_homeFragment_to_pairingFragment"
+            app:destination="@id/pairingFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_homeFragment_to_timelineFragment"
+            app:destination="@id/timelineFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_homeFragment_to_userDetailFragment"
+            app:destination="@id/userDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_homeFragment_to_eventsFragment"
+            app:destination="@id/eventsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_listVideoFragment"
+            app:destination="@id/listVideoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/commentFragment"
+        android:name="com.thinkdiffai.futurelove.view.fragment.CommentFragment"
+        android:label="CommentFragment">
+        <action
+            android:id="@+id/action_commentFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_commentFragment_to_pairingFragment"
+            app:destination="@id/pairingFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_commentFragment_to_timelineFragment"
+            app:destination="@id/timelineFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_commentFragment_to_eventsFragment"
+            app:destination="@id/eventsFragment" />
+        <action
+            android:id="@+id/action_commentFragment_to_userDetailFragment"
+            app:destination="@id/userDetailFragment" />
+        <action
+            android:id="@+id/action_commentFragment_to_listVideoFragment"
+            app:destination="@id/listVideoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pairingFragment"
+        android:name="com.thinkdiffai.futurelove.view.fragment.PairingFragment"
+        android:label="PairingFragment">
+        <action
+            android:id="@+id/action_pairingFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_pairingFragment_to_commentFragment"
+            app:destination="@id/commentFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_pairingFragment_to_timelineFragment"
+            app:destination="@id/timelineFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_pairingFragment_to_eventsFragment"
+            app:destination="@id/eventsFragment" />
+        <action
+            android:id="@+id/action_pairingFragment_to_userDetailFragment"
+            app:destination="@id/userDetailFragment" />
+        <action
+            android:id="@+id/action_pairingFragment_to_listVideoFragment"
+            app:destination="@id/listVideoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/timelineFragment"
+        android:name="com.thinkdiffai.futurelove.view.fragment.TimelineFragment"
+        android:label="TimelineFragment">
+        <action
+            android:id="@+id/action_timelineFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_timelineFragment_to_commentFragment"
+            app:destination="@id/commentFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_timelineFragment_to_pairingFragment"
+            app:destination="@id/pairingFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/userDetailFragment"
+        android:name="com.thinkdiffai.futurelove.view.fragment.UserDetailFragment"
+        android:label="fragment_user_detail"
+        tools:layout="@layout/fragment_user_detail">
+        <action
+            android:id="@+id/action_userDetailFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_userDetailFragment_to_commentFragment"
+            app:destination="@id/commentFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_userDetailFragment_to_pairingFragment"
+            app:destination="@id/pairingFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_userDetailFragment_to_timelineFragment"
+            app:destination="@id/timelineFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventAndCommentFragment"
+        android:name="com.thinkdiffai.futurelove.EventAndCommentFragment"
+        android:label="fragment_event_and_comment"
+        tools:layout="@layout/fragment_event_and_comment" >
+        <action
+            android:id="@+id/action_eventAndCommentFragment_to_eventsFragment"
+            app:destination="@id/eventsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventsFragment"
+        android:name="com.thinkdiffai.futurelove.EventsFragment"
+        android:label="fragment_events"
+        tools:layout="@layout/fragment_events" >
+        <action
+            android:id="@+id/action_eventsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_eventsFragment_to_eventAndCommentFragment"
+            app:destination="@id/eventAndCommentFragment" />
+        <action
+            android:id="@+id/action_eventsFragment_to_addEventFragment"
+            app:destination="@id/addEventFragment" />
+        <action
+            android:id="@+id/action_eventsFragment_to_commentFragment2"
+            app:destination="@id/commentFragment" />
+        <action
+            android:id="@+id/action_eventsFragment_to_pairingFragment"
+            app:destination="@id/pairingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEventFragment"
+        android:name="com.thinkdiffai.futurelove.AddEventFragment"
+        android:label="fragment_add_event"
+        tools:layout="@layout/fragment_add_event" >
+        <action
+            android:id="@+id/action_addEventFragment_to_eventsFragment"
+            app:destination="@id/eventsFragment" />
+        <action
+            android:id="@+id/action_addEventFragment_to_loadingEventFragment"
+            app:destination="@id/loadingEventFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loadingEventFragment"
+        android:name="com.thinkdiffai.futurelove.LoadingEventFragment"
+        android:label="fragment_loading_event"
+        tools:layout="@layout/fragment_loading_event" >
+        <action
+            android:id="@+id/action_loadingEventFragment_to_addEventFragment"
+            app:destination="@id/addEventFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/myOwnDialogFragment"
+        android:name="com.thinkdiffai.futurelove.view.fragment.dialog.MyOwnDialogFragment"
+        android:label="MyOwnDialogFragment" >
+        <action
+            android:id="@+id/action_myOwnDialogFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/listVideoFragment"
+        android:name="com.thinkdiffai.futurelove.view.fragment.ListVideoFragment"
+        android:label="fragment_list_video"
+        tools:layout="@layout/fragment_list_video" >
+        <action
+            android:id="@+id/action_listVideoFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+<!--        <action-->
+<!--            android:id="@+id/action_listVideoFragment_to_swapFaceFragment"-->
+<!--            app:destination="@id/swapFaceFragment" />-->
+
+        <action
+            android:id="@+id/action_listVideoFragment_to_pairingFragment"
+            app:destination="@id/pairingFragment" />
+        <action
+            android:id="@+id/action_listVideoFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
+        <action
+            android:id="@+id/action_listVideoFragment_to_swapFaceFragment"
+            app:destination="@id/swapFaceFragment" />
+        <action
+            android:id="@+id/action_listVideoFragment_to_swapFaceWithYourVideo"
+            app:destination="@id/swapFaceWithYourVideo" />
+    </fragment>
+    <fragment
+        android:id="@+id/swapFaceFragment"
+        android:name="com.thinkdiffai.futurelove.view.fragment.SwapFaceFragment"
+        android:label="fragment_swap_face"
+        tools:layout="@layout/fragment_swap_face" >
+        <argument
+            android:name="argKey"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_swapFaceFragment_to_videoResultsFragment"
+            app:destination="@id/videoResultsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/videoResultsFragment"
+        android:name="com.thinkdiffai.futurelove.view.fragment.VideoResultsFragment"
+        android:label="fragment_video_results"
+        tools:layout="@layout/fragment_video_results" >
+        <action
+            android:id="@+id/action_videoResultsFragment_to_swapFaceFragment"
+            app:destination="@id/swapFaceFragment" />
+        <action
+            android:id="@+id/action_videoResultsFragment_to_swapFaceWithYourVideo"
+            app:destination="@id/swapFaceWithYourVideo" />
+    </fragment>
+    <fragment
+        android:id="@+id/swapFaceWithYourVideo"
+        android:name="com.thinkdiffai.futurelove.view.fragment.SwapFaceWithYourVideo"
+        android:label="SwapFaceWithYourVideo" >
+        <action
+            android:id="@+id/action_swapFaceWithYourVideo_to_listVideoFragment"
+            app:destination="@id/listVideoFragment" />
+        <action
+            android:id="@+id/action_swapFaceWithYourVideo_to_videoResultsFragment"
+            app:destination="@id/videoResultsFragment" />
+    </fragment>
+    <!--    <fragment-->
+<!--        android:id="@+id/swapFaceFragment"-->
+<!--        android:name="com.thinkdiffai.futurelove.view.fragment.SwapFaceFragment"-->
+<!--        android:label="fragment_swap_face"-->
+<!--        tools:layout="@layout/fragment_swap_face" >-->
+
+<!--        <argument android:name="urlVideo"-->
+<!--            app:argType="String"-->
+<!--            />-->
+<!--        <action-->
+<!--            android:id="@+id/action_swapFaceFragment_to_listVideoFragment"-->
+<!--            app:destination="@id/listVideoFragment" />-->
+
+
+<!--    </fragment>-->
+</navigation>
