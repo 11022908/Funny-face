@@ -45,6 +45,7 @@
     <color name="bgToolbar">#1E1E1E</color>
     <color name="gray">#A55C5C</color>
     <color name="bg_color">#0E0E0E</color>
-    <color name="primary_1">#0084F4</color>
+    <color name="primary_1">#1DB954</color>
+    <color name="bg_avatar_register">#343434</color>
 
 </resources>

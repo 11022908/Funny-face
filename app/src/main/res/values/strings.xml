@@ -16,6 +16,7 @@
     <string name="re_password">Enter the password</string>
     <string name="ask_reset_password">Forgot password?</string>
     <string name="ask_having_account">Don’t have an account?</string>
+    <string name="ask_having_account2">You have an account?</string>
     <string name="register">Register</string>
     <string name="login">Log In</string>
     <string name="search">Search</string>
@@ -42,5 +43,8 @@
     <string name="ghjkl">TODO</string>
     <string name="login_status">Sign up with email address</string>
     <string name="signup">Sign up</string>
+    <string name="title_forgot">Forgot Password</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="desc_forgot">Don\'t worry, we\'ve sent you the password reset link via email.</string>
 
 </resources>

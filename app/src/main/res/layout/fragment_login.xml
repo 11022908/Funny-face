@@ -38,12 +38,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="1dp"
                 android:fontFamily="@font/roboto_slab"
-
+                android:src="@drawable/funny_face"
                 android:lineHeight="32sp"
                 android:text="@string/app_name"
                 android:textColor="@color/white"
@@ -87,7 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:layout_marginTop="20dp"
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="40dp"
             android:background="@drawable/edit_text_frame"
             android:fontFamily="@font/roboto_slab"
             android:hint="@string/email"
@@ -95,6 +95,19 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/signInStatus"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ic_email"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+
+            android:src="@drawable/sms"
+            android:layout_marginStart="10dp"
+
+            app:layout_constraintStart_toStartOf="@id/edt_user_name"
+
+            app:layout_constraintTop_toTopOf="@id/edt_user_name"
+            app:layout_constraintBottom_toBottomOf="@id/edt_user_name"
+            />
 <!--        alert enter your email-->
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_user_name_alert"
@@ -118,7 +131,7 @@
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:layout_marginTop="20dp"
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="40dp"
             android:background="@drawable/edit_text_frame"
             android:fontFamily="@font/roboto_slab"
             android:hint="@string/password"
@@ -127,6 +140,19 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/tv_user_name_alert"
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ic_password"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+
+            android:src="@drawable/lock"
+            android:layout_marginStart="10dp"
+
+            app:layout_constraintStart_toStartOf="@id/edt_password"
+
+            app:layout_constraintTop_toTopOf="@id/edt_password"
+            app:layout_constraintBottom_toBottomOf="@id/edt_password"
             />
 <!--        icon show password-->
         <androidx.appcompat.widget.AppCompatImageView
@@ -354,18 +380,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ask_having_account"
-                android:textColor="@color/white"
+                android:textColor="@color/white"/>
 
-                />
             <androidx.appcompat.widget.AppCompatButton
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:text="Sign up"
                 android:textColor="@color/green"
-                android:textAllCaps="false"
-                />
+                android:textAllCaps="false"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
