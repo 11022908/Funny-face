@@ -59,46 +59,22 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        //initAction();
-
         // Set up TextWatcher to see that edit texts are valid or not and will show alerts or nothing
         setUpTextWatcher();
-
+        //show pass word
+        showPasswordClearly();
         // When click Login btn
         loginExecute();
 
         // When click Reset btn
-        resetPasswordExecute();
+        resetPasswordExecute();//chua chay
 
         // When users haven't already had any account
         navToRegisterExecute();
-
-        // When users want to see their password clearly
-        showPasswordClearly();
-
     }
 
-//    private void initAction() {
-//        binding.skipLogin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                navToMainActivitySkipLogin();
-//            }
-//        });
-//    }
 
-    private void navToMainActivitySkipLogin() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("id_user",0);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("id_user","0");
-        editor.commit();
 
-        boolean isLoginSuccess = true;
-        Intent i = new Intent(getActivity(), MainActivity.class);
-        i.putExtra("LOGIN_SUCCESS", isLoginSuccess);
-        startActivity(i);
-    }
 
     private void setUpTextWatcher() {
         binding.edtUserName.addTextChangedListener(new TextWatcher() {
@@ -296,12 +272,6 @@ public class LoginFragment extends Fragment {
         });
     }
 
-//    private void passDataToHomeFragment(String user_id) {
-//        Bundle bundle = new Bundle();
-//        bundle.putString("user_id",user_id);
-//        HomeFragment fragment = new HomeFragment();
-//        fragment.setArguments(bundle);
-//    }
 
 
     private boolean isCompletedInformation(String email, String password) {
@@ -333,17 +303,24 @@ public class LoginFragment extends Fragment {
     }
 
     private void resetPasswordExecute() {
-
+        binding.btnForgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navToForgotPassword();
+            }
+        });
     }
-
+    private void navToForgotPassword(){
+        NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_forgotFragment);
+    }
     private void navToRegisterExecute() {
-        System.out.println("đang ki");
-//        binding.btnNavRegister.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                navToRegisterFragment();
-//            }
-//        });
+
+        binding.btnNavRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navToRegisterFragment();
+            }
+        });
     }
 
     private void navToMainActivity() {
