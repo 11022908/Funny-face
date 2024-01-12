@@ -37,10 +37,16 @@
         <action
             android:id="@+id/action_homeFragment_to_listVideoFragment"
             app:destination="@id/listVideoFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_userDetailFragment2"
+            app:destination="@id/userDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_eventAndCommentFragment"
+            app:destination="@id/eventAndCommentFragment" />
     </fragment>
     <fragment
         android:id="@+id/commentFragment"
-        android:name="com.thinkdiffai.futurelove.view.fragment.CommentFragment"
+        android:name="com.thinkdiffai.futurelove.view.fragment.DetailEventCommentFragment"
         android:label="CommentFragment">
         <action
             android:id="@+id/action_commentFragment_to_homeFragment"
@@ -66,6 +72,9 @@
         <action
             android:id="@+id/action_commentFragment_to_listVideoFragment"
             app:destination="@id/listVideoFragment" />
+        <action
+            android:id="@+id/action_commentFragment_to_homeFragment2"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/pairingFragment"
@@ -146,7 +155,7 @@
         android:id="@+id/eventAndCommentFragment"
         android:name="com.thinkdiffai.futurelove.EventAndCommentFragment"
         android:label="fragment_event_and_comment"
-        tools:layout="@layout/fragment_event_and_comment" >
+        tools:layout="@layout/fragment_event_detail" >
         <action
             android:id="@+id/action_eventAndCommentFragment_to_eventsFragment"
             app:destination="@id/eventsFragment" />

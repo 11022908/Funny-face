@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.gauravk.bubblenavigation.BubbleNavigationLinearView;
 import com.thinkdiffai.futurelove.R;
 import com.thinkdiffai.futurelove.databinding.FragmentCommentBinding;
+//import com.thinkdiffai.futurelove.databinding.FragmentEventAndCommentBinding;
 import com.thinkdiffai.futurelove.model.comment.CommentList;
 import com.thinkdiffai.futurelove.model.comment.CommentPage;
 import com.thinkdiffai.futurelove.model.comment.CommentUser;
@@ -27,6 +29,7 @@ import com.thinkdiffai.futurelove.service.api.ApiService;
 import com.thinkdiffai.futurelove.service.api.RetrofitClient;
 import com.thinkdiffai.futurelove.service.api.Server;
 
+import com.thinkdiffai.futurelove.util.PaginationScrollListener;
 import com.thinkdiffai.futurelove.view.fragment.activity.MainActivity;
 import com.thinkdiffai.futurelove.view.adapter.CommentAdapter;
 import com.thinkdiffai.futurelove.view.adapter.PageCommentAdapter;
@@ -82,7 +85,7 @@ public class CommentFragment extends Fragment {
 
         try {
             initUi();
-//            getCommentNew();
+            getCommentNew();
             initListenerCommentNew();
             initLoadData();
             initData();
@@ -125,8 +128,8 @@ public class CommentFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     CommentList _commentList = response.body();
                     commentsForAdapter = _commentList.getComment();
-//                    numberOfElements = _commentList.getSophantu();
-//                    pageNumber = _commentList.getSotrang();
+                    numberOfElements = _commentList.getSophantu();
+                    pageNumber = _commentList.getSotrang();
                     Log.d("check_newComment", "onResponse: thành công  " );
                     if (!commentsForAdapter.isEmpty()) {
                         commentAdapter.setData(commentsForAdapter);
@@ -168,84 +171,84 @@ public class CommentFragment extends Fragment {
     private void goToTimeLineFragment() {
         NavHostFragment.findNavController(CommentFragment.this).navigate(R.id.action_commentFragment_to_timelineFragment);
     }
-//    private void goToUserDetailFragment(){
-//        NavHostFragment.findNavController(CommentFragment.this).navigate(R.id.action_commentFragment_to_userDetailFragment);
-//        mainActivity.commentToUserDetail = true;
-//    }
+    private void goToUserDetailFragment(){
+        NavHostFragment.findNavController(CommentFragment.this).navigate(R.id.action_commentFragment_to_userDetailFragment);
+        mainActivity.commentToUserDetail = true;
+    }
     private void initListenerCommentNew() {
 
-//        fragmentCommentBinding.rcvComment.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
-//            @Override
-//            public void loadMoreItem() {
-//                isLoading = true;
-//                // It help the kud not loading many times
-//                isLoadingMore = false;
-////                currentPage++;
-//                loadNextPage();
-//            }
-//
-//            @Override
-//            public boolean isLoading() {
-//                return isLoading;
-//            }
-//
-//            @Override
-//            public boolean isLagePage() {
-//
-//                return isLastPage;
-//            }
-//
-//            @Override
-//            public void ReloadItem() {
-//                // It help the kud not loading many times
-//                isLoadingMore = false;
-//                currentPage = 1;
-//                getCommentNew();
-//            }
-//
-//        });
+        fragmentCommentBinding.rcvComment.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
+            @Override
+            public void loadMoreItem() {
+                isLoading = true;
+                // It help the kud not loading many times
+                isLoadingMore = false;
+//                currentPage++;
+                loadNextPage();
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
+            }
+
+            @Override
+            public boolean isLagePage() {
+
+                return isLastPage;
+            }
+
+            @Override
+            public void ReloadItem() {
+                // It help the kud not loading many times
+                isLoadingMore = false;
+                currentPage = 1;
+                getCommentNew();
+            }
+
+        });
     }
 
-//    private void loadNextPage() {
-////        getCommentNew();
-//        if (currentPage == 1) {
-//            commentsForAdapter.clear();
-//        }
-//        ApiService apiService = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiService.class);
-//        Call<CommentList> call = apiService.getListCommentNew(currentPage);
-//        call.enqueue(new Callback<CommentList>() {
-//            @SuppressLint("NotifyDataSetChanged")
-//            @Override
-//            public void onResponse(@NonNull Call<CommentList> call, @NonNull Response<CommentList> response) {
-//                if (response.isSuccessful() && response.body() != null) {
-//                    CommentList _commentList = response.body();
-//                    commentsForAdapter = _commentList.getComment();
-//                    numberOfElements = _commentList.getSophantu();
-//                    pageNumber = _commentList.getSotrang();
-//
-//                    if (!commentsForAdapter.isEmpty()) {
-//                        commentAdapter.setData(commentsForAdapter);
-//                        commentAdapter.notifyDataSetChanged();
-//                    }
-//                }
-//                isLoading = false;
-//            }
-//
-//            @Override
-//            public void onFailure(@NonNull Call<CommentList> call, @NonNull Throwable t) {
-//                isLoading = false;
-//                Log.e("MainActivityLog", t.getMessage());
-//            }
-//        });
-//    }
+    private void loadNextPage() {
+//        getCommentNew();
+        if (currentPage == 1) {
+            commentsForAdapter.clear();
+        }
+        ApiService apiService = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiService.class);
+        Call<CommentList> call = apiService.getListCommentNew(currentPage, id_user);
+        call.enqueue(new Callback<CommentList>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onResponse(@NonNull Call<CommentList> call, @NonNull Response<CommentList> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    CommentList _commentList = response.body();
+                    commentsForAdapter = _commentList.getComment();
+                    numberOfElements = _commentList.getSophantu();
+                    pageNumber = _commentList.getSotrang();
+
+                    if (!commentsForAdapter.isEmpty()) {
+                        commentAdapter.setData(commentsForAdapter);
+                        commentAdapter.notifyDataSetChanged();
+                    }
+                }
+                isLoading = false;
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CommentList> call, @NonNull Throwable t) {
+                isLoading = false;
+                Log.e("MainActivityLog", t.getMessage());
+            }
+        });
+    }
 
     private void getData(int position) {
         if (!kProgressHUD.isShowing() && isLoadingMore) {
             kProgressHUD.show();
         }
-//        if (currentPage == 1) {
-//            commentsForAdapter.clear();
-//        }
+        if (currentPage == 1) {
+            commentsForAdapter.clear();
+        }
         ApiService apiService = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiService.class);
         Call<CommentList> call = apiService.getListCommentNew(position, id_user);
         call.enqueue(new Callback<CommentList>() {
@@ -255,8 +258,8 @@ public class CommentFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     CommentList _commentList = response.body();
                     commentsForAdapter = _commentList.getComment();
-//                    numberOfElements = _commentList.getSophantu();
-//                    pageNumber = _commentList.getSotrang();
+                    numberOfElements = _commentList.getSophantu();
+                    pageNumber = _commentList.getSotrang();
                     Log.d("check_newComment", "onResponse: thành công"+ pageNumber+" " + response.body());
 
 
@@ -283,48 +286,48 @@ public class CommentFragment extends Fragment {
         });
     }
 
-//    private void getCommentNew() {
-//        if (!kProgressHUD.isShowing() && isLoadingMore) {
-//            kProgressHUD.show();
-//        }
-//        if (currentPage == 1) {
-//            commentsForAdapter.clear();
-//        }
-//        ApiService apiService = RetrofitClient.getInstance(Server.DOMAIN1).getRetrofit().create(ApiService.class);
-//        Call<CommentList> call = apiService.getListCommentNew(currentPage);
-//        call.enqueue(new Callback<CommentList>() {
-//            @SuppressLint("NotifyDataSetChanged")
-//            @Override
-//            public void onResponse(@NonNull Call<CommentList> call, @NonNull Response<CommentList> response) {
-//                if (response.isSuccessful() && response.body() != null) {
-//                    CommentList _commentList = response.body();
-//                    Log.d("check_newComment", "onResponse: thành công");
-//                    commentsForAdapter = _commentList.getComment();
-//                    numberOfElements = _commentList.getSophantu();
-//                    pageNumber = _commentList.getSotrang();
-//
-//                    if (!commentsForAdapter.isEmpty()) {
-//                        commentAdapter.setData(commentsForAdapter);
-//                        commentAdapter.notifyDataSetChanged();
-//                    }
-//                }
-//                isLoading = false;
-//                if (kProgressHUD.isShowing()) {
-//                    kProgressHUD.dismiss();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(@NonNull Call<CommentList> call, @NonNull Throwable t) {
-//                isLoading = false;
-//                if (kProgressHUD.isShowing()) {
-//                    kProgressHUD.dismiss();
-//
-//                }
-//                Log.e("MainActivityLog", t.getMessage());
-//            }
-//        });
-//    }
+    private void getCommentNew() {
+        if (!kProgressHUD.isShowing() && isLoadingMore) {
+            kProgressHUD.show();
+        }
+        if (currentPage == 1) {
+            commentsForAdapter.clear();
+        }
+        ApiService apiService = RetrofitClient.getInstance(Server.DOMAIN1).getRetrofit().create(ApiService.class);
+        Call<CommentList> call = apiService.getListCommentNew(currentPage, id_user);
+        call.enqueue(new Callback<CommentList>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onResponse(@NonNull Call<CommentList> call, @NonNull Response<CommentList> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    CommentList _commentList = response.body();
+                    Log.d("check_newComment", "onResponse: thành công");
+                    commentsForAdapter = _commentList.getComment();
+                    numberOfElements = _commentList.getSophantu();
+                    pageNumber = _commentList.getSotrang();
+
+                    if (!commentsForAdapter.isEmpty()) {
+                        commentAdapter.setData(commentsForAdapter);
+                        commentAdapter.notifyDataSetChanged();
+                    }
+                }
+                isLoading = false;
+                if (kProgressHUD.isShowing()) {
+                    kProgressHUD.dismiss();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CommentList> call, @NonNull Throwable t) {
+                isLoading = false;
+                if (kProgressHUD.isShowing()) {
+                    kProgressHUD.dismiss();
+
+                }
+                Log.e("MainActivityLog", t.getMessage());
+            }
+        });
+    }
 
 
     private void initUi() {
@@ -343,7 +346,8 @@ public class CommentFragment extends Fragment {
             pageCommentArrayList.add(i);
         }
         pageCommentAdapter = new PageCommentAdapter(getContext(),pageCommentArrayList,position -> goToPageComment(position));
-        fragmentCommentBinding.tabItem.setAdapter(pageCommentAdapter);
+
+
     }
 
     private void goToPageComment(int position) {
@@ -355,5 +359,10 @@ public class CommentFragment extends Fragment {
         mainActivity.eventSummaryCurrentId = idToanBoSuKien;
         mainActivity.soThuTuSuKien = soThuTuSuKienCon;
         goToTimeLineFragment();
+    }
+
+    private void comeBackHome(){
+        NavController nav = NavHostFragment.findNavController(CommentFragment.this);
+        nav.navigate(R.id.action_commentFragment_to_homeFragment);
     }
 }

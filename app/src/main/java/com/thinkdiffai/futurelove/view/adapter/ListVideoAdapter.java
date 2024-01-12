@@ -34,7 +34,8 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
 
 import com.thinkdiffai.futurelove.R;
-import com.thinkdiffai.futurelove.databinding.ListVideoItemBinding;
+import com.thinkdiffai.futurelove.databinding.VideoItemBinding;
+import com.thinkdiffai.futurelove.databinding.VideoItemBinding;
 import com.thinkdiffai.futurelove.model.ListVideoModel;
 import com.thinkdiffai.futurelove.view.fragment.RecyclerViewClickListener;
 
@@ -67,43 +68,21 @@ public class ListVideoAdapter extends RecyclerView.Adapter<ListVideoAdapter.View
     @NonNull
     @Override
     public ListVideoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ListVideoItemBinding listVideoItemBinding = ListVideoItemBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
-        return new ViewHolder(listVideoItemBinding);
+        VideoItemBinding videoItemBinding = VideoItemBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
+        return new ViewHolder(videoItemBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ListVideoAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        ProgressBar progressBar = holder.listVideoItemBinding.progressBar;
+        ProgressBar progressBar = holder.videoItemBinding.progressBar;
         int position_view = position;
         ListVideoModel videoModel = listVideoModelArrayList.get(position_view);
         String urlVideo = videoModel.getLink_video();
         String nameVideo =  videoModel.getNoi_dung();
         int id_video_int = videoModel.getId();
-        VideoView videoView = holder.listVideoItemBinding.viewVideo;
-
-//        StyledPlayerView styledPlayerView = holder.itemView.findViewById(R.id.check_video);
-//        ExoPlayer exoPlayer = new ExoPlayer.Builder(context).build();
-//        styledPlayerView.setPlayer(exoPlayer);
-//        MediaItem mediaItem = MediaItem.fromUri(urlVideo);
-//        exoPlayer.addMediaItem(mediaItem);
-//        exoPlayer.prepare();
-//        exoPlayer.play();
-
-        //            BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
-//            TrackSelector trackSelector = new DefaultTrackSelector(new AdaptiveTrackSelection.Factory(bandwidthMeter));
-//            exoPlayer = ExoPlayerFactory.newSimpleInstance(context, trackSelector);
-//            Uri uriVideo = Uri.parse(urlVideo);
-//            DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory("exoplayer_video");
-//            ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-//            MediaSource mediaSource = new ExtractorMediaSource(uriVideo, dataSourceFactory, extractorsFactory, null, null);
-//            exoPlayerView.setPlayer(exoPlayer);
-//            exoPlayer.prepare(mediaSource);
-//            exoPlayer.setPlayWhenReady(true);
+        VideoView videoView = holder.videoItemBinding.viewVideo;
 
         try {
-//            MediaController mediaController = new MediaController(context);
-//            mediaController.setAnchorView(holder.itemView.findViewById(R.id.viewVideo));
-//            videoView.setMediaController(mediaController);
             videoView.setVideoURI(Uri.parse(urlVideo));
             videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
@@ -133,7 +112,7 @@ public class ListVideoAdapter extends RecyclerView.Adapter<ListVideoAdapter.View
             Log.e("TAG", "Error : " + e.toString());
         }
 
-        holder.listVideoItemBinding.viewVideo.setOnClickListener(new View.OnClickListener() {
+        holder.videoItemBinding.viewVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 holder.itemView.setVisibility(View.GONE);
@@ -148,11 +127,12 @@ public class ListVideoAdapter extends RecyclerView.Adapter<ListVideoAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        ListVideoItemBinding listVideoItemBinding;
 
-        public ViewHolder(@NonNull ListVideoItemBinding listVideoItemBinding) {
-            super(listVideoItemBinding.getRoot());
-            this.listVideoItemBinding = listVideoItemBinding;
+        VideoItemBinding videoItemBinding;
+
+        public ViewHolder(@NonNull VideoItemBinding VideoItemBinding) {
+            super(VideoItemBinding.getRoot());
+            this.videoItemBinding = VideoItemBinding;
         }
     }
 }

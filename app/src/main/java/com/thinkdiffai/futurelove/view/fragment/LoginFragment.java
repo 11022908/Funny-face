@@ -59,25 +59,40 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        
+
         // Set up TextWatcher to see that edit texts are valid or not and will show alerts or nothing
         setUpTextWatcher();
-        //show pass word
-        showPasswordClearly();
+
         // When click Login btn
         loginExecute();
 
         // When click Reset btn
-        resetPasswordExecute();//chua chay
+        resetPasswordExecute();
 
         // When users haven't already had any account
         navToRegisterExecute();
+
+        // When users want to see their password clearly
+        showPasswordClearly();
+
     }
 
 
+    private void navToMainActivitySkipLogin() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("id_user",0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("id_user","0");
+        editor.commit();
 
+        boolean isLoginSuccess = true;
+        Intent i = new Intent(getActivity(), MainActivity.class);
+        i.putExtra("LOGIN_SUCCESS", isLoginSuccess);
+        startActivity(i);
+    }
 
     private void setUpTextWatcher() {
-        binding.edtUserName.addTextChangedListener(new TextWatcher() {
+        binding.edtEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -112,9 +127,9 @@ public class LoginFragment extends Fragment {
     }
 
     private void emailAlertVisibility() {
-        String email = Objects.requireNonNull(binding.edtUserName.getText()).toString();
+        String email = Objects.requireNonNull(binding.edtEmail.getText()).toString();
         boolean isValidEmail = isValidEmail(email);
-        binding.tvUserNameAlert.setVisibility(isValidEmail ? View.GONE : View.VISIBLE);
+        binding.tvAlertEmail.setVisibility(isValidEmail ? View.GONE : View.VISIBLE);
     }
 
     private void passwordAlertVisibility() {
@@ -158,7 +173,7 @@ public class LoginFragment extends Fragment {
 //                String check_internet = sharedPreferences1.getString("internet_state","0");
 //                Log.d("check_internet", "onQueryValueReceived: "+ check_internet);
 
-                String email = String.valueOf(binding.edtUserName.getText());
+                String email = String.valueOf(binding.edtEmail.getText());
                 String password = String.valueOf(binding.edtPassword.getText());
                 // Check that it is full of needed information
 //                if(check_internet.equals("No Internet")){
@@ -272,6 +287,12 @@ public class LoginFragment extends Fragment {
         });
     }
 
+//    private void passDataToHomeFragment(String user_id) {
+//        Bundle bundle = new Bundle();
+//        bundle.putString("user_id",user_id);
+//        HomeFragment fragment = new HomeFragment();
+//        fragment.setArguments(bundle);
+//    }
 
 
     private boolean isCompletedInformation(String email, String password) {
@@ -303,18 +324,10 @@ public class LoginFragment extends Fragment {
     }
 
     private void resetPasswordExecute() {
-        binding.btnForgotPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navToForgotPassword();
-            }
-        });
-    }
-    private void navToForgotPassword(){
-        NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_forgotFragment);
-    }
-    private void navToRegisterExecute() {
 
+    }
+
+    private void navToRegisterExecute() {
         binding.btnNavRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

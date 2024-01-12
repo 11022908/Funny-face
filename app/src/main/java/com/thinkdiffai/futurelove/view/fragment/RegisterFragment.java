@@ -24,6 +24,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.thinkdiffai.futurelove.R;
+//import com.thinkdiffai.futurelove.databinding.DialogRegistrationSuccessBinding;
+//import com.thinkdiffai.futurelove.databinding.FragmentRegisterBinding;
 import com.thinkdiffai.futurelove.databinding.DialogRegistrationSuccessBinding;
 import com.thinkdiffai.futurelove.databinding.FragmentRegisterBinding;
 import com.thinkdiffai.futurelove.service.api.ApiService;
@@ -75,7 +77,7 @@ public class RegisterFragment extends Fragment {
     }
 
     private void setUpTextWatcher() {
-        binding.edtUserName.addTextChangedListener(new TextWatcher() {
+        binding.edtEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -145,10 +147,10 @@ public class RegisterFragment extends Fragment {
     }
 
     private void usernameAlertVisibility() {
-        String username = Objects.requireNonNull(binding.edtUserName.getText()).toString();
+        String username = Objects.requireNonNull(binding.edtEmail.getText()).toString();
         boolean isValidUserName = isValidUserName(username);
         Log.d(MY_OWN_TAG, "isValidUserName: " + isValidUserName);
-        binding.tvUserNameAlert.setVisibility(isValidUserName ? View.GONE : View.VISIBLE);
+        binding.tvEmailAlert.setVisibility(isValidUserName ? View.GONE : View.VISIBLE);
     }
 
     private boolean isValidUserName(String username) {
@@ -198,7 +200,7 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Step 1: Check valid forms
-                String userName = String.valueOf(binding.edtUserName.getText());
+                String userName = String.valueOf(binding.edtEmail.getText());
                 String email = String.valueOf(binding.edtEmail.getText());
                 String password = String.valueOf(binding.edtPassword.getText());
 
@@ -352,7 +354,7 @@ public class RegisterFragment extends Fragment {
     private void closeKeyboard() {
         View view = requireActivity().getCurrentFocus();
         if (view != null) {
-            InputMethodManager imm = (InputMethodManager) Objects.requireNonNull(getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }

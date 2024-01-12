@@ -29,45 +29,6 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
-//    Gson gson = new GsonBuilder()
-//            .setDateFormat("yyyy-MM-dd HH:mm:ss")
-//            .create();
-//
-//        Interceptor interceptor = chain -> {
-//            Request request = chain.request();
-//            Request.Builder  builder = request.newBuilder();
-//            return chain.proceed(builder.build());
-//        };
-//
-//        OkHttpClient.Builder okBuilder = new OkHttpClient.Builder().addInterceptor(interceptor)
-//                .callTimeout(50000,TimeUnit.MILLISECONDS) // Timeout cho toàn bộ cuộc gọi (bao gồm cả kết nối và đọc/phản hồi)
-//        .connectTimeout(50000, TimeUnit.MILLISECONDS);
-//        ApiService apiService = new Retrofit.Builder()
-//            .baseUrl(Server.DOMAIN)
-//            .addConverterFactory(GsonConverterFactory.create(gson))
-//            .client(okBuilder.build())
-//            .build()
-//            .create(ApiService.class);
-
-
-//    @FormUrlEncoded
-//    @POST(Server.URI_PAIRING)
-//    Call<ResponsePairingDto> postEvent(
-//            @HeaderMap Map<String, String> headers);
-
-//    @GET(Server.URI_PAIRING)
-//    Call<DetailEventList> postEvent(
-//            @HeaderMap Map<String, String> headers,
-//            @Query("device_them_su_kien") String deviceThemSuKien,
-//            @Query("ip_them_su_kien") String ipThemSuKien,
-//            @Query("id_user") int idUser,
-//            @Query("ten_nam") String tenNam,
-//            @Query("ten_nu") String tenNu
-//    );
-
-
-
-
     @GET(Server.URI_PAIRING)
     Call<Object> postEvent(
             @Header(Server.KEY_HEADER1) String imageLink1,

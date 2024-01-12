@@ -42,7 +42,7 @@ public class PageCommentAdapter extends RecyclerView.Adapter<PageCommentAdapter.
     @Override
     public void onBindViewHolder(@NonNull PageCommentAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Integer pageEvent = pageCommentList.get(position);
-        holder.tabItemBinding.pageEvent.setText(pageEvent.toString());
+//        holder.tabItemBinding.pageEvent.setText(pageEvent.toString());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

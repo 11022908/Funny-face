@@ -46,6 +46,7 @@
     <color name="gray">#A55C5C</color>
     <color name="bg_color">#0E0E0E</color>
     <color name="primary_1">#1DB954</color>
-    <color name="bg_avatar_register">#343434</color>
-
+    <color name="bg_item_1">#FFB3CB</color>
+    <color name="bg_profile">#909090</color>
+    <color name="bg_btn_edit_profile">#191919</color>
 </resources>

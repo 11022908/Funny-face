@@ -70,19 +70,19 @@ public class UserCommentAdapter extends RecyclerView.Adapter<UserCommentAdapter.
         if (comment == null)
             return;
         Glide.with(holder.itemView.getContext()).load(comment.getAvatar_user()).error(R.drawable.baseline_account_circle_24).into(holder.itemCommentBinding.imageAvatar1);
-        if (comment.getDevice_cmt().trim().equals("")) {
-            holder.itemCommentBinding.tvDeviceName.setVisibility(View.GONE);
-        } else {
-            holder.itemCommentBinding.tvDeviceName.setText("dv: "+comment.getDevice_cmt());
-            holder.itemCommentBinding.tvDeviceName.setVisibility(View.VISIBLE);
-
-        }
-        if (comment.getDia_chi_ip().trim().equals("")) {
-            holder.itemCommentBinding.tvDeviceName.setVisibility(View.GONE);
-        } else {
-            holder.itemCommentBinding.tvDeviceName.setText("ip: " + comment.getDia_chi_ip());
-            holder.itemCommentBinding.tvDeviceName.setVisibility(View.VISIBLE);
-        }
+//        if (comment.getDevice_cmt().trim().equals("")) {
+//            holder.itemCommentBinding.tvDeviceName.setVisibility(View.GONE);
+//        } else {
+//            holder.itemCommentBinding.tvDeviceName.setText("dv: "+comment.getDevice_cmt());
+//            holder.itemCommentBinding.tvDeviceName.setVisibility(View.VISIBLE);
+//
+//        }
+//        if (comment.getDia_chi_ip().trim().equals("")) {
+//            holder.itemCommentBinding.tvDeviceName.setVisibility(View.GONE);
+//        } else {
+//            holder.itemCommentBinding.tvDeviceName.setText("ip: " + comment.getDia_chi_ip());
+//            holder.itemCommentBinding.tvDeviceName.setVisibility(View.VISIBLE);
+//        }
         holder.itemCommentBinding.tvContent.setText(comment.getNoi_dung_cmt());
         if (comment.getThoi_gian_release() == null) {
             holder.itemCommentBinding.tvTime.setVisibility(View.INVISIBLE);
@@ -92,25 +92,25 @@ public class UserCommentAdapter extends RecyclerView.Adapter<UserCommentAdapter.
         }
 
 
-        holder.itemCommentBinding.imageComment.setImageDrawable(null);
-        holder.itemCommentBinding.imageComment.setVisibility(View.GONE);
-        if (comment.getImageattach() != null && !comment.getImageattach().trim().equals("") && !comment.getImageattach().isEmpty()) {
-            Glide.with(holder.itemView.getContext())
-                    .load(comment.getImageattach())
-                    .listener(new RequestListener<Drawable>() {
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            holder.itemCommentBinding.imageComment.setVisibility(View.GONE);
-                            return true;
-                        }
-                        @Override
-                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            holder.itemCommentBinding.imageComment.setVisibility(View.VISIBLE);
-                            return false;
-                        }
-                    })
-                    .into(holder.itemCommentBinding.imageComment);
-        }
+//        holder.itemCommentBinding.imageComment.setImageDrawable(null);
+//        holder.itemCommentBinding.imageComment.setVisibility(View.GONE);
+//        if (comment.getImageattach() != null && !comment.getImageattach().trim().equals("") && !comment.getImageattach().isEmpty()) {
+//            Glide.with(holder.itemView.getContext())
+//                    .load(comment.getImageattach())
+//                    .listener(new RequestListener<Drawable>() {
+//                        @Override
+//                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+//                            holder.itemCommentBinding.imageComment.setVisibility(View.GONE);
+//                            return true;
+//                        }
+//                        @Override
+//                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+//                            holder.itemCommentBinding.imageComment.setVisibility(View.VISIBLE);
+//                            return false;
+//                        }
+//                    })
+//                    .into(holder.itemCommentBinding.imageComment);
+//        }
 
         holder.itemCommentBinding.layoutComment.setOnClickListener(new View.OnClickListener() {
             @Override

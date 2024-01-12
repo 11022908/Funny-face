@@ -15,7 +15,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="84dp"
         android:layout_marginRight="16dp"
         app:defaultNavHost="true"
 
@@ -68,7 +68,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/signup"
+                android:text="@string/sign_up"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 />
@@ -83,7 +83,7 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-<!--        avatar-->
+        <!--        avatar-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/btn_avatar"
             android:layout_width="wrap_content"
@@ -129,7 +129,7 @@
 
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edt_user_name"
+            android:id="@id/edt_email"
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:layout_marginTop="20dp"
@@ -142,7 +142,7 @@
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/btn_avatar"/>
 
-<!--        icon email-->
+        <!--        icon email-->
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ic_email"
             android:layout_width="24dp"
@@ -151,14 +151,14 @@
             android:src="@drawable/sms"
             android:layout_marginStart="10dp"
 
-            app:layout_constraintStart_toStartOf="@id/edt_user_name"
+            app:layout_constraintStart_toStartOf="@id/edt_email"
 
-            app:layout_constraintTop_toTopOf="@id/edt_user_name"
-            app:layout_constraintBottom_toBottomOf="@id/edt_user_name"
+            app:layout_constraintTop_toTopOf="@id/edt_email"
+            app:layout_constraintBottom_toBottomOf="@id/edt_email"
             />
         <!--        alert enter your email-->
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_user_name_alert"
+            android:id="@+id/tv_email_alert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
@@ -170,8 +170,8 @@
             android:textSize="12sp"
             android:textStyle="bold"
             android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/edt_user_name"
-            app:layout_constraintStart_toStartOf="@id/edt_user_name"
+            app:layout_constraintTop_toBottomOf="@id/edt_email"
+            app:layout_constraintStart_toStartOf="@id/edt_email"
             />
         <!--        edit password-->
         <androidx.appcompat.widget.AppCompatEditText
@@ -187,9 +187,9 @@
             android:textColorHint="@color/white"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/tv_user_name_alert"
+            app:layout_constraintTop_toBottomOf="@id/tv_email_alert"
             />
-<!--        icon password-->
+        <!--        icon password-->
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ic_password"
             android:layout_width="24dp"
@@ -205,7 +205,7 @@
             />
         <!--        icon show password-->
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@id/ic_show_password"
+            android:id="@+id/ic_show_password"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:scaleType="fitXY"
@@ -213,7 +213,9 @@
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/edt_password"
             app:layout_constraintEnd_toEndOf="@+id/edt_password"
+            app:layout_constraintHorizontal_bias=".95"
 
+            app:layout_constraintStart_toStartOf="@+id/ic_password"
             app:layout_constraintTop_toTopOf="@id/edt_password" />
         <!-- alert enter your password-->
         <androidx.appcompat.widget.AppCompatTextView
@@ -232,9 +234,9 @@
             app:layout_constraintTop_toBottomOf="@id/edt_password"
             app:layout_constraintStart_toStartOf="@id/edt_password"
             />
-<!--        re password-->
+        <!--        re password-->
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/re_password"
+            android:id="@+id/edt_re_password"
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:layout_marginTop="20dp"
@@ -257,10 +259,10 @@
             android:src="@drawable/lock"
             android:layout_marginStart="10dp"
 
-            app:layout_constraintStart_toStartOf="@id/re_password"
+            app:layout_constraintStart_toStartOf="@id/edt_re_password"
 
-            app:layout_constraintTop_toTopOf="@id/re_password"
-            app:layout_constraintBottom_toBottomOf="@id/re_password"
+            app:layout_constraintTop_toTopOf="@id/edt_re_password"
+            app:layout_constraintBottom_toBottomOf="@id/edt_re_password"
             />
         <!--        icon show password-->
         <androidx.appcompat.widget.AppCompatImageView
@@ -271,10 +273,11 @@
             android:scaleType="fitXY"
             android:src="@drawable/eye_password_icon"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@id/re_password"
-            app:layout_constraintEnd_toEndOf="@id/re_password"
-            app:layout_constraintTop_toTopOf="@id/re_password"
-            />
+            app:layout_constraintBottom_toBottomOf="@id/edt_re_password"
+            app:layout_constraintEnd_toEndOf="@id/edt_re_password"
+            app:layout_constraintHorizontal_bias=".95"
+            app:layout_constraintStart_toStartOf="@+id/edt_re_password"
+            app:layout_constraintTop_toTopOf="@id/edt_re_password" />
         <!-- alert enter your password-->
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/re_tv_password_alert"
@@ -289,12 +292,12 @@
             android:textSize="12sp"
             android:textStyle="bold"
             android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/re_password"
-            app:layout_constraintStart_toStartOf="@id/re_password"
+            app:layout_constraintTop_toBottomOf="@id/edt_re_password"
+            app:layout_constraintStart_toStartOf="@id/edt_re_password"
             />
         <!--button login-->
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@id/btn_login"
+            android:id="@+id/btn_register"
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:layout_marginTop="20dp"
@@ -313,7 +316,7 @@
             android:layout_marginTop="25dp"
             android:gravity="left|center"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/btn_login"
+            app:layout_constraintTop_toBottomOf="@id/btn_register"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
             <!--left-->
@@ -457,7 +460,7 @@
 
                 />
             <androidx.appcompat.widget.AppCompatButton
-
+                android:id="@+id/btn_ask_back_to_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"

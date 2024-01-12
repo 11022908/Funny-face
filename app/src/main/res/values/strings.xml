@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FUNNY FACE</string>
+    <string name="app_name">Future Love</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="input">Name &amp; Image Input</string>
@@ -18,9 +18,11 @@
     <string name="ask_having_account">Don’t have an account?</string>
     <string name="ask_having_account2">You have an account?</string>
     <string name="register">Register</string>
-    <string name="login">Log In</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign up</string>
+    <string name="login_status">Sign up with email address</string>
     <string name="search">Search</string>
-    <string name="event_detail">Our first date was a mix of nervousness and excitement. We shared stories</string>
+    <string name="event_detail">Our first date was a mix of nervousness and excitement. We shared stories, laughed, and felt a growing connection</string>
     <string name="enter_your_user_name">A user name with a minimum length of 8 characters, containing no special characters, except \"_\"</string>
     <string name="enter_your_email">Follow the email rule: abc@abc.abc</string>
     <string name="enter_your_password">A password with a minimum length of 8 characters, containing no special characters, except \"_\"</string>
@@ -36,15 +38,11 @@
     <string name="username">Username</string>
     <string name="home">Home</string>
     <string name="comment">Comment</string>
-    <string name="pairing">Pairing</string>
-    <string name="video">Video</string>
+    <string name="library">Library</string>
+    <string name="notification">Notifi</string>
+    <string name="profile">Profile</string>
     <string name="choose_file">Choose file</string>
     <string name="video_swap">Video Swap</string>
+    <string name="desc_profile">You dont have any events yet</string>
     <string name="ghjkl">TODO</string>
-    <string name="login_status">Sign up with email address</string>
-    <string name="signup">Sign up</string>
-    <string name="title_forgot">Forgot Password</string>
-    <string name="reset_password">Reset Password</string>
-    <string name="desc_forgot">Don\'t worry, we\'ve sent you the password reset link via email.</string>
-
 </resources>

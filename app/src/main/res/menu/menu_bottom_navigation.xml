@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/homeFragment"
-        android:icon="@drawable/btn_menu_home_black"
+        android:icon="@drawable/home"
         android:title="@string/home"/>
 
     <item
@@ -12,12 +12,17 @@
 
     <item
         android:id="@+id/pairingFragment"
-        android:icon="@drawable/baseline_favorite_border_24"
-        android:title="@string/pairing" />
+        android:icon="@drawable/library"
+        android:title="@string/library" />
 
     <item
         android:id="@+id/listVideoFragment"
-        android:icon="@drawable/video_frame_play_horizontal_svgrepo_com"
-        android:title="@string/video" />
+        android:icon="@drawable/notification"
+        android:title="@string/notification" />
+
+    <item
+        android:id="@+id/userDetailFragment"
+        android:icon="@drawable/menu"
+        android:title="@string/profile" />
 
 </menu>

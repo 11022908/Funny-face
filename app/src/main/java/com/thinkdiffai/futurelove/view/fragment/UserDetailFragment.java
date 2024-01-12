@@ -197,15 +197,15 @@ public class UserDetailFragment extends Fragment {
                     Log.d("check_user", "onResponse: "+ detailUsers.getUser_name() + detailUsers.getId_user()+ detailUsers.getEmail());
                     binding.tvEmailUser.setText(String.valueOf(Objects.requireNonNull(detailUsers).getEmail()));
                     binding.tvUserName.setText(String.valueOf(Objects.requireNonNull(detailUsers).getUser_name()));
-                    binding.tvUserEventsNumber.setText(String.valueOf(detailUsers.getCount_sukien()));
-                    binding.tvUserCommentNumber.setText(String.valueOf(detailUsers.getCount_comment()));
-                    binding.tvUserViewNumber.setText(String.valueOf(detailUsers.getCount_view()));
+                    binding.tvQuantityEvents.setText(String.valueOf(detailUsers.getCount_sukien()));
+                    binding.tvQuantityViews.setText(String.valueOf(detailUsers.getCount_comment()));
+                    binding.tvQuantityComments.setText(String.valueOf(detailUsers.getCount_view()));
                     Glide.with(requireActivity()).load(detailUsers.getLink_avatar()).into(binding.imgUserAvatar);
                 } else {
                     binding.tvUserName.setText("null");
-                    binding.tvUserEventsNumber.setText("null");
-                    binding.tvUserCommentNumber.setText("null");
-                    binding.tvUserViewNumber.setText("null");
+                    binding.tvQuantityEvents.setText("0");
+                    binding.tvQuantityViews.setText("0");
+                    binding.tvQuantityComments.setText("0");
                 }
             }
 
@@ -224,7 +224,7 @@ public class UserDetailFragment extends Fragment {
     private void userClickAnyButtonEventListener() {
         clickComeBack();
         clickLogout();
-        binding.btnShowDropDown.setOnClickListener(new View.OnClickListener() {
+        binding.btnComeBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickShowDropDown();
@@ -233,7 +233,7 @@ public class UserDetailFragment extends Fragment {
     }
 
     private void clickShowDropDown() {
-        PopupMenu popupMenu = new PopupMenu(requireContext(), binding.btnShowDropDown);
+        PopupMenu popupMenu = new PopupMenu(requireContext(), binding.btnComeBack);
         popupMenu.getMenuInflater().inflate(R.menu.drop_down_menu, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
@@ -349,29 +349,29 @@ public class UserDetailFragment extends Fragment {
     }
 
     private void clickLogout() {
-        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // Show dialog to ask logout confirmation
-                myOwnDialogFragment = new MyOwnDialogFragment(
-                        "Log-out now?",
-                        "Are you sure to quit the app?",
-                        R.drawable.ic_warning,
-                        new MyOwnDialogFragment.MyOwnDialogListener() {
-                            @Override
-                            public void onConfirm() {
-                                // Navigate to Login Fragment
-                                NavigateToLoginAndSignOutActivity();
-                                // Update the LOGIN_STATE
-                                // Change the LOGIN_STATE is FALSE - Not to keep the login state
-                                changeLoginState();
-                            }
-                        }
-                );
-                myOwnDialogFragment.show(mainActivity.getSupportFragmentManager(), "logout_dialog");
-            }
-        });
+//        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                // Show dialog to ask logout confirmation
+//                myOwnDialogFragment = new MyOwnDialogFragment(
+//                        "Log-out now?",
+//                        "Are you sure to quit the app?",
+//                        R.drawable.ic_warning,
+//                        new MyOwnDialogFragment.MyOwnDialogListener() {
+//                            @Override
+//                            public void onConfirm() {
+//                                // Navigate to Login Fragment
+//                                NavigateToLoginAndSignOutActivity();
+//                                // Update the LOGIN_STATE
+//                                // Change the LOGIN_STATE is FALSE - Not to keep the login state
+//                                changeLoginState();
+//                            }
+//                        }
+//                );
+//                myOwnDialogFragment.show(mainActivity.getSupportFragmentManager(), "logout_dialog");
+//            }
+//        });
     }
 //    private void changeLoginState() {
 //        sharedPreferences = Objects.requireNonNull(getActivity()).getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);

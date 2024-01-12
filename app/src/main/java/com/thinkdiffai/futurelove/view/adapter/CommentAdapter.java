@@ -2,7 +2,6 @@ package com.thinkdiffai.futurelove.view.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,20 +9,15 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.thinkdiffai.futurelove.DbStorage.Constant;
 import com.thinkdiffai.futurelove.R;
-import com.thinkdiffai.futurelove.presenter.api.CityCalledByIpApi;
+import com.thinkdiffai.futurelove.databinding.FragmentCommentBinding;
+import com.thinkdiffai.futurelove.databinding.FragmentEventAndCommentBinding;
 import com.thinkdiffai.futurelove.databinding.ItemCommentBinding;
-import com.thinkdiffai.futurelove.service.api.QueryValueCallback;
 import com.thinkdiffai.futurelove.util.Util;
 import com.thinkdiffai.futurelove.model.comment.CommentPage;
 import com.thinkdiffai.futurelove.view.fragment.dialog.MyOwnDialogFragment;
@@ -81,7 +75,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     public CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ItemCommentBinding itemCommentBinding = ItemCommentBinding
                 .inflate(LayoutInflater.from(parent.getContext()), parent, false);
-
+//        FragmentEventAndCommentBinding fragmentEventAndCommentBinding = FragmentEventAndCommentBinding
+//                .inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new CommentViewHolder(itemCommentBinding);
     }
 
@@ -92,6 +87,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
         if (comment == null)
             return;
+//        xét avatar
         if (comment.getLinkNamGoc() != null && !comment.getLinkNamGoc().isEmpty() && comment.getLinkNuGoc() != null && !comment.getLinkNuGoc().isEmpty()) {
             Glide.with(holder.itemView.getContext()).load(comment.getLinkNamGoc()).error(R.drawable.baseline_account_circle_24).into(holder.itemCommentBinding.imageAvatar1);
 //            Glide.with(holder.itemView.getContext()).load(comment.getLinkNuGoc()).error(R.drawable.baseline_account_circle_24).into(holder.itemCommentBinding.imageAvatar2);
@@ -99,39 +95,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             Glide.with(holder.itemView.getContext()).load(urlImgMale).error(R.drawable.baseline_account_circle_24).into(holder.itemCommentBinding.imageAvatar1);
 //            Glide.with(holder.itemView.getContext()).load(urlImgFemale).error(R.drawable.baseline_account_circle_24).into(holder.itemCommentBinding.imageAvatar2);
         }
-        if (comment.getDeviceCmt().trim().equals("")) {
-            holder.itemCommentBinding.tvDeviceName.setVisibility(View.GONE);
-        } else {
-            holder.itemCommentBinding.tvDeviceName.setText("dv: " + comment.getDeviceCmt());
-            holder.itemCommentBinding.tvDeviceName.setVisibility(View.VISIBLE);
-        }
+
+        holder.itemCommentBinding.tvUserName.setText("test");
 
         // When Ip Address called
         String returnedIpAddress = comment.getDiaChiIp().trim();
         Log.d("IP", "IP: " + returnedIpAddress);
 
-        if (!returnedIpAddress.equals("") && isIpAddressForm(returnedIpAddress)) {
-            // Show Ip
-            holder.itemCommentBinding.tvDeviceName.setText("ip: " + comment.getDiaChiIp());
-            holder.itemCommentBinding.tvDeviceName.setVisibility(View.VISIBLE);
-            // Show city name from API
-            CityCalledByIpApi.getInstance().getCityName(returnedIpAddress, new QueryValueCallback() {
-                @Override
-                public void onQueryValueReceived(String queryValue) {
-                    city = queryValue;
-                    holder.itemCommentBinding.tvAddress.setText(city);
-                    holder.itemCommentBinding.tvAddress.setVisibility(View.VISIBLE);
-                }
-                @Override
-                public void onApiCallFailed(Throwable t) {
-
-                }
-            });
-
-        } else {
-            holder.itemCommentBinding.tvDeviceName.setVisibility(View.GONE);
-            holder.itemCommentBinding.tvAddress.setVisibility(View.GONE);
-        }
         holder.itemCommentBinding.tvContent.setText(comment.getNoiDungCmt());
         if (comment.getThoiGianRelease() == null) {
             holder.itemCommentBinding.tvTime.setVisibility(View.INVISIBLE);
@@ -139,26 +109,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             holder.itemCommentBinding.tvTime.setVisibility(View.VISIBLE);
             holder.itemCommentBinding.tvTime.setText(Util.calTimeStampComment(comment.getThoiGianRelease()));
         }
-        holder.itemCommentBinding.imageComment.setImageDrawable(null);
-        holder.itemCommentBinding.imageComment.setVisibility(View.GONE);
-        if (comment.getImageattach() != null && !comment.getImageattach().trim().equals("") && !comment.getImageattach().isEmpty()) {
-            Glide.with(holder.itemView.getContext())
-                    .load(comment.getImageattach())
-                    .listener(new RequestListener<Drawable>() {
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            holder.itemCommentBinding.imageComment.setVisibility(View.GONE);
-                            return true;
-                        }
 
-                        @Override
-                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            holder.itemCommentBinding.imageComment.setVisibility(View.VISIBLE);
-                            return false;
-                        }
-                    })
-                    .into(holder.itemCommentBinding.imageComment);
-        }
 
         holder.itemCommentBinding.layoutComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,11 +162,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
     public static class CommentViewHolder extends RecyclerView.ViewHolder {
         private final ItemCommentBinding itemCommentBinding;
+//        private FragmentEventAndCommentBinding fragmentEventAndCommentBinding;
 
         public CommentViewHolder(ItemCommentBinding itemCommentBinding) {
             super(itemCommentBinding.getRoot());
             this.itemCommentBinding = itemCommentBinding;
+//            this.fragmentEventAndCommentBinding = fragmentEventAndCommentBinding;
         }
+
     }
 
 

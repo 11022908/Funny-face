@@ -468,11 +468,16 @@ public class TimelineFragment extends Fragment {
         commentsForAdapter = new ArrayList<>();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), GridLayoutManager.VERTICAL, false);
         fragmentTimelineBinding.rcvComment.setLayoutManager(linearLayoutManager);
-        commentAdapter = new CommentAdapter(requireContext(), commentsForAdapter, this::iOnClickItemComment);
+        commentAdapter = new CommentAdapter(requireContext(), commentsForAdapter, this::iOnClickItem);
         fragmentTimelineBinding.rcvComment.setAdapter(commentAdapter);
 
     }
 
+    private void iOnClickItem(long idToanBoSuKien, int soThuTuSuKienCon) {
+        mainActivity.eventSummaryCurrentId = idToanBoSuKien;
+        mainActivity.soThuTuSuKien = soThuTuSuKienCon;
+//        goToTimeLineFragment();
+    }
     private void iOnScrollEventList(int soThuTuSuKien) {
         mainActivity.soThuTuSuKien = soThuTuSuKien;
     }

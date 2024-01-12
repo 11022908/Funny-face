@@ -44,9 +44,9 @@ public class ListVideoFragment extends Fragment implements RecyclerViewClickList
 
     BubbleNavigationLinearView bubbleNavigationLinearView;
 
-    private Context context;
     private ExoPlayer exoPlayer;
 
+    private Context context;
     private ListVideoAdapter listVideoAdapter;
 
     private PageVideoAdapter pageVideoAdapter;
@@ -182,28 +182,25 @@ public class ListVideoFragment extends Fragment implements RecyclerViewClickList
             }
         });
     }
-    private void initVideo(String urlVideo) {
-//        VideoView videoView = fragmentListVideoBinding.checkVideo;
-//        MediaController mediaController = new MediaController(getActivity());
-//        videoView.setMediaController(mediaController);
-//        mediaController.setAnchorView(videoView);
-//        videoView.setVideoURI(Uri.parse(urlVideo));
-//        videoView.start();
-//        StyledPlayerView styledPlayerView = fragmentListVideoBinding.checkVideo;
-//        exoPlayer = new ExoPlayer.Builder(getActivity()).build();
-//        styledPlayerView.setPlayer(exoPlayer);
-//        MediaItem mediaItem = MediaItem.fromUri(urlVideo);
-//        exoPlayer.addMediaItem(mediaItem);
-//        exoPlayer.prepare();
-//        exoPlayer.play();
-    }
+//    private void initVideo(String urlVideo) {
+////        VideoView videoView = fragmentListVideoBinding.checkVideo;
+////        MediaController mediaController = new MediaController(getActivity());
+////        videoView.setMediaController(mediaController);
+////        mediaController.setAnchorView(videoView);
+////        videoView.setVideoURI(Uri.parse(urlVideo));
+////        videoView.start();
+////        StyledPlayerView styledPlayerView = fragmentListVideoBinding.checkVideo;
+////        exoPlayer = new ExoPlayer.Builder(getActivity()).build();
+////        styledPlayerView.setPlayer(exoPlayer);
+////        MediaItem mediaItem = MediaItem.fromUri(urlVideo);
+////        exoPlayer.addMediaItem(mediaItem);
+////        exoPlayer.prepare();
+////        exoPlayer.play();
+//    }
 
     @Override
     public void onStop() {
         super.onStop();
-//        exoPlayer.setPlayWhenReady(false);;
-//        exoPlayer.release();
-//        exoPlayer = null;
     }
 
     @Override

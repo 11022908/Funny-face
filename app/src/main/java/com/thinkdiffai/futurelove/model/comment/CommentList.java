@@ -8,10 +8,10 @@ public class CommentList {
 
     @SerializedName("comment")
     private List<CommentPage> comment;
-//    @SerializedName("sophantu")
-//    private int sophantu;
-//    @SerializedName("sotrang")
-//    private double sotrang;
+    @SerializedName("sophantu")
+    private int sophantu;
+    @SerializedName("sotrang")
+    private double sotrang;
 
 
     public List<CommentPage> getComment() {
@@ -22,19 +22,19 @@ public class CommentList {
         this.comment = comment;
     }
 
-//    public int getSophantu() {
-//        return sophantu;
-//    }
-//
-//    public void setSophantu(int sophantu) {
-//        this.sophantu = sophantu;
-//    }
-//
-//    public double getSotrang() {
-//        return sotrang;
-//    }
-//
-//    public void setSotrang(double sotrang) {
-//        this.sotrang = sotrang;
-//    }
+    public int getSophantu() {
+        return sophantu;
+    }
+
+    public void setSophantu(int sophantu) {
+        this.sophantu = sophantu;
+    }
+
+    public double getSotrang() {
+        return sotrang;
+    }
+
+    public void setSotrang(double sotrang) {
+        this.sotrang = sotrang;
+    }
 }

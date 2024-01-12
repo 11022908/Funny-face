@@ -148,8 +148,8 @@ public class UserCommnetAdapter extends RecyclerView.Adapter<UserCommnetAdapter.
         ImageView avatar, img_comment;
         public UserCommentAdapter_Viewholder(@NonNull View itemView) {
             super(itemView);
-            TenUser=itemView.findViewById(R.id.tv_device_name);
-            addressUser=itemView.findViewById(R.id.tv_address);
+//            TenUser=itemView.findViewById(R.id.tv_device_name);
+//            addressUser=itemView.findViewById(R.id.tv_address);
             NoiDungComment= itemView.findViewById(R.id.tv_content);
             Thoigian=itemView.findViewById(R.id.tv_time);
             avatar=itemView.findViewById(R.id.image_avatar1);

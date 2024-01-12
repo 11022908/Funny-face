@@ -46,7 +46,7 @@ public class PageEventAdapter extends RecyclerView.Adapter<PageEventAdapter.View
     @Override
     public void onBindViewHolder(@NonNull PageEventAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Integer pageEvent = pageEventList.get(position);
-        holder.tabItemBinding.pageEvent.setText(pageEvent.toString());
+//        holder.tabItemBinding.pageEvent.setText(pageEvent.toString());
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

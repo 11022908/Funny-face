@@ -8,21 +8,6 @@
     tools:context=".view.fragment.ListVideoFragment"
     android:background="@drawable/bg_non_registered_home_screen">
 
-    <!--    <edmt.dev.videoplayer.VideoPlayerRecyclerView-->
-<!--        android:id="@+id/videoPlayer"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"/>-->
-
-<!--    <VideoView-->
-<!--        android:id="@+id/checkVideo"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/bubbleNavigation"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHeight_percent=".5"-->
-<!--        app:layout_constraintWidth_percent=".5"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -49,13 +34,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/list_video_item" />
+         />
+<!--    tools:listitem="@layout/list_video_item"-->
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/chooseFileBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/video"
+        android:text="@string/notification"
         android:textColor="@color/purple_200"
         app:backgroundTint="@color/white"
         android:layout_marginTop="16dp"

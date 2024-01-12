@@ -1,6 +1,19 @@
 package com.thinkdiffai.futurelove.model;
 
+import android.icu.text.DateFormat;
+import android.util.Log;
+import android.widget.Toast;
+
 import com.google.gson.annotations.SerializedName;
+
+import java.sql.SQLOutput;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 
 public class DetailEvent {
 
@@ -167,7 +180,8 @@ public class DetailEvent {
     }
 
     public String getRealTime() {
-        return realTime;
+        Calendar calender = Calendar.getInstance();
+        return DateFormat.getDateInstance().format((calender.getTime()));
     }
 
     public void setRealTime(String realTime) {
@@ -205,4 +219,6 @@ public class DetailEvent {
     public void setTenSuKien(String tenSuKien) {
         this.tenSuKien = tenSuKien;
     }
+
+
 }

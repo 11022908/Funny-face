@@ -49,16 +49,16 @@ public class PageVideoAdapter extends RecyclerView.Adapter<PageVideoAdapter.View
         }
         Integer pageEvent = pageVideoArrayList.get(position);
         int position_adapter = position;
-        holder.tabItemBinding.pageEvent.setText(pageEvent.toString());
-
-        holder.tabItemBinding.pageEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                row_index = position_adapter;
-                notifyDataSetChanged();
-                onItemClickListener.onClick(position_adapter);
-            }
-        });
+//        holder.tabItemBinding.pageEvent.setText(pageEvent.toString());
+//
+//        holder.tabItemBinding.pageEvent.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                row_index = position_adapter;
+//                notifyDataSetChanged();
+//                onItemClickListener.onClick(position_adapter);
+//            }
+//        });
 
         if(row_index == position_adapter){
             holder.itemView.setBackgroundResource(R.color.green_light);
