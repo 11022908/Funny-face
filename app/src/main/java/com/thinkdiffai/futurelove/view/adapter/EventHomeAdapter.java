@@ -37,6 +37,7 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.Even
     public IOnClickItemListener iOnClickItem;
     public EventonClick EventonClick;
     public EventonClick EventonClickDetail;
+    public clickEventDetail onClickDetail;
     private String urlImgMale;
     private String urlImgFemale;
     public interface EventonClick {
@@ -46,7 +47,9 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.Even
     public void NavEventDetail(EventonClick eventonClick){
         this.EventonClickDetail = eventonClick;
     }
-
+    public void setOnClickDetail(clickEventDetail clickDetail){
+        this.onClickDetail = clickDetail;
+    }
     private Context context;
 
     public EventHomeAdapter(List<DetailEventList> eventList, IOnClickItemListener iOnClickItem, Context context) {
@@ -64,6 +67,9 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.Even
         void onClickItem(long idToanBoSuKien);
     }
 
+    public interface clickEventDetail{
+        void onClick(int position);
+    }
 
     @NonNull
     @Override
@@ -99,9 +105,9 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.Even
            holder.itemView.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
-                   Toast.makeText(context, "background", Toast.LENGTH_SHORT).show();
                    if(EventonClickDetail != null){
                        EventonClickDetail.onClickItem();
+                       Log.d("position", "onClick: ");
                    }
                }
            });

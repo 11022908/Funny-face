@@ -65,15 +65,15 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.transparent));
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
 
-       broadcastReceiver = new InternetReceiver();
-       InternetStatus();
+        broadcastReceiver = new InternetReceiver();
+        InternetStatus();
 
 //        NavController navController = Navigation.findNavController(MainActivity.this, R.id.activity_main_nav_host_fragment);
 //        navController.navigateUp();
 
-       BottomNavigationView bottomNavigationView = activityMainBinding.activityMainBottomNavigationView;
-       NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.activity_main_nav_host_fragment);
-       navController = navHostFragment.getNavController();
+        BottomNavigationView bottomNavigationView = activityMainBinding.activityMainBottomNavigationView;
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.activity_main_nav_host_fragment);
+        navController = navHostFragment.getNavController();
 
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 

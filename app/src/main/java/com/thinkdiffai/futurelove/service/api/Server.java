@@ -11,13 +11,16 @@ public interface Server {
     String DOMAIN2 = "https://metatechvn.store/";
     String DOMAIN3 ="https://lhvn.online/";
 
+
     String DOMAIN4 ="https://thinkdiff.us/";
+    String GET_IMAGE_UPLOAD_BY_USER = "images/";
+    String GET_ALL_EVENT_BY_USER_ID = "lovehistory/user/";
+    String GET_ALL_VIDEO_BY_ID_USER = "lovehistory/user/video/";
 
     String GET_NETWORK_API_DOMAIN = "http://ip-api.com/";
     String GET_CITY_NAME_FROM_IP = "https://ipinfo.io/";
 
-    String GET_VIDEO = "lovehistory/listvideo/";
-
+    String GET_VIDEO = "lovehistory/user/video/";
     String URI_PAIRING = "getdata";
 
     String UPLOAD_IMAGE = "upload-gensk/";

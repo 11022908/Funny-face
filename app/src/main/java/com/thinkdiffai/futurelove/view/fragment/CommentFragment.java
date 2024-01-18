@@ -30,6 +30,7 @@ import com.thinkdiffai.futurelove.service.api.RetrofitClient;
 import com.thinkdiffai.futurelove.service.api.Server;
 
 import com.thinkdiffai.futurelove.util.PaginationScrollListener;
+import com.thinkdiffai.futurelove.view.adapter.EventHomeAdapter;
 import com.thinkdiffai.futurelove.view.fragment.activity.MainActivity;
 import com.thinkdiffai.futurelove.view.adapter.CommentAdapter;
 import com.thinkdiffai.futurelove.view.adapter.PageCommentAdapter;
@@ -154,7 +155,7 @@ public class CommentFragment extends Fragment {
         });
     }
 
-//    private void goToListVideoFragment() {
+    //    private void goToListVideoFragment() {
 //        NavHostFragment.findNavController(CommentFragment.this).navigate(R.id.action_commentFragment_to_listVideoFragment);
 //    }
 //
@@ -342,12 +343,12 @@ public class CommentFragment extends Fragment {
         pageCommentArrayList = new ArrayList<>();
         linearLayoutManager = new LinearLayoutManager(getActivity(), GridLayoutManager.VERTICAL, false);
         fragmentCommentBinding.rcvComment.setLayoutManager(linearLayoutManager);
+        fragmentCommentBinding.btnComeBack.setOnClickListener(view -> comeBackHome());
         for(int i=1; i<=5;i++){
             pageCommentArrayList.add(i);
         }
+
         pageCommentAdapter = new PageCommentAdapter(getContext(),pageCommentArrayList,position -> goToPageComment(position));
-
-
     }
 
     private void goToPageComment(int position) {
@@ -363,6 +364,7 @@ public class CommentFragment extends Fragment {
 
     private void comeBackHome(){
         NavController nav = NavHostFragment.findNavController(CommentFragment.this);
-        nav.navigate(R.id.action_commentFragment_to_homeFragment);
+        Log.d("comebackhome", "comeBackHome: ");
+        nav.navigate(R.id.action_commentFragment_to_homeFragment2);
     }
 }

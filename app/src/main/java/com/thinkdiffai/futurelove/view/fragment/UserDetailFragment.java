@@ -30,9 +30,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.thinkdiffai.futurelove.R;
+import com.thinkdiffai.futurelove.model.DetailEvent;
+import com.thinkdiffai.futurelove.model.DetailEventList;
+import com.thinkdiffai.futurelove.model.DetailEventListParent;
 import com.thinkdiffai.futurelove.presenter.crud.DeleteAccount;
 import com.thinkdiffai.futurelove.databinding.FragmentUserDetailBinding;
 import com.thinkdiffai.futurelove.model.comment.CommentUser;
@@ -41,6 +45,7 @@ import com.thinkdiffai.futurelove.model.comment.UserComment;
 import com.thinkdiffai.futurelove.service.api.ApiService;
 import com.thinkdiffai.futurelove.service.api.RetrofitClient;
 import com.thinkdiffai.futurelove.service.api.Server;
+import com.thinkdiffai.futurelove.view.adapter.EventHomeAdapter;
 import com.thinkdiffai.futurelove.view.fragment.activity.MainActivity;
 import com.thinkdiffai.futurelove.view.fragment.activity.SignInSignUpActivity;
 import com.thinkdiffai.futurelove.view.adapter.UserCommentAdapter;
@@ -57,10 +62,10 @@ import retrofit2.Response;
 
 public class UserDetailFragment extends Fragment {
 
-    private FragmentUserDetailBinding binding;
+    private FragmentUserDetailBinding fragmentUserDetailBinding;
     private List<CommentUser> commentList = new ArrayList<>();
     private UserCommentAdapter commentAdapter;
-
+    private EventHomeAdapter eventHomeAdapter;
     private int id_user ;
 
     private MainActivity mainActivity;
@@ -71,27 +76,35 @@ public class UserDetailFragment extends Fragment {
     private MyOwnDialogFragment myOwnDialogFragment;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = FragmentUserDetailBinding.inflate(getLayoutInflater());
-        // Initialize UI
-        initUi();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        fragmentUserDetailBinding = FragmentUserDetailBinding.inflate(inflater, container, false);
+        try{
+            // Initialize UI
+            initUi();
+            initDataUser();
+            // Load user details from API
+            getDataUserDetail();
+            getAllEventByUserId();
+            // Load user comments from API
+            loadingUserCommentsFromApi();
+        }catch (Exception e){
+            Log.d("ExceptionInUserDetail", e.getMessage());
+        }
 
-        initData();
-        // Load user details from API
-        loadingUserDetailFromApi();
-        // Load user comments from API
-        loadingUserCommentsFromApi();
-        return binding.getRoot();
+        return fragmentUserDetailBinding.getRoot();
     }
 
-    private void initData() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("id_user",0);
+    private void initDataUser() {
+        sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String id_user_str = sharedPreferences.getString("id_user", "");
+        String user_name_login = sharedPreferences.getString("name_user", null);
+        String email_login = sharedPreferences.getString("email_user", null);
+        String link_avatar = sharedPreferences.getString("avatar", null);
         if (id_user_str == "") {
             id_user = 0;
         }else{
             id_user = Integer.parseInt(id_user_str);
+
         }
         Log.d("id_user_detail", "initData: "+ id_user);
     }
@@ -100,23 +113,27 @@ public class UserDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         userClickAnyButtonEventListener();
+        Log.d("ViewDetail", "onViewCreated: ok");
+        initUi();
     }
 
     private void initUi() {
         // Create a loading widget from lib
+        Log.d("Inituidetailfragment", "initUi: sucessfull");
+        fragmentUserDetailBinding.btnComeBack.setOnClickListener(view -> navigateToMenuProfile());
         mainActivity = (MainActivity) getActivity();
         kProgressHUD = mainActivity.createHud();
         // Init Recycler view
         initializeRecyclerView();
     }
 
-    private void loadingUserDetailFromApi() {
-        try {
-            getDataUserDetail();
-        } catch (Exception e) {
-            Log.e("ExceptionRuntime", e.toString());
-        }
-    }
+//    private void loadingUserDetailFromApi() {
+//        try {
+//            getDataUserDetail();
+//        } catch (Exception e) {
+//            Log.e("ExceptionRuntime", e.toString());
+//        }
+//    }
 
     private void loadingUserCommentsFromApi() {
         try {
@@ -129,7 +146,7 @@ public class UserDetailFragment extends Fragment {
 
     private void initializeRecyclerView() {
         linearLayoutManager = new LinearLayoutManager(getActivity(), GridLayoutManager.VERTICAL, false);
-        binding.rcvPersonalComments.setLayoutManager(linearLayoutManager);
+        fragmentUserDetailBinding.rcvPersonalEvents.setLayoutManager(linearLayoutManager);
         commentAdapter = new UserCommentAdapter(commentList, new UserCommentAdapter.IOnClickItemListener() {
             @Override
             public void onClickItem(long idToanBoSuKien, int soThuTuSuKienCon) {
@@ -139,7 +156,7 @@ public class UserDetailFragment extends Fragment {
                 showPersonalDetailEvent();
             }
         });
-        binding.rcvPersonalComments.setAdapter(commentAdapter);
+        fragmentUserDetailBinding.rcvPersonalEvents.setAdapter(commentAdapter);
     }
 
     private void showPersonalDetailEvent() {
@@ -183,29 +200,30 @@ public class UserDetailFragment extends Fragment {
             }
         });
     }
-
+// get data user detail and set data with field in xml - done
     private void getDataUserDetail() {
         ApiService apiService = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiService.class);
-        // Id for test
-        Call<DetailUser> call = apiService.getProfileUser(id_user);
-        Log.d("check_user", "getDataUserDetail: "+ call.toString());
+        sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String id_user_str = sharedPreferences.getString("id_user", "null");
+        Call<DetailUser> call = apiService.getProfileUser(Integer.parseInt(id_user_str));
         call.enqueue(new Callback<DetailUser>() {
             @Override
             public void onResponse(Call<DetailUser> call, Response<DetailUser> response) {
                 if (response.isSuccessful()) {
                     DetailUser detailUsers = response.body();
                     Log.d("check_user", "onResponse: "+ detailUsers.getUser_name() + detailUsers.getId_user()+ detailUsers.getEmail());
-                    binding.tvEmailUser.setText(String.valueOf(Objects.requireNonNull(detailUsers).getEmail()));
-                    binding.tvUserName.setText(String.valueOf(Objects.requireNonNull(detailUsers).getUser_name()));
-                    binding.tvQuantityEvents.setText(String.valueOf(detailUsers.getCount_sukien()));
-                    binding.tvQuantityViews.setText(String.valueOf(detailUsers.getCount_comment()));
-                    binding.tvQuantityComments.setText(String.valueOf(detailUsers.getCount_view()));
-                    Glide.with(requireActivity()).load(detailUsers.getLink_avatar()).into(binding.imgUserAvatar);
+                    fragmentUserDetailBinding.tvEmailUser.setText(String.valueOf(Objects.requireNonNull(detailUsers).getEmail()));
+                    fragmentUserDetailBinding.tvUserName.setText(String.valueOf(Objects.requireNonNull(detailUsers).getUser_name()));
+                    fragmentUserDetailBinding.tvQuantityEvents.setText(String.valueOf(detailUsers.getCount_sukien()));
+                    getCountEvents(detailUsers.getCount_sukien());
+                    fragmentUserDetailBinding.tvQuantityViews.setText(String.valueOf(detailUsers.getCount_comment()));
+                    fragmentUserDetailBinding.tvQuantityComments.setText(String.valueOf(detailUsers.getCount_view()));
+                    Glide.with(fragmentUserDetailBinding.imgUserAvatar.getContext()).load(detailUsers.getLink_avatar()).error(R.drawable.baseline_account_circle_24).into(fragmentUserDetailBinding.imgUserAvatar);
                 } else {
-                    binding.tvUserName.setText("null");
-                    binding.tvQuantityEvents.setText("0");
-                    binding.tvQuantityViews.setText("0");
-                    binding.tvQuantityComments.setText("0");
+                    fragmentUserDetailBinding.tvUserName.setText("null");
+                    fragmentUserDetailBinding.tvQuantityEvents.setText("0");
+                    fragmentUserDetailBinding.tvQuantityViews.setText("0");
+                    fragmentUserDetailBinding.tvQuantityComments.setText("0");
                 }
             }
 
@@ -215,25 +233,68 @@ public class UserDetailFragment extends Fragment {
             }
         });
     }
+//  hiển thị thông báo sự kiện trong profile
+    private void getCountEvents(int countEvents){
+        if(countEvents == 0){
+            fragmentUserDetailBinding.tvAlertProfile.setVisibility(View.VISIBLE);
+        }
+        else fragmentUserDetailBinding.tvAlertProfile.setVisibility(View.GONE);
+    }
+//  get all event was created by user
+    private void getAllEventByUserId(){
+        ApiService apiService = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiService.class);
+        sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String id_user_str = sharedPreferences.getString("id_user", "null");
+        Log.d("check_id_user_profile", "getAllEventByUserId: " + id_user_str);
+        Call<DetailEventListParent> call = apiService.getAllEventByUserId(Integer.parseInt(id_user_str));
+        call.enqueue(new Callback<DetailEventListParent>() {
+            @Override
+            public void onResponse(Call<DetailEventListParent> call, Response<DetailEventListParent> response) {
+                Log.d("hung_onrespone_user_detail", "onResponse: ");
+                DetailEventListParent detailEventListParent = response.body();
+                Log.d("check_size_event_list", "onResponse: "  + detailEventListParent);
+                List<DetailEventList> detailEventLists = detailEventListParent.getListSukien();
+                if(!detailEventLists.isEmpty()){
+                    eventHomeAdapter = new EventHomeAdapter(detailEventLists, null, getContext());
+                    eventHomeAdapter.setData(detailEventLists);
+                    fragmentUserDetailBinding.rcvPersonalEvents.setAdapter(eventHomeAdapter);
+                }
+            }
+            @Override
+            public void onFailure(Call<DetailEventListParent> call, Throwable t) {
+                Log.d("check_failure_detail_user", "onFailure: " + t.getMessage());
+            }
+        });
+    }
+
 
     private void navigateToHomeFragment() {
         NavHostFragment.findNavController(UserDetailFragment.this).navigate(R.id.action_userDetailFragment_to_homeFragment);
     }
 
-
+    private void navigateToMenuProfile(){
+        Log.d("comebackhome", "navigateToMenuProfile: ");
+        NavHostFragment.findNavController(UserDetailFragment.this).navigate(R.id.action_userDetailFragment_to_menuProfileFragment);
+    }
     private void userClickAnyButtonEventListener() {
-        clickComeBack();
-        clickLogout();
-        binding.btnComeBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickShowDropDown();
-            }
+        fragmentUserDetailBinding.btnComeBack.setOnClickListener(v -> {
+            requireActivity().onBackPressed();
         });
+//        super.onBackPressed();
+        //NavHostFragment.findNavController(UserDetailFragment.this).popBackStack();
+        fragmentUserDetailBinding.btnComeBack.setOnClickListener(view -> navigateToMenuProfile());
+        clickComeBack();
+//        clickLogout();
+//        fragmentUserDetailBinding.btnComeBack.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                clickShowDropDown();
+//            }
+//        });
     }
 
     private void clickShowDropDown() {
-        PopupMenu popupMenu = new PopupMenu(requireContext(), binding.btnComeBack);
+        PopupMenu popupMenu = new PopupMenu(requireContext(), fragmentUserDetailBinding.btnComeBack);
         popupMenu.getMenuInflater().inflate(R.menu.drop_down_menu, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
@@ -283,7 +344,7 @@ public class UserDetailFragment extends Fragment {
 
 
     private void clickComeBack() {
-        binding.btnComeBack.setOnClickListener(new View.OnClickListener() {
+        fragmentUserDetailBinding.btnComeBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -310,8 +371,20 @@ public class UserDetailFragment extends Fragment {
         NavHostFragment.findNavController(UserDetailFragment.this).navigate(R.id.action_userDetailFragment_to_commentFragment);
     }
 
+    private void changeLoginState() {
+        sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("LOGIN_STATE", false);
+        editor.apply();
+    }
+
+    private void NavigateToLoginAndSignOutActivity() {
+        Intent i = new Intent(getActivity(), SignInSignUpActivity.class);
+        startActivity(i);
+    }
+
 //    private void clickLogout() {
-//        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
+//        fragmentUserDetailBinding.btnLogout.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //
@@ -335,44 +408,6 @@ public class UserDetailFragment extends Fragment {
 //            }
 //        });
 //    }
-
-    private void changeLoginState() {
-        sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("LOGIN_STATE", false);
-        editor.apply();
-    }
-
-    private void NavigateToLoginAndSignOutActivity() {
-        Intent i = new Intent(getActivity(), SignInSignUpActivity.class);
-        startActivity(i);
-    }
-
-    private void clickLogout() {
-//        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                // Show dialog to ask logout confirmation
-//                myOwnDialogFragment = new MyOwnDialogFragment(
-//                        "Log-out now?",
-//                        "Are you sure to quit the app?",
-//                        R.drawable.ic_warning,
-//                        new MyOwnDialogFragment.MyOwnDialogListener() {
-//                            @Override
-//                            public void onConfirm() {
-//                                // Navigate to Login Fragment
-//                                NavigateToLoginAndSignOutActivity();
-//                                // Update the LOGIN_STATE
-//                                // Change the LOGIN_STATE is FALSE - Not to keep the login state
-//                                changeLoginState();
-//                            }
-//                        }
-//                );
-//                myOwnDialogFragment.show(mainActivity.getSupportFragmentManager(), "logout_dialog");
-//            }
-//        });
-    }
 //    private void changeLoginState() {
 //        sharedPreferences = Objects.requireNonNull(getActivity()).getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 //        SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -403,7 +438,7 @@ public class UserDetailFragment extends Fragment {
                 // Handle Delete
                 return true;
             case R.id.action_login:
-                clickLogout();
+//                clickLogout();
                 initUi();
                 // Handle login
 
@@ -443,7 +478,7 @@ public class UserDetailFragment extends Fragment {
                 if(pw.contains(pw1)){
                     if(isValidPassword(newPassWord.getText().toString())){
 
-                        ChangePassWordAPi(20,binding.tvUserName.getText().toString(),oldPassWord.getText().toString(),newPassWord.getText().toString());
+//                        ChangePassWordAPi(20,fragmentUserDetailBinding.tvUserName.getText().toString(),oldPassWord.getText().toString(),newPassWord.getText().toString());
                         dialog.dismiss();
                         Toast.makeText(mainActivity, "Change Password Successfully!", Toast.LENGTH_SHORT).show();
                     }else {
@@ -493,4 +528,5 @@ public class UserDetailFragment extends Fragment {
         }
         return false;
     }
+
 }

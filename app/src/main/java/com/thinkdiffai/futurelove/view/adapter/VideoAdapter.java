@@ -8,28 +8,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.thinkdiffai.futurelove.databinding.VideoItemBinding;
-import com.thinkdiffai.futurelove.model.ListVideoModel;
+import com.thinkdiffai.futurelove.model.VideoModel;
 
 import java.util.List;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ListVideoViewHolder>{
     private Context contect;
-    public List<ListVideoModel> listVideoModel;
+    public List<VideoModel> videoModel;
 
     public VideoAdapter(Context contect) {
         this.contect = contect;
-        this.listVideoModel = listVideoModel;
+        this.videoModel = videoModel;
     }
 
-    public void setData(List<ListVideoModel> listVideoModel){
-        this.listVideoModel = listVideoModel;
+    public void setData(List<VideoModel> videoModel){
+        this.videoModel = videoModel;
         notifyDataSetChanged();
     }
     @NonNull
@@ -43,7 +42,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ListVideoVie
     public void onBindViewHolder(@NonNull ListVideoViewHolder holder, int position) {
         ProgressBar progressBar = holder.videoItemBinding.progressBar;
         int position_view = position;
-        ListVideoModel videoModel = listVideoModel.get(position_view);
+        VideoModel videoModel = this.videoModel.get(position_view);
         String urlVideo = videoModel.getLink_video();
         String nameVideo =  videoModel.getNoi_dung();
         int id_video_int = videoModel.getId();
@@ -91,9 +90,9 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ListVideoVie
 
     @Override
     public int getItemCount() {
-        if(listVideoModel != null){
-            Log.d("Hunglistvideo", "getItemCount: "+listVideoModel.size());
-            return listVideoModel.size();
+        if(videoModel != null){
+            Log.d("Hunglistvideo", "getItemCount: "+ videoModel.size());
+            return videoModel.size();
         }
         return 0;
     }

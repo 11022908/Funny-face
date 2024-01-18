@@ -55,7 +55,7 @@ public class EventsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         fragmentEventsBinding= FragmentEventsBinding.inflate(inflater, container, false);
-        OnClickNavigation();
+//        OnClickNavigation();
         // xu ly rcv in navigation
             XuLyRcycNavigation();
         // xu ly rcv events
@@ -69,7 +69,7 @@ public class EventsFragment extends Fragment {
             }
         });
         //xu ly viewpaper
-            ViewPaper();
+//            ViewPaper();
         // xu ly loading
         XulyLoading();
         getDataEventUser();
@@ -188,14 +188,14 @@ public class EventsFragment extends Fragment {
         });
         fragmentEventsBinding.rcvEvents.setAdapter(stringAdapter1);
     }
-    private void ViewPaper(){
-        eventFragmentEventAdapter= new EventFragmentEventAdapter(sukienXList,getContext());
-        fragmentEventsBinding.vp2Events.setAdapter(eventFragmentEventAdapter);
-        fragmentEventsBinding.vp2Events.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(EventsFragment.this).navigate(R.id.action_eventsFragment_to_eventAndCommentFragment);
-            }
-        });
-    }
+//    private void ViewPaper(){
+//        eventFragmentEventAdapter= new EventFragmentEventAdapter(sukienXList,getContext());
+//        fragmentEventsBinding.vp2Events.setAdapter(eventFragmentEventAdapter);
+//        fragmentEventsBinding.vp2Events.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                NavHostFragment.findNavController(EventsFragment.this).navigate(R.id.action_eventsFragment_to_eventAndCommentFragment);
+//            }
+//        });
+//    }
 }

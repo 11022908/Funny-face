@@ -8,13 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -27,15 +24,13 @@ import com.thinkdiffai.futurelove.R;
 import com.thinkdiffai.futurelove.databinding.FragmentHomeBinding;
 import com.thinkdiffai.futurelove.model.DetailEventList;
 import com.thinkdiffai.futurelove.model.DetailEventListParent;
-import com.thinkdiffai.futurelove.model.DetailListVideoModel;
 import com.thinkdiffai.futurelove.model.ListVideoModel;
+import com.thinkdiffai.futurelove.model.VideoModel;
 import com.thinkdiffai.futurelove.service.api.ApiService;
 import com.thinkdiffai.futurelove.service.api.RetrofitClient;
 import com.thinkdiffai.futurelove.service.api.Server;
 
 import com.thinkdiffai.futurelove.util.PaginationScrollListener;
-import com.thinkdiffai.futurelove.view.adapter.ListVideoAdapter;
-import com.thinkdiffai.futurelove.view.adapter.PageVideoAdapter;
 import com.thinkdiffai.futurelove.view.adapter.VideoAdapter;
 import com.thinkdiffai.futurelove.view.fragment.activity.MainActivity;
 import com.thinkdiffai.futurelove.view.adapter.EventHomeAdapter;
@@ -48,9 +43,6 @@ import io.github.rupinderjeet.kprogresshud.KProgressHUD;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import androidx.appcompat.widget.AppCompatImageView;
-import android.view.View;
 
 public class HomeFragment extends Fragment {
     private KProgressHUD kProgressHUD;
@@ -66,8 +58,8 @@ public class HomeFragment extends Fragment {
     private List<DetailEventList> eventList;
 
     private ArrayList<Integer> pageEventList;
-    private ArrayList<ListVideoModel> listVideoModelArrayList;
-    private ArrayList<ListVideoModel> pageVideoList;
+    private ArrayList<VideoModel> listVideoModelArray;
+    private ArrayList<VideoModel> pageVideoList;
     private LinearLayoutManager linearLayoutManager;
 
     private boolean isLoading;
@@ -112,7 +104,7 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void initViewListVideo(List<ListVideoModel> listVideoModelArrayList) {
+    private void initViewListVideo(List<VideoModel> listVideoModelArray) {
 //        listVideoAdapter = new ListVideoAdapter(listVideoModelArrayList, this::onItemClick,getContext() );
 //        fragmentHomeBinding.listViewRec.setLayoutManager(new GridLayoutManager(getActivity(),2));
 //        fragmentHomeBinding.listViewRec.setAdapter(listVideoAdapter);
@@ -135,23 +127,27 @@ public class HomeFragment extends Fragment {
 
     private void getData2() {
         ApiService apiService = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiService.class);
-        Call<DetailListVideoModel> call = apiService.getListVideo(0,0);
-        call.enqueue(new Callback<DetailListVideoModel>() {
+        Call<ListVideoModel> call = apiService.getListVideo(0,0);
+        call.enqueue(new Callback<ListVideoModel>() {
             @Override
-            public void onResponse(Call<DetailListVideoModel> call, Response<DetailListVideoModel> response) {
+            public void onResponse(Call<ListVideoModel> call, Response<ListVideoModel> response) {
                 if(response.isSuccessful() && response.body()!=null){
-                    listVideoModelArrayList = (ArrayList<ListVideoModel>) response.body().getListSukienVideo();
-                    Log.d("check_list_video", "onResponse: "+ listVideoModelArrayList.get(7).getLink_video());
-                    Log.d("check_list_video", "onResponse: "+ listVideoModelArrayList.size());
-                    initViewListVideo(listVideoModelArrayList);
-                    if(!listVideoModelArrayList.isEmpty()) {
-                        videoAdapter.setData(listVideoModelArrayList);
-                        Log.d("hung video", "onResponse: video adapter");
-                    }
+////                    listVideoModelArray = (ArrayList<VideoModel>) response.body().getListSukienVideo();
+//                    ListVideoModel listVideoModel = response.body();
+////                    Log.d("check_list_video", "onResponse: "+ listVideoModelArray.get(7).getLink_video());
+////                    Log.d("check_list_video", "onResponse: "+ listVideoModelArray.size());
+//                    ListVideoAdapter listVideoAdapter = new ListVideoAdapter(listVideoModel, null, getContext());
+//                    fragmentListVideoBinding.listViewRec.setLayoutManager(new GridLayoutManager(getContext(), 2));
+//                    fragmentListVideoBinding.listViewRec.setAdapter(listVideoAdapter);
+//                    initViewListVideo(listVideoModelArray);
+//                    if(!listVideoModelArray.isEmpty()) {
+//                        videoAdapter.setData(listVideoModelArray);
+//                        Log.d("hung video", "onResponse: video adapter");
+//                    }
                 }
             }
             @Override
-            public void onFailure(Call<DetailListVideoModel> call, Throwable t) {
+            public void onFailure(Call<ListVideoModel> call, Throwable t) {
 
             }
         });
@@ -260,7 +256,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void goToCommentFragment() {
-        NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_homeFragment_to_commentFragment);
+        NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_homeFragment_to_commentFragment2);
     }
 
     private void initListener() {
@@ -315,7 +311,7 @@ public class HomeFragment extends Fragment {
         navEventDetail();
         pageVideoList = new ArrayList<>();
         getData();
-        listVideoModelArrayList = new ArrayList<>();
+        listVideoModelArray = new ArrayList<>();
         videoAdapter = new VideoAdapter(getActivity());
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         fragmentHomeBinding.rcvVideo.setLayoutManager(linearLayoutManager2);
@@ -422,4 +418,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    public static class ListImageFragment extends Fragment {
+        private ListImageFragment listImageFragment;
+    }
 }

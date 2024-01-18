@@ -1,8 +1,10 @@
 package com.thinkdiffai.futurelove.service.api;
 
+import com.thinkdiffai.futurelove.model.ImageModel;
+import com.thinkdiffai.futurelove.model.ListVideoModel;
+import com.thinkdiffai.futurelove.model.ListVideoModelParent;
 import com.thinkdiffai.futurelove.model.DetailEventList;
 import com.thinkdiffai.futurelove.model.DetailEventListParent;
-import com.thinkdiffai.futurelove.model.DetailListVideoModel;
 import com.thinkdiffai.futurelove.model.EventHomeDto;
 import com.thinkdiffai.futurelove.model.GetVideoSwapResponse;
 import com.thinkdiffai.futurelove.model.GetYourVideoSwapModel;
@@ -40,12 +42,36 @@ public interface ApiService {
             @Query("ten_nu") String tenNu
     );
 
-    @GET(Server.GET_VIDEO + "{page}")
-    Call<DetailListVideoModel> getListVideo(
+    @GET("https://metatechvn.store/lovehistory/listvideo/" + "{page}")
+    Call<ListVideoModel> getListVideo(
             @Path("page") int id,
             @Query("category") int id_categories
     );
 
+    @GET(Server.GET_IMAGE_UPLOAD_BY_USER + "{id_user}")
+    Call<ImageModel> getListImageUpload(
+            @Path("id_user") int id_user,
+            @Query("type") String type
+    );
+
+    @GET(Server.GET_ALL_EVENT_BY_USER_ID + "{page}")
+    Call<DetailEventListParent> getAllEventByUserId(
+            @Path("page") long id
+
+    );
+
+    @GET(Server.GET_ALL_VIDEO_BY_ID_USER+"{id_user}")
+    Call<ListVideoModelParent> getVidCreateByUser(
+            @Path("id_user") int id_user,
+            @Query("trang") int page
+    );
+
+
+    @GET(Server.GET_ALL_VIDEO_BY_ID_USER + "{page}" )
+    Call<Object> getAllVideoByUserId(
+        @Path("id_user") long id_user,
+        @Query("trang") int page
+    );
     @GET(Server.URI_CREATE_IMPLICIT_DATA)
     Call<Object> postImplicitEvent(
             @Query("device_them_su_kien") String deviceThemSuKien,
@@ -153,6 +179,7 @@ public interface ApiService {
     // get detail user
     @GET(Server.URI_PROFILE_USER + "{page}")
     Call<DetailUser> getProfileUser(@Path("page") long id);
+
 
     // GET comments user
     @GET(Server.URI_COMMENTS_USER + "{page}")

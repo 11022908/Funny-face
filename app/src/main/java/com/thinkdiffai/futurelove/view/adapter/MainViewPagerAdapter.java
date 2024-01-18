@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.thinkdiffai.futurelove.view.fragment.DetailEventCommentFragment;
+import com.thinkdiffai.futurelove.view.fragment.CommentFragment;
 import com.thinkdiffai.futurelove.view.fragment.HistoryFragment;
 import com.thinkdiffai.futurelove.view.fragment.HomeFragment;
 import com.thinkdiffai.futurelove.view.fragment.PairingFragment;
@@ -35,7 +35,8 @@ public class MainViewPagerAdapter extends FragmentStateAdapter {
             case 0:
                 return new HomeFragment();
             case 1:
-                return new DetailEventCommentFragment();
+//                return new DetailEventCommentFragment();
+                return null;
             case 2:
                 return new PairingFragment();
             case 3:

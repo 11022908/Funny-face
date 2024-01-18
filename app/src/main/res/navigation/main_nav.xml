@@ -11,11 +11,12 @@
         android:label="HomeFragment">
 
 
-        <action
-            android:id="@+id/action_homeFragment_to_commentFragment"
-            app:destination="@id/commentFragment"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out" />
+<!--        <action-->
+<!--            android:id="@+id/action_homeFragment_to_commentFragment"-->
+<!--            app:destination="@id/commentFragment"-->
+<!--            app:enterAnim="@anim/fade_in"-->
+<!--            app:exitAnim="@anim/fade_out" />-->
+
         <action
             android:id="@+id/action_homeFragment_to_pairingFragment"
             app:destination="@id/pairingFragment"
@@ -43,16 +44,24 @@
         <action
             android:id="@+id/action_homeFragment_to_eventAndCommentFragment"
             app:destination="@id/eventAndCommentFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_commentFragment2"
+            app:destination="@id/commentFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_menuProfileFragment"
+            app:destination="@id/menuProfileFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/commentFragment"
-        android:name="com.thinkdiffai.futurelove.view.fragment.DetailEventCommentFragment"
+        android:name="com.thinkdiffai.futurelove.view.fragment.CommentFragment"
         android:label="CommentFragment">
-        <action
-            android:id="@+id/action_commentFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out" />
+<!--        <action-->
+<!--            android:id="@+id/action_commentFragment_to_homeFragment"-->
+<!--            app:destination="@id/homeFragment"-->
+<!--            app:enterAnim="@anim/fade_in"-->
+<!--            app:exitAnim="@anim/fade_out" />-->
         <action
             android:id="@+id/action_commentFragment_to_pairingFragment"
             app:destination="@id/pairingFragment"
@@ -150,6 +159,11 @@
             app:destination="@id/timelineFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_userDetailFragment_to_menuProfileFragment"
+            app:destination="@id/menuProfileFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"/>
     </fragment>
     <fragment
         android:id="@+id/eventAndCommentFragment"
@@ -234,6 +248,9 @@
         <action
             android:id="@+id/action_listVideoFragment_to_swapFaceWithYourVideo"
             app:destination="@id/swapFaceWithYourVideo" />
+        <action
+            android:id="@+id/action_listVideoFragment_to_menuProfileFragment"
+            app:destination="@id/menuProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/swapFaceFragment"
@@ -270,6 +287,39 @@
             android:id="@+id/action_swapFaceWithYourVideo_to_videoResultsFragment"
             app:destination="@id/videoResultsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/menuProfileFragment"
+        android:name="com.thinkdiffai.futurelove.view.fragment.MenuProfileFragment"
+        android:label="menu_profile"
+        tools:layout="@layout/menu_profile" >
+        <action
+            android:id="@+id/action_menuProfileFragment_to_userDetailFragment"
+            app:destination="@id/userDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"/>
+
+        <action
+            android:id="@+id/action_menuProfileFragment_to_listImageFragment"
+            app:destination="@id/listImageFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_menuProfileFragment_to_myEventFragment"
+            app:destination="@id/myEventFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"/>
+
+    </fragment>
+    <fragment
+        android:id="@+id/listImageFragment"
+        android:name="com.thinkdiffai.futurelove.view.fragment.ListImageFragment"
+        android:label="fragment_list_image"
+        tools:layout="@layout/fragment_list_image" />
+    <fragment
+        android:id="@+id/myEventFragment"
+        android:name="com.thinkdiffai.futurelove.view.fragment.MyEventFragment"
+        android:label="fragment_my_events"
+        tools:layout="@layout/fragment_my_events" />
     <!--    <fragment-->
 <!--        android:id="@+id/swapFaceFragment"-->
 <!--        android:name="com.thinkdiffai.futurelove.view.fragment.SwapFaceFragment"-->

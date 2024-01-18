@@ -114,7 +114,7 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_commentFragment_to_homeFragment">
+                            <entry key="action_commentFragment_to_homeFragment2">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -217,7 +217,12 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_homeFragment_to_commentFragment">
+                            <entry key="action_homeFragment_to_commentFragment2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_homeFragment_to_eventAndCommentFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -228,6 +233,11 @@
                               </value>
                             </entry>
                             <entry key="action_homeFragment_to_listVideoFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_homeFragment_to_menuProfileFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -247,7 +257,24 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_homeFragment_to_userDetailFragment2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="listImageFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-398" />
+                            <option name="y" value="1614" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -257,8 +284,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-746" />
-                            <option name="y" value="93" />
+                            <option name="x" value="-1745" />
+                            <option name="y" value="746" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -279,6 +306,11 @@
                               </value>
                             </entry>
                             <entry key="action_listVideoFragment_to_swapFaceFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_listVideoFragment_to_swapFaceWithYourVideo">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -305,6 +337,54 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="menuProfileFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1178" />
+                            <option name="y" value="1277" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_menuProfileFragment_to_listImageFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_menuProfileFragment_to_listVideoFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_menuProfileFragment_to_myEventFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_menuProfileFragment_to_userDetailFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="myEventFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-893" />
+                            <option name="y" value="1721" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -475,6 +555,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_userDetailFragment_to_menuProfileFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_userDetailFragment_to_pairingFragment">
                               <value>
                                 <LayoutPositions />
@@ -502,6 +587,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_videoResultsFragment_to_swapFaceFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_videoResultsFragment_to_swapFaceWithYourVideo">
                               <value>
                                 <LayoutPositions />
                               </value>

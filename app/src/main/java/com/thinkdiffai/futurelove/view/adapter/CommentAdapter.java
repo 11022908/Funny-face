@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import com.thinkdiffai.futurelove.DbStorage.Constant;
 import com.thinkdiffai.futurelove.R;
 import com.thinkdiffai.futurelove.databinding.FragmentCommentBinding;
-import com.thinkdiffai.futurelove.databinding.FragmentEventAndCommentBinding;
+//import com.thinkdiffai.futurelove.databinding.FragmentEventAndCommentBinding;
 import com.thinkdiffai.futurelove.databinding.ItemCommentBinding;
 import com.thinkdiffai.futurelove.util.Util;
 import com.thinkdiffai.futurelove.model.comment.CommentPage;

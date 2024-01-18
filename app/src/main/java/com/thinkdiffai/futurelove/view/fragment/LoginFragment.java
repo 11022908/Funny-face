@@ -59,7 +59,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        
+
 
         // Set up TextWatcher to see that edit texts are valid or not and will show alerts or nothing
         setUpTextWatcher();
@@ -266,12 +266,18 @@ public class LoginFragment extends Fragment {
                         queryValueCallback.onQueryValueReceived("Invalid Password!!");
                     }
                     Log.d("check_login", "onResponse: "+ user_id + token );
-                    SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("id_user",0);
+                    SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyPrefs",Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("id_user_str",user_id);
+                    editor.putString("name_user", response.body().getUser_name());
+                    editor.putString("email_user", response.body().getEmail());
+                    editor.putString("avatar", response.body().getLink_avatar());
+                    editor.putString("id_user",String.valueOf(response.body().getId_user()));
                     editor.putString("token", token);
                     editor.apply();
-                    Log.d("id_user_detail", "onResponse: "+ user_id);
+                    editor.commit();
+                    Log.d("id_user_detail", "onResponse: "+ sharedPreferences.getString("id_user", "null_id"));
+                    Log.d("user_name_detail", "onResponse: " + sharedPreferences.getString("name_user", "null_name"));
+                    Log.d("avatar_detail", "onResponse: " + sharedPreferences.getString("avatar", "null_avatar"));
                 }
                 if (kProgressHUD.isShowing()) {
                     kProgressHUD.dismiss();

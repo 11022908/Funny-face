@@ -8,11 +8,14 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.thinkdiffai.futurelove.databinding.FragmentEventDetailBinding;
 import com.thinkdiffai.futurelove.model.DetailEventList;
 import com.thinkdiffai.futurelove.model.DetailEventListParent;
+import com.thinkdiffai.futurelove.model.comment.CommentList;
+import com.thinkdiffai.futurelove.model.comment.CommentPage;
 import com.thinkdiffai.futurelove.service.api.ApiService;
 import com.thinkdiffai.futurelove.service.api.RetrofitClient;
 import com.thinkdiffai.futurelove.service.api.Server;
@@ -29,13 +32,14 @@ public class DetailEventFragment extends Fragment {
     private FragmentEventDetailBinding fragmentEventDetailBinding;
     private EventHomeAdapter eventHomeAdapter;
     private CommentAdapter commentAdapter;
+    private List<CommentPage> commentsForAdapter;
     boolean isLoadingMore;
     boolean isLoading;
     int id_user;
     Context context;
 
-
-    private void LoadDataEvent(){
+//lấy danh sách event có trong db
+    private void LoadDataEvents(){
 
         if (!kProgressHUD.isShowing() && isLoadingMore) {
             kProgressHUD.show();
@@ -76,8 +80,51 @@ public class DetailEventFragment extends Fragment {
         });
 
     }
+//    load data comment
+    private void LoadDataComments() {
+    if (!kProgressHUD.isShowing() && isLoadingMore) {
+        kProgressHUD.show();
+    }
+//        if (currentPage == 1) {
+//            commentsForAdapter.clear();
+//        }
+    ApiService apiService = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiService.class);
+    Call<CommentList> call = apiService.getListCommentNew(0,id_user);
+    call.enqueue(new Callback<CommentList>() {
+        @SuppressLint("NotifyDataSetChanged")
+        @Override
+        public void onResponse(@NonNull Call<CommentList> call, @NonNull Response<CommentList> response) {
+            if (response.isSuccessful() && response.body() != null) {
+                CommentList _commentList = response.body();
+                commentsForAdapter = _commentList.getComment();
+//                numberOfElements = _commentList.getSophantu();
+//                pageNumber = _commentList.getSotrang();
+                Log.d("check_newComment", "onResponse: thành công  " );
+                if (!commentsForAdapter.isEmpty()) {
+                    commentAdapter.setData(commentsForAdapter);
+                    commentAdapter.notifyDataSetChanged();
+                }
+            }
+            isLoading = false;
+            if (kProgressHUD.isShowing()) {
+                kProgressHUD.dismiss();
+            }
+        }
 
+        @Override
+        public void onFailure(@NonNull Call<CommentList> call, @NonNull Throwable t) {
+            isLoading = false;
+            if (kProgressHUD.isShowing()) {
+                kProgressHUD.dismiss();
+
+            }
+            Log.e("MainActivityLog", t.getMessage());
+        }
+    });
+    }
     private void InitUI(){
+        LoadDataEvents();
+        LoadDataComments();
 
     }
 }

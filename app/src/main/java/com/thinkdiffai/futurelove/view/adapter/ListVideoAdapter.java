@@ -3,68 +3,44 @@ package com.thinkdiffai.futurelove.view.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.media.browse.MediaBrowser;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.exoplayer2.ExoPlayer;
-
-import com.google.android.exoplayer2.MediaItem;
-import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
-import com.google.android.exoplayer2.extractor.ExtractorsFactory;
-import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.trackselection.TrackSelector;
-import com.google.android.exoplayer2.ui.PlayerView;
-
-import com.google.android.exoplayer2.ui.StyledPlayerView;
-import com.google.android.exoplayer2.upstream.BandwidthMeter;
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
-
-import com.thinkdiffai.futurelove.R;
-import com.thinkdiffai.futurelove.databinding.VideoItemBinding;
 import com.thinkdiffai.futurelove.databinding.VideoItemBinding;
 import com.thinkdiffai.futurelove.model.ListVideoModel;
+import com.thinkdiffai.futurelove.model.VideoModel;
+import com.thinkdiffai.futurelove.model.VideoModelCustom;
 import com.thinkdiffai.futurelove.view.fragment.RecyclerViewClickListener;
 
-import java.util.Collections;
 import java.util.List;
 
 public class ListVideoAdapter extends RecyclerView.Adapter<ListVideoAdapter.ViewHolder> {
 
 
-    private List<ListVideoModel> listVideoModelArrayList ;
+//    adapter for my collections video
+    private List<ListVideoModel> listVideoModels;
     public RecyclerViewClickListener onClickListener;
 
 
     private Context context;
 
-    public void setData(List<ListVideoModel> data){
-        this.listVideoModelArrayList = data;
-        Log.d("check_data", "setData: "+ listVideoModelArrayList.size());
-        data.clear();
-        notifyDataSetChanged();
-    }
-
-
-    public ListVideoAdapter(List<ListVideoModel> listVideoModelArrayList, RecyclerViewClickListener onClickListener, Context context) {
-        this.listVideoModelArrayList = listVideoModelArrayList;
+    public ListVideoAdapter(List<ListVideoModel> listVideoModels, RecyclerViewClickListener onClickListener, Context context) {
+        this.listVideoModels = listVideoModels;
         this.onClickListener = onClickListener;
         this.context = context;
     }
-
+    public ListVideoAdapter(List<ListVideoModel> listVideoModels, Context context){
+        this.listVideoModels = listVideoModels;
+        this.context = context;
+    }
     @NonNull
     @Override
     public ListVideoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -74,12 +50,15 @@ public class ListVideoAdapter extends RecyclerView.Adapter<ListVideoAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ListVideoAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+
         ProgressBar progressBar = holder.videoItemBinding.progressBar;
         int position_view = position;
-        ListVideoModel videoModel = listVideoModelArrayList.get(position_view);
-        String urlVideo = videoModel.getLink_video();
-        String nameVideo =  videoModel.getNoi_dung();
-        int id_video_int = videoModel.getId();
+        VideoModelCustom videoModel = listVideoModels.get(position).getListSukienVideo().get(0);
+        String urlVideo = videoModel.getLink_video_goc();
+
+        String nameVideo =  videoModel.getNoidung_sukien();
+        int id_video_int = videoModel.getId_user();
+        Log.d("log_url", "onBindViewHolder: " + nameVideo);
         VideoView videoView = holder.videoItemBinding.viewVideo;
 
         try {
@@ -123,7 +102,7 @@ public class ListVideoAdapter extends RecyclerView.Adapter<ListVideoAdapter.View
 
     @Override
     public int getItemCount() {
-        return listVideoModelArrayList.size();
+        return listVideoModels.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
