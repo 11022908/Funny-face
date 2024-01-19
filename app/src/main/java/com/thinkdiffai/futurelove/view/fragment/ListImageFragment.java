@@ -11,8 +11,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.bumptech.glide.Glide;
+import com.thinkdiffai.futurelove.R;
 import com.thinkdiffai.futurelove.databinding.FragmentListImageBinding;
+import com.thinkdiffai.futurelove.databinding.ImageItemBinding;
 import com.thinkdiffai.futurelove.model.ImageModel;
 
 import com.thinkdiffai.futurelove.service.api.ApiService;
@@ -21,6 +26,7 @@ import com.thinkdiffai.futurelove.service.api.Server;
 import com.thinkdiffai.futurelove.view.adapter.ListImageAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,6 +36,7 @@ public class ListImageFragment extends Fragment {
     private FragmentListImageBinding fragmentListImageBinding;
     private ListImageAdapter listImageAdapter;
     private ArrayList<String> listLinks = new ArrayList<>();
+    private ImageItemBinding imageItemBinding;
     private SharedPreferences sharedPreferences;
     private int id_user;
     @Nullable
@@ -49,16 +56,22 @@ public class ListImageFragment extends Fragment {
     }
     private void InitUI(){
         CallAPIGetListImage();
+        ComebackMenu();
+    }
+    private void ComebackMenu(){
+        fragmentListImageBinding.btnComeBack.setOnClickListener(v -> {
+            requireActivity().onBackPressed();
+        });
     }
     private void CallAPIGetListImage(){
         ApiService apiService = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiService.class);
         Call<ImageModel> call = apiService.getListImageUpload(id_user, "nam");
-        Log.d("check_reponse_list_image_before", "onResponse: " + id_user);
         call.enqueue(new Callback<ImageModel>() {
             @Override
             public void onResponse(Call<ImageModel> call, Response<ImageModel> response) {
-
-                Log.d("check_reponse_list_image", "onResponse: " + response.body().getImage_links());
+                listImageAdapter = new ListImageAdapter(response.body(), getContext());
+                fragmentListImageBinding.rcvlistImage.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                fragmentListImageBinding.rcvlistImage.setAdapter(listImageAdapter);
             }
 
             @Override

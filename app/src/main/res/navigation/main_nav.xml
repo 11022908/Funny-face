@@ -164,6 +164,9 @@
             app:destination="@id/menuProfileFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_userDetailFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventAndCommentFragment"
@@ -320,19 +323,9 @@
         android:name="com.thinkdiffai.futurelove.view.fragment.MyEventFragment"
         android:label="fragment_my_events"
         tools:layout="@layout/fragment_my_events" />
-    <!--    <fragment-->
-<!--        android:id="@+id/swapFaceFragment"-->
-<!--        android:name="com.thinkdiffai.futurelove.view.fragment.SwapFaceFragment"-->
-<!--        android:label="fragment_swap_face"-->
-<!--        tools:layout="@layout/fragment_swap_face" >-->
-
-<!--        <argument android:name="urlVideo"-->
-<!--            app:argType="String"-->
-<!--            />-->
-<!--        <action-->
-<!--            android:id="@+id/action_swapFaceFragment_to_listVideoFragment"-->
-<!--            app:destination="@id/listVideoFragment" />-->
-
-
-<!--    </fragment>-->
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.thinkdiffai.futurelove.view.fragment.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
 </navigation>

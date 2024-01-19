@@ -1,5 +1,6 @@
 package com.thinkdiffai.futurelove.view.adapter;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,14 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.thinkdiffai.futurelove.databinding.FragmentListImageBinding;
 import com.thinkdiffai.futurelove.databinding.ImageItemBinding;
+import com.thinkdiffai.futurelove.model.ImageModel;
 
 import java.util.List;
 
 public class ListImageAdapter extends RecyclerView.Adapter<ListImageAdapter.ViewHolder>{
-    private List<String> listLinkImage;
+    private ImageModel listLinkImage;
+    private Context context;
 
-    public ListImageAdapter(List<String> listLinkImage) {
+    public ListImageAdapter(ImageModel listLinkImage, Context context) {
+        Log.d("check_list_image_adapter", "ListImageAdapter: ");
         this.listLinkImage = listLinkImage;
+        this.context = context;
     }
 
     @NonNull
@@ -30,13 +35,16 @@ public class ListImageAdapter extends RecyclerView.Adapter<ListImageAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        Glide.with()
+        String link = listLinkImage.getImage_links_nam().get(position);
+        if(link != null){
+            Glide.with(context).load(link).into(holder.imageItemBinding.cvImageCreated);
+        }
     }
 
     @Override
     public int getItemCount() {
-        if(listLinkImage.size() != 0)
-            return listLinkImage.size();
+        if(listLinkImage.getImage_links_nam().size() != 0)
+            return listLinkImage.getImage_links_nam().size();
         return 0;
     }
 

@@ -121,6 +121,7 @@ public class UserDetailFragment extends Fragment {
         // Create a loading widget from lib
         Log.d("Inituidetailfragment", "initUi: sucessfull");
         fragmentUserDetailBinding.btnComeBack.setOnClickListener(view -> navigateToMenuProfile());
+        fragmentUserDetailBinding.btnEditProfile.setOnClickListener(view ->changeProfile());
         mainActivity = (MainActivity) getActivity();
         kProgressHUD = mainActivity.createHud();
         // Init Recycler view
@@ -527,6 +528,9 @@ public class UserDetailFragment extends Fragment {
             }
         }
         return false;
+    }
+    private void changeProfile(){
+        NavHostFragment.findNavController(UserDetailFragment.this).navigate(R.id.editProfileFragment);
     }
 
 }

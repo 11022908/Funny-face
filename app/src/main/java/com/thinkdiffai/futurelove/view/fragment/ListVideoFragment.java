@@ -59,6 +59,12 @@ public class ListVideoFragment extends Fragment{
 
     private void InitUI(){
         callApiGetData();
+        ComebackMenu();
+    }
+    private void ComebackMenu(){
+        fragmentListVideoBinding.btnComeBack.setOnClickListener(v -> {
+            requireActivity().onBackPressed();
+        });
     }
     private void callApiGetData(){
         ApiService apiService = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiService.class);
@@ -75,18 +81,7 @@ public class ListVideoFragment extends Fragment{
                 fragmentListVideoBinding.listViewRec.setLayoutManager(new GridLayoutManager(getContext(), 2));
                 fragmentListVideoBinding.listViewRec.setAdapter(listVideoAdapter);
 
-
-//                ListVideoModel listVideoModels = response.body();
-
-//                List<VideoModel> videoModels1 = listVideoModels.getListSukienVideo();
-
-//                fragmentListVideoBinding.listViewRec.setAdapter(listVideoAdapter);
-
-
-//                Log.d("check_respone_l_video", "onResponse: " + listVideoModels.size());
                 Log.d("check_respone_l_video", "onResponse: " + listVideoModelList);
-//                ListVideoAdapter listVideoAdapter = new ListVideoAdapter(detailListVideoModels, getActivity(), getContext());
-//
             }
 
             @Override

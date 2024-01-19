@@ -144,6 +144,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="editProfileFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1393" />
+                            <option name="y" value="1777" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="eventAndCommentFragment">
                     <value>
                       <LayoutPositions>
@@ -300,6 +312,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_listVideoFragment_to_menuProfileFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_listVideoFragment_to_pairingFragment">
                               <value>
                                 <LayoutPositions />
@@ -353,11 +370,6 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_menuProfileFragment_to_listImageFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_menuProfileFragment_to_listVideoFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

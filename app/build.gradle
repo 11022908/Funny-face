@@ -105,6 +105,7 @@ dependencies {
 
     implementation('com.jaredrummler:android-device-names:2.1.1')
 
-
+//    upload image
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
 
 }
