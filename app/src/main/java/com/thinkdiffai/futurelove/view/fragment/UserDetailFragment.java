@@ -205,6 +205,7 @@ public class UserDetailFragment extends Fragment {
     private void getDataUserDetail() {
         ApiService apiService = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiService.class);
         sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        Log.d("check_token", "getDataUserDetail: " + sharedPreferences.getString("token", "null"));
         String id_user_str = sharedPreferences.getString("id_user", "null");
         Call<DetailUser> call = apiService.getProfileUser(Integer.parseInt(id_user_str));
         call.enqueue(new Callback<DetailUser>() {
@@ -254,11 +255,13 @@ public class UserDetailFragment extends Fragment {
                 Log.d("hung_onrespone_user_detail", "onResponse: ");
                 DetailEventListParent detailEventListParent = response.body();
                 Log.d("check_size_event_list", "onResponse: "  + detailEventListParent);
-                List<DetailEventList> detailEventLists = detailEventListParent.getListSukien();
-                if(!detailEventLists.isEmpty()){
-                    eventHomeAdapter = new EventHomeAdapter(detailEventLists, null, getContext());
-                    eventHomeAdapter.setData(detailEventLists);
-                    fragmentUserDetailBinding.rcvPersonalEvents.setAdapter(eventHomeAdapter);
+                if(detailEventListParent != null){
+                    List<DetailEventList> detailEventLists = detailEventListParent.getListSukien();
+                    if(!detailEventLists.isEmpty()){
+                        eventHomeAdapter = new EventHomeAdapter(detailEventLists, null, getContext());
+                        eventHomeAdapter.setData(detailEventLists);
+                        fragmentUserDetailBinding.rcvPersonalEvents.setAdapter(eventHomeAdapter);
+                    }
                 }
             }
             @Override

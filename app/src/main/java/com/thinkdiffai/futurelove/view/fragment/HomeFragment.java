@@ -26,6 +26,7 @@ import com.thinkdiffai.futurelove.model.DetailEventList;
 import com.thinkdiffai.futurelove.model.DetailEventListParent;
 import com.thinkdiffai.futurelove.model.ListVideoModel;
 import com.thinkdiffai.futurelove.model.VideoModel;
+import com.thinkdiffai.futurelove.model.VideoModelCustom;
 import com.thinkdiffai.futurelove.service.api.ApiService;
 import com.thinkdiffai.futurelove.service.api.RetrofitClient;
 import com.thinkdiffai.futurelove.service.api.Server;
@@ -70,7 +71,6 @@ public class HomeFragment extends Fragment {
     //    Hung fix
     private Context context;
 
-//    rcv_video.SetLayoutManager(linearLayoutManager2);
 
     @Nullable
     @Override
@@ -78,9 +78,6 @@ public class HomeFragment extends Fragment {
         fragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false);
         mainActivity = (MainActivity) getActivity();
         kProgressHUD = mainActivity.createHud();
-
-//        checkClickSetImageMale =  true;
-//        performSearch();
         try {
 
             initUi();
@@ -88,6 +85,7 @@ public class HomeFragment extends Fragment {
             loadData();
             navEventDetail();
             initListener();
+            fragmentHomeBinding.btnCreate.setOnClickListener(v -> NavToSwap2Image());
             Log.e("hung", "run at here");
         } catch (Exception e) {
             Log.e("ExceptionRuntime", e.toString());
@@ -126,31 +124,32 @@ public class HomeFragment extends Fragment {
     }
 
     private void getData2() {
-        ApiService apiService = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiService.class);
-        Call<ListVideoModel> call = apiService.getListVideo(0,0);
-        call.enqueue(new Callback<ListVideoModel>() {
-            @Override
-            public void onResponse(Call<ListVideoModel> call, Response<ListVideoModel> response) {
-                if(response.isSuccessful() && response.body()!=null){
-////                    listVideoModelArray = (ArrayList<VideoModel>) response.body().getListSukienVideo();
-//                    ListVideoModel listVideoModel = response.body();
-////                    Log.d("check_list_video", "onResponse: "+ listVideoModelArray.get(7).getLink_video());
-////                    Log.d("check_list_video", "onResponse: "+ listVideoModelArray.size());
-//                    ListVideoAdapter listVideoAdapter = new ListVideoAdapter(listVideoModel, null, getContext());
-//                    fragmentListVideoBinding.listViewRec.setLayoutManager(new GridLayoutManager(getContext(), 2));
-//                    fragmentListVideoBinding.listViewRec.setAdapter(listVideoAdapter);
-//                    initViewListVideo(listVideoModelArray);
-//                    if(!listVideoModelArray.isEmpty()) {
-//                        videoAdapter.setData(listVideoModelArray);
-//                        Log.d("hung video", "onResponse: video adapter");
-//                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<ListVideoModel> call, Throwable t) {
-
-            }
-        });
+//        ApiService apiService = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiService.class);
+//        Call<ListVideoModel> call = apiService.getListVideo(0,0);
+//        call.enqueue(new Callback<ListVideoModel>() {
+//            @Override
+//            public void onResponse(Call<ListVideoModel> call, Response<ListVideoModel> response) {
+//                if(response.isSuccessful() && response.body()!=null){
+//                    Log.d("check_list_video_model", "onResponse: " + response.body());
+////                    List<VideoModelCustom> videoModelCustomList = response.body().getListSukienVideo();
+////                    ListVideoModel listVideoModel = response.body();
+//////                    Log.d("check_list_video", "onResponse: "+ listVideoModelArray.get(7).getLink_video());
+//////                    Log.d("check_list_video", "onResponse: "+ listVideoModelArray.size());
+////                    ListVideoAdapter listVideoAdapter = new ListVideoAdapter(listVideoModel, null, getContext());
+////                    fragmentListVideoBinding.listViewRec.setLayoutManager(new GridLayoutManager(getContext(), 2));
+////                    fragmentListVideoBinding.listViewRec.setAdapter(listVideoAdapter);
+////                    initViewListVideo(listVideoModelArray);
+////                    if(!listVideoModelArray.isEmpty()) {
+////                        videoAdapter.setData(listVideoModelArray);
+////                        Log.d("hung video", "onResponse: video adapter");
+////                    }
+//                }
+//            }
+//            @Override
+//            public void onFailure(Call<ListVideoModel> call, Throwable t) {
+//
+//            }
+//        });
     }
 
     private void goToPageVideo(int position) {
@@ -216,7 +215,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadIdUser() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("id_user",0);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs",0);
         String id_user_str = sharedPreferences.getString("id_user", "");
         Log.d("check_user_id", "loadIdUser: "+ id_user_str);
         if (id_user_str == "") {
@@ -418,7 +417,13 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    public static class ListImageFragment extends Fragment {
-        private ListImageFragment listImageFragment;
+    private void NavToSwapImageWithVideo(){
+        NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.swapFaceWithYourVideo);
+    }
+    private void NavToSwapFaceFragment(){
+        NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.swapFaceFragment);
+    }
+    private void NavToSwap2Image(){
+        NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.swap2Image);
     }
 }

@@ -219,7 +219,7 @@ public class SwapFaceFragment extends Fragment {
         });
     }
     private void loadIdUser() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("id_user",0);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs",0);
         String id_user_str = sharedPreferences.getString("id_user_str", "");
         String token = sharedPreferences.getString("token","o");
         token_au = token;

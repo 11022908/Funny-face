@@ -10,13 +10,14 @@ public interface Server {
     String DOMAIN0 = "http://192.168.50.146:9090/";
     String DOMAIN2 = "https://metatechvn.store/";
     String DOMAIN3 ="https://lhvn.online/";
-
+    String GET_VIDEO_SWAP = "getdata/genvideo/swap/";
 
     String DOMAIN4 ="https://thinkdiff.us/";
     String GET_IMAGE_UPLOAD_BY_USER = "images/";
+    String GET_RESULT_SWAP_2_IMAGE = "getdata/swap/2/image/";
     String GET_ALL_EVENT_BY_USER_ID = "lovehistory/user/";
     String GET_ALL_VIDEO_BY_ID_USER = "lovehistory/user/video/";
-
+    String GET_ALL_VIDEO = "lovehistory/listvideo/";
     String GET_NETWORK_API_DOMAIN = "http://ip-api.com/";
     String GET_CITY_NAME_FROM_IP = "https://ipinfo.io/";
 

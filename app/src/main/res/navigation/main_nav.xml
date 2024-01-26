@@ -260,9 +260,9 @@
         android:name="com.thinkdiffai.futurelove.view.fragment.SwapFaceFragment"
         android:label="fragment_swap_face"
         tools:layout="@layout/fragment_swap_face" >
-        <argument
-            android:name="argKey"
-            app:argType="string" />
+<!--        <argument-->
+<!--            android:name="argKey"-->
+<!--            app:argType="string" />-->
         <action
             android:id="@+id/action_swapFaceFragment_to_videoResultsFragment"
             app:destination="@id/videoResultsFragment" />
@@ -328,4 +328,14 @@
         android:name="com.thinkdiffai.futurelove.view.fragment.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/swap2Image"
+        android:name="com.thinkdiffai.futurelove.view.fragment.Swap2Image"
+        android:label="swap_2_image"
+        tools:layout="@layout/swap_2_image" />
+    <fragment
+        android:id="@+id/detailVideoTemplateFragment"
+        android:name="com.thinkdiffai.futurelove.view.fragment.DetailVideoTemplateFragment"
+        android:label="fragment_detail_video"
+        tools:layout="@layout/fragment_detail_video" />
 </navigation>

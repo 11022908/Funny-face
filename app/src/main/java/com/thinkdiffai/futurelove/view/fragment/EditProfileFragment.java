@@ -2,7 +2,7 @@ package com.thinkdiffai.futurelove.view.fragment;
 
 import static android.app.Activity.RESULT_OK;
 
-import android.annotation.SuppressLint;
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -11,211 +11,165 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.FileProvider;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.thinkdiffai.futurelove.R;
+import com.bumptech.glide.Glide;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.thinkdiffai.futurelove.databinding.DialogBottomSheetSelectedHomeBinding;
 import com.thinkdiffai.futurelove.databinding.FragmentEditProfileBinding;
+import com.thinkdiffai.futurelove.service.api.ApiService;
+import com.thinkdiffai.futurelove.service.api.RetrofitClient;
+import com.thinkdiffai.futurelove.service.api.Server;
 
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EditProfileFragment extends Fragment {
-    private static final int REQUEST_CODE_PICK_FILE = 0;
     private FragmentEditProfileBinding fragmentEditProfileBinding;
-    private Dialog dialog;
-    private static final int REQUEST_CODE_GALLERY = 1;
-    private static final int REQUEST_CODE_CAMERA = 2;
+    private BottomSheetDialog bottomSheetDialog;
+    private DialogBottomSheetSelectedHomeBinding dialogBottomSheetSelectedHomeBinding;
+    private static final int PERMISSION_REQUEST_CODE = 2;
+    Uri selectedImageUri;
+    int id_user;
+    String uriResponse;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         fragmentEditProfileBinding = FragmentEditProfileBinding.inflate(inflater, container, false);
-        InitUI();
         return fragmentEditProfileBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        try{
+            InitUI();
+        }catch (Exception ex){
+            Log.d("Exception", "onViewCreated: " + ex.getMessage());
+        }
         super.onViewCreated(view, savedInstanceState);
     }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
     private void InitUI(){
-        ComebackMenu();
-        UploadImage();
-    }
-    private void ComebackMenu(){
-        fragmentEditProfileBinding.btnComeBack.setOnClickListener(v -> {
-            requireActivity().onBackPressed();
-        });
-    }
-    private void NavToUploadImage(){
+        fragmentEditProfileBinding.btnComeBack.setOnClickListener(v -> requireActivity().onBackPressed());
+        fragmentEditProfileBinding.btnUploadImage.setOnClickListener(v -> openDialog());
 
-    }
-    private void openGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, REQUEST_CODE_GALLERY);
-        dialog.dismiss();
-    }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK) {
-            if (data != null && data.getData() != null) {
-                Uri uri = data.getData();
-                activityResultLauncher.launch(data);
-                fragmentEditProfileBinding.avatarUser.setImageURI(uri);
-
-            }
-        }
-    }
-    private void UploadImage(){
-        fragmentEditProfileBinding.btnUploadImage.setOnClickListener(new View.OnClickListener() {
+        fragmentEditProfileBinding.btnSaveChange.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                dialog = new Dialog(getContext());
-                Log.d("check_dialog", "onClick: ");
-                dialog.setContentView(R.layout.dialog_bottom_sheet_selected_home);
+            public void onClick(View v) {
+                if(uriResponse != null){
+                    Log.d("check_uri", "onClick: " + uriResponse);
 
-                ImageButton btnGallery = dialog.findViewById(R.id.btn_select_image);
-                ImageButton btnOpenCamera = dialog.findViewById(R.id.btn_open_camera);
-                btnGallery.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(getContext(), "gallery", Toast.LENGTH_SHORT).show();
-                        openGallery();
-
-                    }
-                });
-                btnOpenCamera.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(getContext(), "camera", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                dialog.show();
+                }
             }
         });
     }
-    @SuppressLint("Range")
-    private String getImagePath(Uri uri, Context context){
-        String res = null;
-        if(uri.getScheme().equals("context")){
-            Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
-            try{
-                if(cursor != null && cursor.moveToFirst()){
-                    res = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                }
-            } finally {
-                cursor.close();
-            }
-            if(res == null){
-                res = uri.getPath();
-                int cutt = res.lastIndexOf('/');
-                if(cutt != -1){
-                    res = res.substring(cutt + 1);
-                }
-            }
-        }
-        return res;
+    private void changeAvatar(){
+        ApiService apiService = RetrofitClient.getInstance(Server.DOMAIN4).getRetrofit().create(ApiService.class);
     }
+    private void openDialog() {
+        dialogBottomSheetSelectedHomeBinding = DialogBottomSheetSelectedHomeBinding.inflate(LayoutInflater.from(getContext()));
+        bottomSheetDialog = new BottomSheetDialog(requireContext());
+        bottomSheetDialog.setContentView(dialogBottomSheetSelectedHomeBinding.getRoot());
+        bottomSheetDialog.show();
+        dialogBottomSheetSelectedHomeBinding.btnOpenCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCamera();
+            }
+        });
 
-    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+        dialogBottomSheetSelectedHomeBinding.btnSelectImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions((Activity) requireContext(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+                    openStorage();
+                } else {
+                    openStorage();
+                }
+
+            }
+        });
+    }
+    private void openStorage() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        launcherVideo.launch(intent);
+    }
+    ActivityResultLauncher<Intent> launcherVideo = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if(result.getResultCode() == RESULT_OK){
-                        Intent data = result.getData();
-                        Uri uri = data.getData();
-                        Log.d("check_path_image", "onActivityResult: " + getImagePath(uri, getContext()));
+            result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    Intent data = result.getData();
+                    if (data != null) {
+                        selectedImageUri = data.getData();
+                        loadImage(selectedImageUri.toString());
+                        bottomSheetDialog.dismiss();
+                        postImageFile(selectedImageUri);
                     }
                 }
             }
     );
-//    private void openCamera() {
-//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        if (intent.resolveActivity(getPackageManager()) != null) {
-//            // Tạo một file để lưu ảnh chụp
-//            File photoFile = createImageFile();
-//            if (photoFile != null) {
-//                Uri uri = FileProvider.getUriForFile(getContext(), "com.example.myapp.fileprovider", photoFile);
-//                intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-//                startActivityForResult(intent, REQUEST_CODE_CAMERA);
-//            }
-//        }
-//    }
+    private void openCamera(){
 
-//    private PackageManager getPackageManager() {
-//        return null;
-//    }
+    }
+    private void loadImage(String link_img) {
+        Glide.with(this)
+                .load(link_img)
+                .into(fragmentEditProfileBinding.avatarUser);
+    }
+    private void postImageFile(Uri selectedImageUri) {
+        String filePath = getRealPathFromURI(requireContext(), selectedImageUri);
+        File imageFile = new File(filePath);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
+        MultipartBody.Part imagePart = MultipartBody.Part.createFormData("src_img", imageFile.getName(), requestBody);
+        ApiService apiService = RetrofitClient.getInstance(Server.DOMAIN4).getRetrofit().create(ApiService.class);
+        Call<String> call = apiService.uploadImage(id_user, "src_nam", imagePart);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful()) {
+                    uriResponse = response.body();
 
-//    private File createImageFile() {
-//        // Tạo tên file ảnh duy nhất
-//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-//        String imageFileName = "IMG_" + timeStamp + "_";
-//        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-//        try {
-//            // Tạo file ảnh trống
-//            File imageFile = File.createTempFile(imageFileName, ".jpg", storageDir);
-//            return imageFile;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
+                    Log.d("check_upload_image_your_video", "onResponse: " + uriResponse);
+                }
+            }
 
-//    private File getExternalFilesDir(String directoryPictures) {
-//        return null;
-//    }
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.d("check_upload_image_your_video", "onFailure: " + t.getMessage());
+            }
+        });
+    }
+    public static String getRealPathFromURI(Context context, Uri contentUri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = context.getContentResolver().query(contentUri, projection, null, null, null);
 
-
-
-
-
-//    private String getFileNameFromUri(Uri uri) {
-//        String fileName = null;
-//        if (uri.getScheme().equals("content")) {
-//            Uri.Builder cursor = getContentResolver().query(uri, null, null, null, null);
-//            if (cursor != null && cursor.moveToFirst()) {
-//                int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-//                if (nameIndex != -1) {
-//                    fileName = cursor.getString(nameIndex);
-//                }
-//                cursor.close();
-//            }
-//        } else if (uri.getScheme().equals("file")) {
-//            fileName = new File(uri.getPath()).getName();
-//        }
-//        return fileName;
-//    }
-//
-//    private Uri.Builder getContentResolver() {
-//        return null;
-//    }
-
-
+        if (cursor != null) {
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            String filePath = cursor.getString(column_index);
+            cursor.close();
+            return filePath;
+        }
+        return null;
+    }
 }

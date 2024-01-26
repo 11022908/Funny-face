@@ -127,7 +127,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void emailAlertVisibility() {
-        String email = Objects.requireNonNull(binding.edtEmail.getText()).toString();
+        String email = Objects.requireNonNull(binding.edtEmail.getText()).toString().trim();
         boolean isValidEmail = isValidEmail(email);
         binding.tvAlertEmail.setVisibility(isValidEmail ? View.GONE : View.VISIBLE);
     }
@@ -173,7 +173,7 @@ public class LoginFragment extends Fragment {
 //                String check_internet = sharedPreferences1.getString("internet_state","0");
 //                Log.d("check_internet", "onQueryValueReceived: "+ check_internet);
 
-                String email = String.valueOf(binding.edtEmail.getText());
+                String email = binding.edtEmail.getText().toString().trim();
                 String password = String.valueOf(binding.edtPassword.getText());
                 // Check that it is full of needed information
 //                if(check_internet.equals("No Internet")){
@@ -278,6 +278,7 @@ public class LoginFragment extends Fragment {
                     Log.d("id_user_detail", "onResponse: "+ sharedPreferences.getString("id_user", "null_id"));
                     Log.d("user_name_detail", "onResponse: " + sharedPreferences.getString("name_user", "null_name"));
                     Log.d("avatar_detail", "onResponse: " + sharedPreferences.getString("avatar", "null_avatar"));
+
                 }
                 if (kProgressHUD.isShowing()) {
                     kProgressHUD.dismiss();
@@ -314,8 +315,8 @@ public class LoginFragment extends Fragment {
     }
 
     private boolean isValidPassword(String password) {
-        return password.length() >= 8 ;
-//        && !containSpecialCharacters(password)
+//        return password.length() >= 8 && !containSpecialCharacters(password);
+        return true;
     }
 
     private boolean containSpecialCharacters(String password) {

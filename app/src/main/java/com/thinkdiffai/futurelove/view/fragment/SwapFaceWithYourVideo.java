@@ -55,14 +55,14 @@ import retrofit2.Response;
 
 public class SwapFaceWithYourVideo extends Fragment {
 
-    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
+//    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
 
     private Uri selectedVideoUri;
     private Uri selectedImageUri;
-
     private String token_au;
-
     private String ip_them_su_kien;
+    private String deviceName;
+    private int id_user;
 
     private BottomSheetDialog bottomSheetDialog;
 
@@ -70,17 +70,8 @@ public class SwapFaceWithYourVideo extends Fragment {
 
     private String uriResponse;
 
-    private String deviceName;
 
     private static final int PERMISSION_REQUEST_CODE = 2;
-
-
-    private int id_user;
-
-
-    private static final int PICK_VIDEO_REQUEST = 1;
-
-    private static final int PICK_IMAGE_REQUEST = 2;
 
 
     private FragmentSwapfaceWithYourVideoBinding fragmentSwapfaceWithYourVideoBinding;
@@ -102,7 +93,7 @@ public class SwapFaceWithYourVideo extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initAction();
-        initView();
+//        initView();
         initData();
     }
     private void initData() {
@@ -136,7 +127,7 @@ public class SwapFaceWithYourVideo extends Fragment {
         }
     }
     private void loadIdUser() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("id_user",0);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs",0);
         String id_user_str = sharedPreferences.getString("id_user","");
         String token = sharedPreferences.getString("token","o");
         Log.d("check_token", "loadIdUser: "+ token);
@@ -166,9 +157,7 @@ public class SwapFaceWithYourVideo extends Fragment {
             }
         });
     }
-    private void initView() {
 
-    }
     private void initAction() {
         fragmentSwapfaceWithYourVideoBinding.btnSelectPersonMale.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -305,7 +294,7 @@ public class SwapFaceWithYourVideo extends Fragment {
     );
 
     private void openCamera() {
-        
+        Toast.makeText(getContext(), "open camera", Toast.LENGTH_SHORT).show();
     }
     private void postImageFile(Uri selectedImageUri) {
         String filePath = getRealPathFromURI(requireContext(), selectedImageUri);
@@ -367,4 +356,5 @@ public class SwapFaceWithYourVideo extends Fragment {
 
         return filePath;
     }
+
 }

@@ -1,6 +1,6 @@
 package com.thinkdiffai.futurelove.model;
 
-public class VideoModelCustom {
+public class    VideoModelCustom {
     public String id_video;
     public String link_image;
     public String link_vid_swap;

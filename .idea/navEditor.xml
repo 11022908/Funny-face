@@ -144,6 +144,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="detailVideoTemplateFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-749" />
+                            <option name="y" value="-859" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="editProfileFragment">
                     <value>
                       <LayoutPositions>
@@ -427,8 +439,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="500" />
-                            <option name="y" value="95" />
+                            <option name="x" value="357" />
+                            <option name="y" value="-619" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -468,6 +480,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="swap2Image">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1680" />
+                            <option name="y" value="-885" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="swapFaceFragment">
                     <value>
                       <LayoutPositions>
@@ -494,8 +518,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1304" />
-                            <option name="y" value="363" />
+                            <option name="x" value="-1847" />
+                            <option name="y" value="-4" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -558,6 +582,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_userDetailFragment_to_commentFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_userDetailFragment_to_editProfileFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

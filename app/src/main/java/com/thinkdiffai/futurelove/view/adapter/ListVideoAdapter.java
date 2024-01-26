@@ -1,5 +1,7 @@
 package com.thinkdiffai.futurelove.view.adapter;
 
+import static java.security.AccessController.getContext;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.MediaPlayer;
@@ -9,9 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.thinkdiffai.futurelove.databinding.VideoItemBinding;
@@ -23,18 +27,12 @@ import com.thinkdiffai.futurelove.view.fragment.RecyclerViewClickListener;
 import java.util.List;
 
 public class ListVideoAdapter extends RecyclerView.Adapter<ListVideoAdapter.ViewHolder> {
-
-
-//    adapter for my collections video
     private List<ListVideoModel> listVideoModels;
-    public RecyclerViewClickListener onClickListener;
-
 
     private Context context;
 
     public ListVideoAdapter(List<ListVideoModel> listVideoModels, RecyclerViewClickListener onClickListener, Context context) {
         this.listVideoModels = listVideoModels;
-        this.onClickListener = onClickListener;
         this.context = context;
     }
     public ListVideoAdapter(List<ListVideoModel> listVideoModels, Context context){
@@ -52,7 +50,7 @@ public class ListVideoAdapter extends RecyclerView.Adapter<ListVideoAdapter.View
     public void onBindViewHolder(@NonNull ListVideoAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         ProgressBar progressBar = holder.videoItemBinding.progressBar;
-        int position_view = position;
+//        int position_view = position;
         VideoModelCustom videoModel = listVideoModels.get(position).getListSukienVideo().get(0);
         String urlVideo = videoModel.getLink_video_goc();
 
@@ -95,7 +93,7 @@ public class ListVideoAdapter extends RecyclerView.Adapter<ListVideoAdapter.View
             @Override
             public void onClick(View v) {
                 holder.itemView.setVisibility(View.GONE);
-                onClickListener.onItemClick(urlVideo,nameVideo,id_video_int);
+
             }
         });
     }

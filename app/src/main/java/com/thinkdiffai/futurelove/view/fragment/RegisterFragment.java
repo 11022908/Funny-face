@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -77,7 +78,7 @@ public class RegisterFragment extends Fragment {
     }
 
     private void setUpTextWatcher() {
-        binding.edtEmail.addTextChangedListener(new TextWatcher() {
+        binding.edtUserName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -100,6 +101,7 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 emailAlertVisibility();
+
             }
 
             @Override
@@ -114,7 +116,6 @@ public class RegisterFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                resizeLayoutComment();
                 passwordAlertVisibility();
             }
 
@@ -130,9 +131,8 @@ public class RegisterFragment extends Fragment {
         Log.d(MY_OWN_TAG, "isValidPassword: " + isValidPassword);
         binding.tvPasswordAlert.setVisibility(isValidPassword ? View.GONE : View.VISIBLE);
     }
-
     private boolean isValidPassword(String password) {
-        return password.length() >= 8 && !containSpecialCharacters(password);
+        return password.length() >= 8 && containSpecialCharacters(password);
     }
 
     private void emailAlertVisibility() {
@@ -147,10 +147,10 @@ public class RegisterFragment extends Fragment {
     }
 
     private void usernameAlertVisibility() {
-        String username = Objects.requireNonNull(binding.edtEmail.getText()).toString();
+        String username = Objects.requireNonNull(binding.edtUserName.getText()).toString();
         boolean isValidUserName = isValidUserName(username);
         Log.d(MY_OWN_TAG, "isValidUserName: " + isValidUserName);
-        binding.tvEmailAlert.setVisibility(isValidUserName ? View.GONE : View.VISIBLE);
+        binding.tvUserNameAlert.setVisibility(isValidUserName ? View.GONE : View.VISIBLE);
     }
 
     private boolean isValidUserName(String username) {
@@ -166,6 +166,7 @@ public class RegisterFragment extends Fragment {
         }
         return false;
     }
+
 
     private void showPasswordClearly() {
         binding.icShowPassword.setOnClickListener(new View.OnClickListener() {
@@ -200,7 +201,7 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Step 1: Check valid forms
-                String userName = String.valueOf(binding.edtEmail.getText());
+                String userName = String.valueOf(binding.edtUserName.getText());
                 String email = String.valueOf(binding.edtEmail.getText());
                 String password = String.valueOf(binding.edtPassword.getText());
 
@@ -208,13 +209,32 @@ public class RegisterFragment extends Fragment {
                 if (isCompletedInformation(userName, email, password)) {
                     // Step 2: Call API for checking and Login
                     checkAccountRegistered(userName, email, password);
+
                 } else {
                     showInCompleteFormRegisterDialog();
+
                 }
             }
         });
     }
+    private void navToLoginFragment() {
+        NavHostFragment.findNavController(RegisterFragment.this).navigate(R.id.action_registerFragment_to_loginFragment);
+    }
+    private boolean isCompletedInformation(String userName, String email, String password) {
+        Log.i(MY_OWN_TAG, "isCompletedInformation");
+        if (isValidUserName(userName) && isValidEmail(email) && isValidPassword(password)) {
+            return true;
+        }
+        return false;
+    }
+    private void callApi(){
+        ApiService apiService = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiService.class);
+        String email = binding.edtEmail.getText().toString();
+        String username = binding.edtUserName.getText().toString();
+        String password = binding.edtPassword.getText().toString();
 
+
+    }
     private void checkAccountRegistered(String username, String email, String password) {
         Log.i(MY_OWN_TAG, "isCompletedInformation");
         // Call back function to listen the response value being returned
@@ -251,9 +271,7 @@ public class RegisterFragment extends Fragment {
         }, email, password);
     }
 
-    private void navToLoginFragment() {
-        NavHostFragment.findNavController(RegisterFragment.this).navigate(R.id.action_registerFragment_to_loginFragment);
-    }
+
 
     private void callSignUpApi(QueryValueCallback callback, String email, String password) {
         Log.i(MY_OWN_TAG, "callSignUpApi");
@@ -263,7 +281,7 @@ public class RegisterFragment extends Fragment {
         // Call login Api
         ApiService apiService = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiService.class);
         Log.i(MY_OWN_TAG, "API Service: " + apiService);
-        Call<Object> call = apiService.signUp(email, password,"abc.jpg", "1.1.1.1", "Nokia 1280");
+        Call<Object> call = apiService.signUp(email, password,binding.edtUserName.getText().toString(), "/var/www/build_futurelove/image/image_user/203/video/203_vid_30360.jpg", "1.1.1.1", "Xiaomi");
         Log.d("PHONG", "api call: " + call.toString());
         call.enqueue(new Callback<Object>() {
             @Override
@@ -288,13 +306,7 @@ public class RegisterFragment extends Fragment {
         });
     }
 
-    private boolean isCompletedInformation(String userName, String email, String password) {
-        Log.i(MY_OWN_TAG, "isCompletedInformation");
-        if (isValidUserName(userName) && isValidEmail(email) && isValidPassword(password)) {
-            return true;
-        }
-        return false;
-    }
+
 
     private void showFailedRegisterDialog() {
         MyOwnDialogFragment myOwnDialogFragment = new MyOwnDialogFragment();

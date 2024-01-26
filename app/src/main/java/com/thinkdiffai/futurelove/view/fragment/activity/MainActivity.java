@@ -12,6 +12,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
@@ -20,6 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.thinkdiffai.futurelove.R;
 import com.thinkdiffai.futurelove.databinding.ActivityMainBinding;
 import com.thinkdiffai.futurelove.view.BroadcastReceiver.InternetReceiver;
+import com.thinkdiffai.futurelove.view.fragment.PairingFragment;
 
 import io.github.rupinderjeet.kprogresshud.KProgressHUD;
 
@@ -91,6 +94,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         setContentView(activityMainBinding.getRoot());
+        Fragment fragment = PairingFragment.newInstance();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//        transaction.replace(R.id.frame_container, fragment, "pairing_fragment");
+        transaction.commit();
     }
 
 

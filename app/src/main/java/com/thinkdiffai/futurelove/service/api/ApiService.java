@@ -2,6 +2,8 @@ package com.thinkdiffai.futurelove.service.api;
 
 import com.thinkdiffai.futurelove.model.ImageModel;
 import com.thinkdiffai.futurelove.model.ListVideoModel;
+import com.thinkdiffai.futurelove.model.ListVideoModel2;
+import com.thinkdiffai.futurelove.model.ListVideoModel2Parent;
 import com.thinkdiffai.futurelove.model.ListVideoModelParent;
 import com.thinkdiffai.futurelove.model.DetailEventList;
 import com.thinkdiffai.futurelove.model.DetailEventListParent;
@@ -10,11 +12,14 @@ import com.thinkdiffai.futurelove.model.GetVideoSwapResponse;
 import com.thinkdiffai.futurelove.model.GetYourVideoSwapModel;
 import com.thinkdiffai.futurelove.model.IpNetworkModel;
 import com.thinkdiffai.futurelove.model.Login;
+import com.thinkdiffai.futurelove.model.Sukien2Image;
+import com.thinkdiffai.futurelove.model.VideoSwapResponseParent;
 import com.thinkdiffai.futurelove.model.comment.CommentList;
 import com.thinkdiffai.futurelove.model.comment.DetailUser;
 import com.thinkdiffai.futurelove.model.comment.EventsUser.EventsUser;
 import com.thinkdiffai.futurelove.model.comment.UserComment;
 import com.thinkdiffai.futurelove.model.comment.eacheventcomment.EachEventCommentsList;
+import com.thinkdiffai.futurelove.view.fragment.Swap2Image;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +48,16 @@ public interface ApiService {
             @Query("ten_nu") String tenNu
     );
 
+    @GET(Server.GET_VIDEO_SWAP + "{page}")
+    Call<VideoSwapResponseParent> getVideoSwapRespone(
+            @Query("device_them_su_kien") String device_add_event,
+            @Query("ip_them_su_kien") String ip_add_event,
+            @Query("id_user") int id_user,
+            @Query("src_img") String src_image
+    );
+
     @GET("https://metatechvn.store/lovehistory/listvideo/" + "{page}")
-    Call<ListVideoModel> getListVideo(
+    Call<ListVideoModel2> getListVideo(
             @Path("page") int id,
             @Query("category") int id_categories
     );
@@ -68,11 +81,7 @@ public interface ApiService {
     );
 
 
-    @GET(Server.GET_ALL_VIDEO_BY_ID_USER + "{page}" )
-    Call<Object> getAllVideoByUserId(
-        @Path("id_user") long id_user,
-        @Query("trang") int page
-    );
+
     @GET(Server.URI_CREATE_IMPLICIT_DATA)
     Call<Object> postImplicitEvent(
             @Query("device_them_su_kien") String deviceThemSuKien,
@@ -102,6 +111,18 @@ public interface ApiService {
             @Part MultipartBody.Part src_img
     );
 
+    @GET(Server.GET_RESULT_SWAP_2_IMAGE)
+    Call<Sukien2Image> GetResultImageSwap(
+            @Header("Authorization") String authorization,
+
+            @Query("device_them_su_kien") String deviceAddEvent,
+            @Query("ip_them_su_kien") String ipAddEvent,
+            @Query("id_user") int id_user,
+            @Header("link1") String link_1,
+            @Header("link2") String link_2
+
+    );
+
     @Multipart
     @POST("https://lhvn.online/getdata/genvideo/swap/imagevid")
     Call<GetYourVideoSwapModel> PostVid (
@@ -112,6 +133,7 @@ public interface ApiService {
             @Query("src_img") String src_img,
             @Part MultipartBody.Part src_vid
     );
+
 
     @GET(Server.URI_GET_NETWORK_STATUS)
     Call<IpNetworkModel> getIpApiResponse();
@@ -175,7 +197,8 @@ public interface ApiService {
             @Field("password") String password,
             @Field("user_name") String userName,
             @Field("link_avatar") String linkAvatar,
-            @Field("ip_register") String registerIp
+            @Field("ip_register") String registerIp,
+            @Field("device_register") String deviceRegister
     );
     // get detail user
     @GET(Server.URI_PROFILE_USER + "{page}")
