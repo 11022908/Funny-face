@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -294,7 +295,17 @@ public class SwapFaceWithYourVideo extends Fragment {
     );
 
     private void openCamera() {
-        Toast.makeText(getContext(), "open camera", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 100);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 100){
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            fragmentSwapfaceWithYourVideoBinding.shapeImageView.setImageBitmap(bitmap);
+            bottomSheetDialog.dismiss();
+        }
     }
     private void postImageFile(Uri selectedImageUri) {
         String filePath = getRealPathFromURI(requireContext(), selectedImageUri);

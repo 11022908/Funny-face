@@ -52,7 +52,7 @@ public class ListVideoAdapter extends RecyclerView.Adapter<ListVideoAdapter.View
         ProgressBar progressBar = holder.videoItemBinding.progressBar;
 //        int position_view = position;
         VideoModelCustom videoModel = listVideoModels.get(position).getListSukienVideo().get(0);
-        String urlVideo = videoModel.getLink_video_goc();
+        String urlVideo = videoModel.getLink_vid_swap();
 
         String nameVideo =  videoModel.getNoidung_sukien();
         int id_video_int = videoModel.getId_user();

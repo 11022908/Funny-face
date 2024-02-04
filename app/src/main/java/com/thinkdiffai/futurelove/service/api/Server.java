@@ -13,14 +13,15 @@ public interface Server {
     String GET_VIDEO_SWAP = "getdata/genvideo/swap/";
 
     String DOMAIN4 ="https://thinkdiff.us/";
+    String GET_RS_VIDEO_SWAP = "getdata/genvideo";
     String GET_IMAGE_UPLOAD_BY_USER = "images/";
-    String GET_RESULT_SWAP_2_IMAGE = "getdata/swap/2/image/";
+    String GET_RESULT_SWAP_2_IMAGE = "getdata/swap/2/image";
     String GET_ALL_EVENT_BY_USER_ID = "lovehistory/user/";
     String GET_ALL_VIDEO_BY_ID_USER = "lovehistory/user/video/";
     String GET_ALL_VIDEO = "lovehistory/listvideo/";
     String GET_NETWORK_API_DOMAIN = "http://ip-api.com/";
     String GET_CITY_NAME_FROM_IP = "https://ipinfo.io/";
-
+    String GET_ALL_COMMENT_OF_EVENT = "lovehistory/comment/";
     String GET_VIDEO = "lovehistory/user/video/";
     String URI_PAIRING = "getdata";
 
@@ -38,7 +39,7 @@ public interface Server {
     String KEY_HEADER1 = "Link_img1";
     String KEY_HEADER2 = "Link_img2";
 
-    String URI_LIST_COMMENT_BY_EVENT_ID = "lovehistory/comment/";
+    String URI_LIST_COMMENT_BY_EVENT_ID = "lovehistory/comment";
     String URI_LIST_COMMENT_NEW = "lovehistory/pageComment/";
     String URI_POST_COMMENT = "lovehistory/comment";
     String URI_LINK_WEB_DETAIL = "http://datanomic.online/detail/";

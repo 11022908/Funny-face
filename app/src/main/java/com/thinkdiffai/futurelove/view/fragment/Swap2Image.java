@@ -2,8 +2,11 @@ package com.thinkdiffai.futurelove.view.fragment;
 
 import static android.app.Activity.RESULT_OK;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import android.Manifest;
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +16,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +33,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.thinkdiffai.futurelove.databinding.DialogBottomSheetSelectedHomeBinding;
 import com.thinkdiffai.futurelove.databinding.Swap2ImageBinding;
@@ -60,7 +65,7 @@ public class Swap2Image extends Fragment {
     String ipAddEvent;
     String token_au;
     String link_result;
-    private int id_user;
+    int id_user;
     private Uri selectedImageUri;
     private BottomSheetDialog bottomSheetDialog;
     private DialogBottomSheetSelectedHomeBinding dialogBinding;
@@ -91,7 +96,32 @@ public class Swap2Image extends Fragment {
             check = 2;
             openDialog();
         });
-        swap2ImageBinding.btnSwap.setOnClickListener(v -> CallApi());
+        swap2ImageBinding.btnSwap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                swap2ImageBinding.progressBarHandle.setVisibility(View.VISIBLE);
+                CallApi();
+            }
+        });
+        swap2ImageBinding.btnDownloadToDevice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                downloadImage(link_result, "Image");
+            }
+        });
+    }
+    private void downloadImage(String url, String title) {
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+        request.setTitle(title);
+        request.setDescription("Downloading image...");
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "download.jpg");
+
+        DownloadManager manager = (DownloadManager) requireContext().getSystemService(Context.DOWNLOAD_SERVICE);
+        long downloadId = manager.enqueue(request);
+
+        // Hiển thị Toast khi tải xuống thành công
+        Toast.makeText(requireContext(), "Download starting", Toast.LENGTH_SHORT).show();
     }
     private void InitData(){
         loadDataUser();
@@ -144,20 +174,23 @@ public class Swap2Image extends Fragment {
         id_user = Integer.parseInt(sharedPreferences.getString("id_user", "null"));
     }
     private void CallApi(){
-        ApiService apiService = RetrofitClient.getInstance(Server.DOMAIN4).getRetrofit().create(ApiService.class);
-        Call<Sukien2Image> call = apiService.GetResultImageSwap("Bearer " + token_au,deviceAddEvent, ipAddEvent, id_user, link_1, link_2);
+        ApiService apiService = RetrofitClient.getInstance("").getRetrofit().create(ApiService.class);
+        Call<Sukien2Image> call = apiService.GetResultImageSwap("Bearer " + token_au, link_1, link_2,deviceAddEvent, ipAddEvent, id_user);
         Log.d("check_info_user", "CallApi: " + "Bearer " + token_au + ", "+deviceAddEvent+ ", "+ipAddEvent+ ", "+id_user+ ", "+link_1+ ", "+link_2);
         call.enqueue(new Callback<Sukien2Image>() {
             @Override
             public void onResponse(Call<Sukien2Image> call, Response<Sukien2Image> response) {
-                if(response.isSuccessful()&& response.body() != null){
-                    Log.d("check_link_result", "onResponse: " + response.body());
-                }else {
-                    Toast.makeText(getActivity(), "Fail", Toast.LENGTH_SHORT).show();
-                }
-//
-            }
+                if(response.isSuccessful() && response.body() != null){
+                    swap2ImageBinding.viewAction.setVisibility(View.GONE);
+                    swap2ImageBinding.viewResult.setVisibility(View.VISIBLE);
+                    link_result = response.body().getEventSwap2image().link_da_swap;
+                    Glide.with(getContext()).load(response.body().getEventSwap2image().link_da_swap).into(swap2ImageBinding.imgResult);
 
+                }
+                else {
+                    Log.d("check_link_result", "onResponse: nullaasfddxgfff");
+                }
+            }
             @Override
             public void onFailure(Call<Sukien2Image> call, Throwable t) {
                 Log.d("check_failure_swap_image", "onFailure: ");
@@ -195,6 +228,9 @@ public class Swap2Image extends Fragment {
                     }
                     else if(link_2 == null){
                         link_2 = uriResponse;
+                    }
+                    if(link_1 != null && link_2 != null){
+                        Toast.makeText(getContext(), "Upload successfully", Toast.LENGTH_SHORT).show();
                     }
                     Log.d("check_response_post_image_file", "onResponse: " + response.body() + " link_1: " + link_1 + " link_2: " + link_2);
                 }

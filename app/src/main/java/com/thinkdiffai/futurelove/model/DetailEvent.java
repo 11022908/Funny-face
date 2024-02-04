@@ -54,6 +54,16 @@ public class DetailEvent {
     @SerializedName("ten_su_kien")
     private String tenSuKien;
 
+    public DetailEvent(int countComment, int countView, long id, String linkNamGoc, String noiDungSuKien, String tenNam, String tenSuKien) {
+        this.countComment = countComment;
+        this.countView = countView;
+        this.id = id;
+        this.linkNamGoc = linkNamGoc;
+        this.noiDungSuKien = noiDungSuKien;
+        this.tenNam = tenNam;
+        this.tenSuKien = tenSuKien;
+    }
+
     public DetailEvent(int countComment, int countView, long id, int idTemplate, int idToanBoSuKien, int idUser, String linkDaSwap, String linkNamChuaSwap, String linkNamGoc, String linkNuChuaSwap, String linkNuGoc, String noiDungSuKien, int phantramLoading, String realTime, double soThuTuSuKien, String tenNam, String tenNu, String tenSuKien) {
         this.countComment = countComment;
         this.countView = countView;

@@ -59,6 +59,7 @@ public class PairingFragment extends Fragment {
     }
     private void InitUI(){
         fragmentPairingBinding.btnAddNewEvent.setOnClickListener(v -> NavToSwapFaceWithYourVideo());
+        changeColorBg(fragmentPairingBinding.btnSwapVideo);
         fragmentPairingBinding.btnSwapVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

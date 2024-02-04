@@ -1,6 +1,9 @@
 package com.thinkdiffai.futurelove.service.api;
 
+import com.thinkdiffai.futurelove.model.EventVideo;
+import com.thinkdiffai.futurelove.model.EventVideoParent;
 import com.thinkdiffai.futurelove.model.ImageModel;
+import com.thinkdiffai.futurelove.model.ListCommentOfEventModel;
 import com.thinkdiffai.futurelove.model.ListVideoModel;
 import com.thinkdiffai.futurelove.model.ListVideoModel2;
 import com.thinkdiffai.futurelove.model.ListVideoModel2Parent;
@@ -37,6 +40,21 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
+
+    @FormUrlEncoded
+    @POST("https://sakaivn.online/changeavatar/" + "{id_user}")
+    Call<Object> changeAvatar(
+            @Path("id_user") int id_user,
+            @Header("Authorization") String authorization,
+            @Field("link_img") String link_img,
+            @Field("check_img") String check_img
+    );
+
+    @GET("https://metatechvn.store/profile/" + "{id_user}")
+    Call<DetailUser> getDetailUser(
+            @Path("id_user") int id_user
+    );
+
     @GET(Server.URI_PAIRING)
     Call<Object> postEvent(
             @Header(Server.KEY_HEADER1) String imageLink1,
@@ -48,6 +66,21 @@ public interface ApiService {
             @Query("ten_nu") String tenNu
     );
 
+    @FormUrlEncoded
+    @POST(Server.URI_LIST_COMMENT_BY_EVENT_ID)
+    Call<Object> postComment(
+            @Field("id_user") int id_user,
+            @Field("noi_dung_cmt") String nd_cmt,
+            @Field("device_cmt") String device_cmt,
+            @Field("id_toan_bo_su_kien") String id_event,
+            @Field("so_thu_tu_su_kien") int stt_event,
+            @Field("ipComment") String ip_cmt,
+            @Field("imageattach") String imageattach,
+            @Field("id_user_cmt") int id_user_cmt,
+            @Field("location") String location,
+            @Field("link_imagesk") String link_img
+
+    );
     @GET(Server.GET_VIDEO_SWAP + "{page}")
     Call<VideoSwapResponseParent> getVideoSwapRespone(
             @Query("device_them_su_kien") String device_add_event,
@@ -62,6 +95,16 @@ public interface ApiService {
             @Query("category") int id_categories
     );
 
+    @GET("https://lhvn.online/getdata/genvideo")
+    Call<EventVideo> getVideoSwap(
+            @Header("Authorization") String authorization,
+            @Query("id_video") String id_video,
+            @Query("device_them_su_kien") String device,
+            @Query("ip_them_su_kien") String ip,
+            @Query("id_user") int id_user,
+            @Query("image") String link,
+            @Query("ten_video") String name_video
+    );
     @GET(Server.GET_IMAGE_UPLOAD_BY_USER + "{id_user}")
     Call<ImageModel> getListImageUpload(
             @Path("id_user") int id_user,
@@ -80,7 +123,12 @@ public interface ApiService {
             @Query("trang") int page
     );
 
-
+    @GET(Server.GET_ALL_COMMENT_OF_EVENT + "{so_thu_tu_sk}")
+    Call<ListCommentOfEventModel> getAllComment(
+            @Path("so_thu_tu_sk") int stt_su_kien,
+            @Query("id_toan_bo_su_kien") String id_toan_bo_su_kien,
+            @Query("id_user") int id_user
+    );
 
     @GET(Server.URI_CREATE_IMPLICIT_DATA)
     Call<Object> postImplicitEvent(
@@ -111,15 +159,15 @@ public interface ApiService {
             @Part MultipartBody.Part src_img
     );
 
-    @GET(Server.GET_RESULT_SWAP_2_IMAGE)
+    @GET("https://thinkdiff.us/getdata/swap/2/image")
     Call<Sukien2Image> GetResultImageSwap(
             @Header("Authorization") String authorization,
-
+            @Header("link1") String link_1,
+            @Header("link2") String link_2,
             @Query("device_them_su_kien") String deviceAddEvent,
             @Query("ip_them_su_kien") String ipAddEvent,
-            @Query("id_user") int id_user,
-            @Header("link1") String link_1,
-            @Header("link2") String link_2
+            @Query("id_user") int id_user
+
 
     );
 

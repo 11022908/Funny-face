@@ -26,10 +26,19 @@ import com.thinkdiffai.futurelove.model.Comon;
 import com.thinkdiffai.futurelove.model.DetailEvent;
 import com.squareup.picasso.Picasso;
 import com.thinkdiffai.futurelove.model.DetailEventList;
+import com.thinkdiffai.futurelove.model.VideoModel2;
+import com.thinkdiffai.futurelove.model.comment.DetailUser;
+import com.thinkdiffai.futurelove.service.api.ApiService;
+import com.thinkdiffai.futurelove.service.api.RetrofitClient;
 import com.thinkdiffai.futurelove.view.fragment.HomeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.EventHomeViewHolder>  implements Filterable {
 
     private List<DetailEventList> eventList;
@@ -39,11 +48,11 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.Even
     public EventonClick EventonClickDetail;
     public clickEventDetail onClickDetail;
     private String urlImgMale;
+    String name_user;
     private String urlImgFemale;
     public interface EventonClick {
         void onClickItem();
     }
-
     public void NavEventDetail(EventonClick eventonClick){
         this.EventonClickDetail = eventonClick;
     }
@@ -52,17 +61,42 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.Even
     }
     private Context context;
 
+
+    public interface OnEventClickListener {
+        void onEventClick(DetailEvent detailEvent);
+    }
+
+    private OnEventClickListener onEventClickListener;
+
+    public void setOnEventClickListener(OnEventClickListener listener) {
+        this.onEventClickListener = listener;
+    }
+
+    private List<Integer> listId;
+
+
     public EventHomeAdapter(List<DetailEventList> eventList, IOnClickItemListener iOnClickItem, Context context) {
         this.eventList = eventList;
         this.iOnClickItem = iOnClickItem;
         this.context = context;
-    }
 
+    }
+    public EventHomeAdapter(List<DetailEventList> eventList, IOnClickItemListener iOnClickItem, Context contex, List<Integer> listId) {
+        this.eventList = eventList;
+        this.iOnClickItem = iOnClickItem;
+        this.context = context;
+        this.listId = listId;
+    }
+    public void setData(List<DetailEventList> detailEventLists, List<Integer> listId) {
+        eventList = detailEventLists;
+        eventListOld = detailEventLists;
+        this.listId = listId;
+    }
     public void setData(List<DetailEventList> detailEventLists) {
         eventList = detailEventLists;
         eventListOld = detailEventLists;
+        this.listId = listId;
     }
-
     public interface IOnClickItemListener {
         void onClickItem(long idToanBoSuKien);
     }
@@ -84,12 +118,34 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.Even
 
     @Override
     public void onBindViewHolder(@NonNull EventHomeViewHolder holder, int position) {
-        DetailEventList detailList = eventList.get(position);
+       DetailEventList detailList = eventList.get(position);
+       int position_view = position;
        List<DetailEvent> events = detailList.getSukien();
+        Log.d("size events: ", "onBindViewHolder: " + events.size());
        DetailEvent detailEvent = events.get(position);
+        Log.d("id_user_event: " + events.get(position), "onBindViewHolder: " + detailEvent.getIdUser());
+
+       int id_user = detailEvent.getIdUser();
+
+
+
+        ApiService apiService = RetrofitClient.getInstance("").getRetrofit().create(ApiService.class);
+        Call<DetailUser> call = apiService.getDetailUser(id_user);
+        call.enqueue(new Callback<DetailUser>() {
+            @Override
+            public void onResponse(Call<DetailUser> call, Response<DetailUser> response) {
+                if(response.body() != null && response.isSuccessful()){
+                    holder.itemBinding.tvUserName.setText(response.body().getUser_name());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DetailUser> call, Throwable t) {
+
+            }
+        });
 
            holder.itemBinding.tvTenSuKien.setText(detailEvent.getTenSuKien());
-           holder.itemBinding.tvUserName.setText(detailEvent.getTenNam());
            holder.itemBinding.tvCommentNumber.setText(String.valueOf(detailEvent.getCountComment()));
            holder.itemBinding.tvEventDetail.setText(detailEvent.getNoiDungSuKien());
            holder.itemBinding.tvViewNumber.setText(String.valueOf(detailEvent.getCountView()));
@@ -102,20 +158,19 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.Even
             Glide.with(holder.itemView.getContext()).load(urlImgMale).error(R.drawable.baseline_account_circle_24).into(holder.itemBinding.avatarImageView);
 //            Glide.with(holder.itemView.getContext()).load(urlImgFemale).error(R.drawable.baseline_account_circle_24).into(holder.itemCommentBinding.imageAvatar2);
         }
-           holder.itemView.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   if(EventonClickDetail != null){
-                       EventonClickDetail.onClickItem();
-                       Log.d("position", "onClick: ");
-                   }
-               }
-           });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onEventClickListener != null) {
+                    onEventClickListener.onEventClick(events.get(position_view));
+                }
+            }
+        });
        }
 
     @Override
     public int getItemCount() {
-        return null == eventList ? 0 : eventList.size();
+        return null == eventList ? 0 : eventList.size() - 1;
     }
     @Override
     public Filter getFilter() {
@@ -150,6 +205,7 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.Even
             }
         };
     }
+
     public static class EventHomeViewHolder extends RecyclerView.ViewHolder {
 
         private final ItemRcvEvent1Binding itemBinding;

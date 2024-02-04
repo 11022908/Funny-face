@@ -6,14 +6,14 @@ public class Login {
 
     public Login(int id_user, int count_comment, int count_sukien, int count_view, String device_register, String email, String ip_register, String link_avatar, String user_name) {
         this.id_user = id_user;
-        this.count_comment = count_comment;
-        this.count_sukien = count_sukien;
-        this.count_view = count_view;
-        this.device_register = device_register;
-        this.email = email;
-        this.ip_register = ip_register;
         this.link_avatar = link_avatar;
         this.user_name = user_name;
+        this.ip_register = ip_register;
+        this.device_register = device_register;
+        this.email = email;
+        this.count_sukien = count_sukien;
+        this.count_comment = count_comment;
+        this.count_view = count_view;
         this.token = token;
     }
 

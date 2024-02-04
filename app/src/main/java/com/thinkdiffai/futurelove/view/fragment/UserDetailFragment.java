@@ -67,6 +67,7 @@ public class UserDetailFragment extends Fragment {
     private UserCommentAdapter commentAdapter;
     private EventHomeAdapter eventHomeAdapter;
     private int id_user ;
+    String link_avatar;
 
     private MainActivity mainActivity;
     private KProgressHUD kProgressHUD;
@@ -99,7 +100,7 @@ public class UserDetailFragment extends Fragment {
         String id_user_str = sharedPreferences.getString("id_user", "");
         String user_name_login = sharedPreferences.getString("name_user", null);
         String email_login = sharedPreferences.getString("email_user", null);
-        String link_avatar = sharedPreferences.getString("avatar", null);
+        link_avatar = sharedPreferences.getString("avatar", null);
         if (id_user_str == "") {
             id_user = 0;
         }else{
@@ -128,12 +129,9 @@ public class UserDetailFragment extends Fragment {
         initializeRecyclerView();
     }
 
-//    private void loadingUserDetailFromApi() {
-//        try {
-//            getDataUserDetail();
-//        } catch (Exception e) {
-//            Log.e("ExceptionRuntime", e.toString());
-//        }
+//    private void CallApi(){
+//        ApiService apiService = RetrofitClient.getInstance("").getRetrofit().create(ApiService.class);
+//        Call<Object> call = apiService.changeAvatar(id_user, link_avatar, )
 //    }
 
     private void loadingUserCommentsFromApi() {
@@ -175,6 +173,7 @@ public class UserDetailFragment extends Fragment {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onResponse(Call<UserComment> call, Response<UserComment> response) {
+                fragmentUserDetailBinding.rcvPersonalEvents.setNestedScrollingEnabled(false);
                 if(id_user==0){
                     commentAdapter.setData(commentList);
                 } else if (response.isSuccessful() && response.body() != null) {
@@ -220,7 +219,8 @@ public class UserDetailFragment extends Fragment {
                     getCountEvents(detailUsers.getCount_sukien());
                     fragmentUserDetailBinding.tvQuantityViews.setText(String.valueOf(detailUsers.getCount_comment()));
                     fragmentUserDetailBinding.tvQuantityComments.setText(String.valueOf(detailUsers.getCount_view()));
-                    Glide.with(fragmentUserDetailBinding.imgUserAvatar.getContext()).load(detailUsers.getLink_avatar()).error(R.drawable.baseline_account_circle_24).into(fragmentUserDetailBinding.imgUserAvatar);
+                    Glide.with(getContext()).load(link_avatar).into(fragmentUserDetailBinding.imgUserAvatar);
+//                    Glide.with(getContext()).load(detailUsers.getLink_avatar()).error(R.drawable.baseline_account_circle_24).into(fragmentUserDetailBinding.imgUserAvatar);
                 } else {
                     fragmentUserDetailBinding.tvUserName.setText("null");
                     fragmentUserDetailBinding.tvQuantityEvents.setText("0");

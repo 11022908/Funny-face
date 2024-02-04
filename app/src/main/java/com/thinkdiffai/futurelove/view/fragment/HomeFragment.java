@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -22,16 +24,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gauravk.bubblenavigation.BubbleNavigationLinearView;
 import com.thinkdiffai.futurelove.R;
 import com.thinkdiffai.futurelove.databinding.FragmentHomeBinding;
+import com.thinkdiffai.futurelove.model.DetailEvent;
 import com.thinkdiffai.futurelove.model.DetailEventList;
 import com.thinkdiffai.futurelove.model.DetailEventListParent;
 import com.thinkdiffai.futurelove.model.ListVideoModel;
+import com.thinkdiffai.futurelove.model.ListVideoModel2;
 import com.thinkdiffai.futurelove.model.VideoModel;
+import com.thinkdiffai.futurelove.model.VideoModel2;
 import com.thinkdiffai.futurelove.model.VideoModelCustom;
 import com.thinkdiffai.futurelove.service.api.ApiService;
 import com.thinkdiffai.futurelove.service.api.RetrofitClient;
 import com.thinkdiffai.futurelove.service.api.Server;
 
 import com.thinkdiffai.futurelove.util.PaginationScrollListener;
+import com.thinkdiffai.futurelove.view.adapter.ListVideoTemplateAdapter;
 import com.thinkdiffai.futurelove.view.adapter.VideoAdapter;
 import com.thinkdiffai.futurelove.view.fragment.activity.MainActivity;
 import com.thinkdiffai.futurelove.view.adapter.EventHomeAdapter;
@@ -68,9 +74,10 @@ public class HomeFragment extends Fragment {
     private boolean isLastPage;
     private int currentPage = 1;
     private VideoAdapter videoAdapter;
+    private String uriResponse;
     //    Hung fix
     private Context context;
-
+    List<Integer> listIduser;
 
     @Nullable
     @Override
@@ -150,6 +157,45 @@ public class HomeFragment extends Fragment {
 //
 //            }
 //        });
+        ApiService apiService = RetrofitClient.getInstance(Server.DOMAIN2).getRetrofit().create(ApiService.class);
+        Call<ListVideoModel2> call = apiService.getListVideo(1, 0);
+
+        call.enqueue(new Callback<ListVideoModel2>() {
+            @Override
+            public void onResponse(Call<ListVideoModel2> call, Response<ListVideoModel2> response) {
+                ListVideoModel2 listVideoModel2 = (ListVideoModel2) response.body();
+                ListVideoTemplateAdapter listVideoTemplateAdapter = new ListVideoTemplateAdapter(listVideoModel2, getContext());
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+                listVideoTemplateAdapter.setOnVideoClickListener(new ListVideoTemplateAdapter.OnVideoClickListener() {
+                    @Override
+                    public void onVideoClick(VideoModel2 videoModel2) {
+                        if(videoModel2 != null){
+                            Bundle bundle = new Bundle();
+                            bundle.putString("id_video", String.valueOf(videoModel2.getId()));
+                            bundle.putString("name_video", videoModel2.getNoi_dung());
+                            bundle.putString("url_video", videoModel2.getLink_video());
+                            Log.d("check_data_before_bundle", "onVideoClick: " + videoModel2.getId() + videoModel2.getNoi_dung() + videoModel2.getLink_video());
+                            DetailVideoTemplateFragment fragment = new DetailVideoTemplateFragment();
+                            fragment.setArguments(bundle);
+                            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.homeFragment, fragment);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+                        }
+                    }
+
+                });
+
+                fragmentHomeBinding.rcvVideo.setLayoutManager(layoutManager);
+                fragmentHomeBinding.rcvVideo.setAdapter(listVideoTemplateAdapter);
+            }
+            @Override
+            public void onFailure(Call<ListVideoModel2> call, Throwable t) {
+                Log.d("check_list_video_failure", "onResponse: " + t.getMessage());
+
+            }
+        });
     }
 
     private void goToPageVideo(int position) {
@@ -171,14 +217,53 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<DetailEventListParent> call, Response<DetailEventListParent> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Log.d("check_response_1", "onResponse: pke");
-                    Log.d("check_response_1", "onResponse: "+ response.body());
+
+
                     DetailEventListParent detailEventListParent = response.body();
                     List<DetailEventList> detailEventLists = detailEventListParent.getListSukien();
+                    List<DetailEvent> detailEvents = new ArrayList<>();
+                    listIduser = new ArrayList<>();
+                    for(DetailEventList dtl : detailEventLists){
+                        for(DetailEvent dt : dtl.getSukien()) {
+                            detailEvents.add(dt);
+                        }
+                    }
+                    for(DetailEvent dte : detailEvents){
+                        listIduser.add(dte.getIdUser());
+                    }
+
+
                     if (!detailEventLists.isEmpty()){
-                        eventHomeAdapter.setData(detailEventLists);
+                        fragmentHomeBinding.rcvHome.setNestedScrollingEnabled(false);
+                        eventHomeAdapter.setData(detailEventLists, listIduser);
+
                         Log.d("hung", "onResponse: "+detailEventLists.size());
                         eventHomeAdapter.notifyDataSetChanged();
+                        eventHomeAdapter.setOnEventClickListener(new EventHomeAdapter.OnEventClickListener() {
+                            @Override
+                            public void onEventClick(DetailEvent detailEvent) {
+                                if(detailEvent != null){
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("id_event", String.valueOf(detailEvent.getId()));
+                                    bundle.putString("name_event", detailEvent.getTenSuKien());
+                                    bundle.putString("name_user", detailEvent.getTenNam());
+                                    bundle.putInt("count_comment", detailEvent.getCountComment());
+                                    bundle.putInt("count_view", detailEvent.getCountView());
+                                    bundle.putString("detail_event", detailEvent.getNoiDungSuKien());
+                                    bundle.putString("link_avatar_event", detailEvent.getLinkNamGoc());
+                                    bundle.putString("stt_su_kien", String.valueOf(detailEvent.getSoThuTuSuKien()));
+                                    bundle.putString("id_user", String.valueOf(detailEvent.getIdUser()));
+
+                                    DetailEventFragment fragment = new DetailEventFragment();
+                                    fragment.setArguments(bundle);
+                                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                    fragmentTransaction.replace(R.id.fragment_home, fragment);
+                                    fragmentTransaction.addToBackStack(null);
+                                    fragmentTransaction.commit();
+                                }
+                            }
+                        });
                     }
                 }
                 if (kProgressHUD.isShowing()) {
@@ -233,8 +318,6 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
     }
-
-
 
     private void navigateToUserDetailFragment() {
         NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.action_homeFragment_to_userDetailFragment);
@@ -367,6 +450,7 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
 
     private void getData() {
         if (!kProgressHUD.isShowing() && isLoadingMore) {

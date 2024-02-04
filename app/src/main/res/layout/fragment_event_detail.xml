@@ -4,154 +4,169 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    >
+    android:background="@color/bg_color">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_marginTop="@dimen/define_dimen_40"
-        android:id="@+id/linearLayoutCompat3"
+    <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/define_dimen_40"
-        android:orientation="horizontal"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btn_come_back"
-            android:layout_width="@dimen/define_dimen_24"
-            android:layout_height="@dimen/define_dimen_24"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/define_dimen_16"
-            android:background="@drawable/chevron_left" />
-
-        <androidx.appcompat.widget.AppCompatTextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/roboto_slab"
-            android:gravity="center"
-            android:text="Event"
-            android:textSize="21sp"
-            android:textStyle="bold" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_event"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/define_dimen_16"
-        android:layout_marginTop="@dimen/define_dimen_24"
-        android:layout_marginRight="@dimen/define_dimen_16"
-        android:background="@drawable/frame_event_info_1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat3"
-        />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_comment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:layout_marginTop="@dimen/define_dimen_16"
-        android:layout_marginBottom="@dimen/define_dimen_12"
-        android:layout_marginRight="@dimen/define_dimen_16"
-        android:layout_marginLeft="@dimen/define_dimen_16"
-        app:layout_constraintTop_toBottomOf="@id/rcv_event"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        />
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/linearLayoutCompat4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/define_dimen_16"
-        android:layout_marginTop="@dimen/define_dimen_12"
-        android:layout_marginRight="@dimen/define_dimen_16"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rcv_comment">
-
-
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/roboto_slab"
-            android:gravity="center"
-            android:text="View more comments"
-            android:textSize="@dimen/define_dimen_14" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/define_dimen_8"
-        android:layout_marginRight="@dimen/define_dimen_16"
-        android:layout_marginLeft="@dimen/define_dimen_16"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat4">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/layout_img_person2_events"
-            android:layout_width="43dp"
-            android:layout_height="43dp"
-            android:layout_marginTop="@dimen/define_dimen_4"
-            app:cardCornerRadius="@dimen/define_dimen_100">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/img_person2_events"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearLayoutCompat3"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/layout_img_user" />
-        </androidx.cardview.widget.CardView>
+                android:layout_height="@dimen/define_dimen_40"
+                android:layout_marginTop="@dimen/define_dimen_40"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginLeft="@dimen/define_dimen_10"
-            android:layout_toEndOf="@+id/layout_img_person2_events"
-            android:background="@drawable/bg_meet"
-            android:padding="@dimen/define_dimen_4">
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_come_back"
+                    android:layout_width="@dimen/define_dimen_24"
+                    android:layout_height="@dimen/define_dimen_24"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/define_dimen_16"
+                    android:background="@drawable/chevron_left" />
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/edt_givecomment"
-                android:layout_width="wrap_content"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/roboto_slab"
+                    android:gravity="center"
+                    android:text="Event"
+                    android:textColor="@color/white"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_event"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_gravity="center"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="@dimen/define_dimen_8"
-                android:layout_toStartOf="@+id/btn_search_process"
-                android:layout_weight="8"
-                android:background="@color/transparent"
-                android:hint="Give a comment"
-                android:textColor="@color/black"
-                android:visibility="visible"
-                android:textColorHint="#9B9B9B"
-                android:textSize="14sp" />
+                android:layout_marginLeft="@dimen/define_dimen_16"
+                android:layout_marginTop="@dimen/define_dimen_24"
+                android:layout_marginRight="@dimen/define_dimen_16"
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/btn_search_process"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_gravity="center"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="9dp"
-                android:background="@color/transparent"
-                android:scaleType="fitCenter"
-                android:src="@drawable/bi_send_fill" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </RelativeLayout>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat3" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/define_dimen_16"
+                android:layout_marginTop="@dimen/define_dimen_16"
+                android:layout_marginRight="@dimen/define_dimen_16"
+                android:layout_marginBottom="@dimen/define_dimen_12"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rcv_event"
+
+                />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearLayoutCompat4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/define_dimen_16"
+                android:layout_marginTop="@dimen/define_dimen_12"
+                android:layout_marginRight="@dimen/define_dimen_16"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rcv_comment">
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/roboto_slab"
+                    android:gravity="center"
+                    android:text="View more comments"
+                    android:textSize="@dimen/define_dimen_14" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/define_dimen_16"
+                android:layout_marginTop="@dimen/define_dimen_8"
+                android:layout_marginRight="@dimen/define_dimen_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat4">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/layout_img_person2_events"
+                    android:layout_width="43dp"
+                    android:layout_height="43dp"
+                    android:layout_marginTop="@dimen/define_dimen_4"
+                    app:cardCornerRadius="@dimen/define_dimen_100">
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/img_person2_events"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/baseline_account_circle_24" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="@dimen/define_dimen_10"
+                    android:layout_toEndOf="@+id/layout_img_person2_events"
+                    android:background="@drawable/bg_meet"
+                    android:padding="@dimen/define_dimen_4">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edt_givecomment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="@dimen/define_dimen_8"
+                        android:layout_toStartOf="@+id/btn_search_process"
+                        android:layout_weight="8"
+                        android:background="@color/transparent"
+                        android:hint="Give a comment"
+                        android:textColor="@color/black"
+                        android:textColorHint="#9B9B9B"
+                        android:textSize="14sp"
+                        android:visibility="visible" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btn_search_process"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="9dp"
+                        android:background="@color/transparent"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/bi_send_fill" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

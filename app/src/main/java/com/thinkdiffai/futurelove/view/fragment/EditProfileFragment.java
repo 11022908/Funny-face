@@ -7,8 +7,10 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -50,7 +52,10 @@ public class EditProfileFragment extends Fragment {
     private static final int PERMISSION_REQUEST_CODE = 2;
     Uri selectedImageUri;
     int id_user;
+    String link_avatar;
+    String token_au;
     String uriResponse;
+    private SharedPreferences sharedPreferences;
 
     @Nullable
     @Override
@@ -67,24 +72,28 @@ public class EditProfileFragment extends Fragment {
             Log.d("Exception", "onViewCreated: " + ex.getMessage());
         }
         super.onViewCreated(view, savedInstanceState);
+        sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        id_user = Integer.parseInt(sharedPreferences.getString("id_user", ""));
+        link_avatar = sharedPreferences.getString("link_avatar", "");
+        token_au = sharedPreferences.getString("token", "");
+
+        fragmentEditProfileBinding.btnSaveChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(uriResponse != null){
+                    Glide.with(getContext()).load(uriResponse).into(fragmentEditProfileBinding.avatarUser);
+
+                    Toast.makeText(getContext(), "change successfully", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        Log.d("check_edt_profile", "onViewCreated: " + "sdhfgshjf");
     }
     private void InitUI(){
         fragmentEditProfileBinding.btnComeBack.setOnClickListener(v -> requireActivity().onBackPressed());
         fragmentEditProfileBinding.btnUploadImage.setOnClickListener(v -> openDialog());
-
-        fragmentEditProfileBinding.btnSaveChange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(uriResponse != null){
-                    Log.d("check_uri", "onClick: " + uriResponse);
-
-                }
-            }
-        });
     }
-    private void changeAvatar(){
-        ApiService apiService = RetrofitClient.getInstance(Server.DOMAIN4).getRetrofit().create(ApiService.class);
-    }
+
     private void openDialog() {
         dialogBottomSheetSelectedHomeBinding = DialogBottomSheetSelectedHomeBinding.inflate(LayoutInflater.from(getContext()));
         bottomSheetDialog = new BottomSheetDialog(requireContext());
@@ -128,9 +137,20 @@ public class EditProfileFragment extends Fragment {
                 }
             }
     );
-    private void openCamera(){
-
+    private void openCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 100);
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 100){
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            fragmentEditProfileBinding.avatarUser.setImageBitmap(bitmap);
+            bottomSheetDialog.dismiss();
+        }
+    }
+
     private void loadImage(String link_img) {
         Glide.with(this)
                 .load(link_img)
@@ -148,7 +168,7 @@ public class EditProfileFragment extends Fragment {
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
                     uriResponse = response.body();
-
+                    Toast.makeText(getContext(), "Upload successfully", Toast.LENGTH_SHORT).show();
                     Log.d("check_upload_image_your_video", "onResponse: " + uriResponse);
                 }
             }
