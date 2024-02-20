@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -76,12 +77,14 @@ public class PairingFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 changeColorBg(fragmentPairingBinding.btnSwapEvent);
+                NavToCreateEvent();
             }
         });
         fragmentPairingBinding.btnEventLove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 changeColorBg(fragmentPairingBinding.btnEventLove);
+
             }
         });
         fragmentPairingBinding.btnGenBaby.setOnClickListener(new View.OnClickListener() {
@@ -162,6 +165,27 @@ public class PairingFragment extends Fragment {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+    private void NavToCreateEvent(){
+        NavHostFragment.findNavController(PairingFragment.this).navigate(R.id.createEventFragment);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //    private static final String NO_FACE_DETECTED = "No faces detected";
 //    private static final String MORE_THAN_ONE_FACE = "More than one face is recognized";
 //    private FragmentPairingBinding fragmentPairingBinding;

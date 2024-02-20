@@ -359,7 +359,7 @@ public class UserDetailFragment extends Fragment {
                     navigateToCommentFragment();
                     mainActivity.commentToUserDetail = false;
                 } else if (mainActivity.pairingToUserDetail) {
-                    navigateToPairingFragment();
+//                    navigateToPairingFragment();
                     mainActivity.pairingToUserDetail = false;
                 }
 
@@ -367,9 +367,9 @@ public class UserDetailFragment extends Fragment {
         });
     }
 
-    private void navigateToPairingFragment() {
-        NavHostFragment.findNavController(UserDetailFragment.this).navigate(R.id.action_userDetailFragment_to_pairingFragment);
-    }
+//    private void navigateToPairingFragment() {
+//        NavHostFragment.findNavController(UserDetailFragment.this).navigate(R.id.action_userDetailFragment_to_pairingFragment);
+//    }
 
     private void navigateToCommentFragment() {
         NavHostFragment.findNavController(UserDetailFragment.this).navigate(R.id.action_userDetailFragment_to_commentFragment);

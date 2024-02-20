@@ -164,7 +164,7 @@
             android:layout_marginTop="1dp"
             android:paddingHorizontal="4dp"
             android:fontFamily="@font/roboto_slab"
-            android:text="@string/enter_your_email"
+            android:text="@string/enter_your_name"
             android:textColor="@color/red"
             android:paddingVertical="1dp"
             android:textSize="12sp"
@@ -365,6 +365,7 @@
 
             <!-- Google -->
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/signUpGoogle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_logo_shape"
@@ -396,6 +397,7 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
             <!--facebook login-->
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/signUpFacebook"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_logo_shape"

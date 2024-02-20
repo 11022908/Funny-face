@@ -72,6 +72,52 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="PairingFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="326" />
+                            <option name="y" value="-1194" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_PairingFragment_to_commentFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_PairingFragment_to_eventsFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_PairingFragment_to_homeFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_PairingFragment_to_listVideoFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_PairingFragment_to_timelineFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_PairingFragment_to_userDetailFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="addEventFragment">
                     <value>
                       <LayoutPositions>
@@ -109,6 +155,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_commentFragment_to_PairingFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_commentFragment_to_eventsFragment">
                               <value>
                                 <LayoutPositions />
@@ -120,11 +171,6 @@
                               </value>
                             </entry>
                             <entry key="action_commentFragment_to_listVideoFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_commentFragment_to_pairingFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -144,6 +190,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="createEventFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-252" />
+                            <option name="y" value="-745" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="detailVideoTemplateFragment">
                     <value>
                       <LayoutPositions>
@@ -151,6 +209,18 @@
                           <Point>
                             <option name="x" value="-749" />
                             <option name="y" value="-859" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="editEventFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1663" />
+                            <option name="y" value="-1290" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -200,6 +270,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_eventsFragment_to_PairingFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_eventsFragment_to_addEventFragment">
                               <value>
                                 <LayoutPositions />
@@ -220,11 +295,6 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_eventsFragment_to_pairingFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -241,6 +311,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_homeFragment_to_PairingFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_homeFragment_to_commentFragment2">
                               <value>
                                 <LayoutPositions />
@@ -266,11 +341,6 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_homeFragment_to_pairingFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_homeFragment_to_timelineFragment">
                               <value>
                                 <LayoutPositions />
@@ -287,6 +357,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="imageFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1452" />
+                            <option name="y" value="-1276" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -314,6 +396,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_listVideoFragment_to_PairingFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_listVideoFragment_to_commentFragment">
                               <value>
                                 <LayoutPositions />
@@ -325,11 +412,6 @@
                               </value>
                             </entry>
                             <entry key="action_listVideoFragment_to_menuProfileFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_listVideoFragment_to_pairingFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -434,52 +516,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="pairingFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="357" />
-                            <option name="y" value="-619" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_pairingFragment_to_commentFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_pairingFragment_to_eventsFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_pairingFragment_to_homeFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_pairingFragment_to_listVideoFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_pairingFragment_to_timelineFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_pairingFragment_to_userDetailFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="swap2Image">
                     <value>
                       <LayoutPositions>
@@ -550,17 +586,17 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_timelineFragment_to_PairingFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_timelineFragment_to_commentFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
                             <entry key="action_timelineFragment_to_homeFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_timelineFragment_to_pairingFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -581,6 +617,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_userDetailFragment_to_PairingFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_userDetailFragment_to_commentFragment">
                               <value>
                                 <LayoutPositions />
@@ -601,17 +642,24 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_userDetailFragment_to_pairingFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_userDetailFragment_to_timelineFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="videoFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1219" />
+                            <option name="y" value="-1276" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

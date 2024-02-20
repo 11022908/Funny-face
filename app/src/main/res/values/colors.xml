@@ -51,4 +51,5 @@
     <color name="bg_btn_edit_profile">#191919</color>
     <color name="bg_323232">#323232</color>
     <color name="bg_1c1c1c">#323232</color>
+    <color name="bg_create_event">#777777</color>
 </resources>

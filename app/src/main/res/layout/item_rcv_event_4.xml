@@ -32,31 +32,29 @@
         app:layout_constraintStart_toEndOf="@+id/img_video_frame"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <EditText
             android:id="@+id/tv_event_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_slab"
-            android:text="First"
+            android:hint="Name of event"
             android:textColor="@color/black"
             android:textFontWeight="600"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <EditText
             android:id="@+id/tv_event_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:ellipsize="end"
-
-            android:fontFamily="@font/roboto_slab"
-            android:lineHeight="20dp"
-
-            android:maxLines="4"
-            android:text="@string/event_detail"
             android:textAlignment="center"
+            android:maxLines="4"
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto_slab"
+            android:lineHeight="16sp"
+            android:hint="Do you think about this event..."
             android:textColor="@color/black"
             android:textFontWeight="400"
             app:layout_constraintStart_toStartOf="parent"
@@ -70,53 +68,53 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/img_comment_icon"
-                android:layout_width="16dp"
-                android:layout_height="12dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_comment_number"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_event_detail" />
+<!--            <androidx.appcompat.widget.AppCompatImageView-->
+<!--                android:id="@+id/img_comment_icon"-->
+<!--                android:layout_width="16dp"-->
+<!--                android:layout_height="12dp"-->
+<!--                android:scaleType="fitCenter"-->
+<!--                android:src="@drawable/ic_comment_number"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/tv_event_detail" />-->
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_comment_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/roboto_slab"
-                android:lineHeight="22dp"
-                android:text="15"
-                android:textColor="@color/black"
-                android:textFontWeight="400"
-                app:layout_constraintBottom_toBottomOf="@+id/img_comment_icon"
-                app:layout_constraintStart_toEndOf="@+id/img_comment_icon"
-                app:layout_constraintTop_toTopOf="@+id/img_comment_icon" />
+<!--            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                android:id="@+id/tv_comment_number"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="8dp"-->
+<!--                android:fontFamily="@font/roboto_slab"-->
+<!--                android:lineHeight="22dp"-->
+<!--                android:text="15"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textFontWeight="400"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/img_comment_icon"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/img_comment_icon"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/img_comment_icon" />-->
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/img_views_icon"
-                android:layout_width="16dp"
-                android:layout_height="12dp"
-                android:layout_marginStart="12dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_view_number"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_comment_number"
-                app:layout_constraintStart_toEndOf="@+id/tv_comment_number"
-                app:layout_constraintTop_toTopOf="@+id/tv_comment_number" />
+<!--            <androidx.appcompat.widget.AppCompatImageView-->
+<!--                android:id="@+id/img_views_icon"-->
+<!--                android:layout_width="16dp"-->
+<!--                android:layout_height="12dp"-->
+<!--                android:layout_marginStart="12dp"-->
+<!--                android:scaleType="fitCenter"-->
+<!--                android:src="@drawable/ic_view_number"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/tv_comment_number"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/tv_comment_number"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/tv_comment_number" />-->
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_view_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/roboto_slab"
-                android:lineHeight="22dp"
-                android:text="2.3k"
-                android:textColor="@color/black"
-                android:textFontWeight="400"
-                app:layout_constraintBottom_toBottomOf="@+id/img_views_icon"
-                app:layout_constraintStart_toEndOf="@+id/img_views_icon"
-                app:layout_constraintTop_toTopOf="@+id/img_views_icon" />
+<!--            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                android:id="@+id/tv_view_number"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="8dp"-->
+<!--                android:fontFamily="@font/roboto_slab"-->
+<!--                android:lineHeight="22dp"-->
+<!--                android:text="2.3k"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textFontWeight="400"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/img_views_icon"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/img_views_icon"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/img_views_icon" />-->
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>

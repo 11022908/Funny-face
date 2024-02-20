@@ -1,7 +1,6 @@
 package com.thinkdiffai.futurelove.view.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,167 +9,110 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.Toast;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
-import androidx.navigation.NavController;
-import androidx.navigation.NavHostController;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.tabs.TabItem;
-import com.thinkdiffai.futurelove.R;
 import com.thinkdiffai.futurelove.databinding.ItemRcvEvent1Binding;
-import com.thinkdiffai.futurelove.databinding.TabItemBinding;
 import com.thinkdiffai.futurelove.model.Comon;
 import com.thinkdiffai.futurelove.model.DetailEvent;
 import com.squareup.picasso.Picasso;
 import com.thinkdiffai.futurelove.model.DetailEventList;
-import com.thinkdiffai.futurelove.model.VideoModel2;
-import com.thinkdiffai.futurelove.model.comment.DetailUser;
-import com.thinkdiffai.futurelove.service.api.ApiService;
-import com.thinkdiffai.futurelove.service.api.RetrofitClient;
-import com.thinkdiffai.futurelove.view.fragment.HomeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.EventHomeViewHolder>  implements Filterable {
 
+
+    long id_toan_bo_su_kien;
     private List<DetailEventList> eventList;
     private List<DetailEventList> eventListOld;
+
+    public void setData(List<DetailEventList> eventList) {
+        this.eventList = eventList;
+        this.eventListOld=eventList;
+    }
     public IOnClickItemListener iOnClickItem;
-    public EventonClick EventonClick;
-    public EventonClick EventonClickDetail;
-    public clickEventDetail onClickDetail;
-    private String urlImgMale;
-    String name_user;
-    private String urlImgFemale;
-    public interface EventonClick {
-        void onClickItem();
-    }
-    public void NavEventDetail(EventonClick eventonClick){
-        this.EventonClickDetail = eventonClick;
-    }
-    public void setOnClickDetail(clickEventDetail clickDetail){
-        this.onClickDetail = clickDetail;
-    }
-    private Context context;
+    Context context;
 
 
-    public interface OnEventClickListener {
-        void onEventClick(DetailEvent detailEvent);
+    private OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
     }
-
-    private OnEventClickListener onEventClickListener;
-
-    public void setOnEventClickListener(OnEventClickListener listener) {
-        this.onEventClickListener = listener;
-    }
-
-    private List<Integer> listId;
 
 
     public EventHomeAdapter(List<DetailEventList> eventList, IOnClickItemListener iOnClickItem, Context context) {
         this.eventList = eventList;
         this.iOnClickItem = iOnClickItem;
         this.context = context;
+    }
 
-    }
-    public EventHomeAdapter(List<DetailEventList> eventList, IOnClickItemListener iOnClickItem, Context contex, List<Integer> listId) {
-        this.eventList = eventList;
-        this.iOnClickItem = iOnClickItem;
-        this.context = context;
-        this.listId = listId;
-    }
-    public void setData(List<DetailEventList> detailEventLists, List<Integer> listId) {
-        eventList = detailEventLists;
-        eventListOld = detailEventLists;
-        this.listId = listId;
-    }
-    public void setData(List<DetailEventList> detailEventLists) {
-        eventList = detailEventLists;
-        eventListOld = detailEventLists;
-        this.listId = listId;
-    }
+//    public EventHomeAdapter(List<DetailEventList> eventList, Context context, OnItemClickListener onItemClickListener) {
+//        this.eventList = eventList;
+//        this.context = context;
+//        this.onItemClickListener = onItemClickListener;
+//    }
+
     public interface IOnClickItemListener {
-        void onClickItem(long idToanBoSuKien);
+        void onClickItem(DetailEvent detailEvent);
     }
-
-    public interface clickEventDetail{
-        void onClick(int position);
-    }
-
     @NonNull
     @Override
     public EventHomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         ItemRcvEvent1Binding itemBinding = ItemRcvEvent1Binding
                 .inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        TabItemBinding tabItemBinding = TabItemBinding
-                .inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        return new EventHomeViewHolder(itemBinding, tabItemBinding);
+
+        return new EventHomeViewHolder(itemBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull EventHomeViewHolder holder, int position) {
-       DetailEventList detailList = eventList.get(position);
-       int position_view = position;
-       List<DetailEvent> events = detailList.getSukien();
-        Log.d("size events: ", "onBindViewHolder: " + events.size());
-       DetailEvent detailEvent = events.get(position);
-        Log.d("id_user_event: " + events.get(position), "onBindViewHolder: " + detailEvent.getIdUser());
-
-       int id_user = detailEvent.getIdUser();
-
-
-
-        ApiService apiService = RetrofitClient.getInstance("").getRetrofit().create(ApiService.class);
-        Call<DetailUser> call = apiService.getDetailUser(id_user);
-        call.enqueue(new Callback<DetailUser>() {
-            @Override
-            public void onResponse(Call<DetailUser> call, Response<DetailUser> response) {
-                if(response.body() != null && response.isSuccessful()){
-                    holder.itemBinding.tvUserName.setText(response.body().getUser_name());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DetailUser> call, Throwable t) {
-
-            }
-        });
-
-           holder.itemBinding.tvTenSuKien.setText(detailEvent.getTenSuKien());
-           holder.itemBinding.tvCommentNumber.setText(String.valueOf(detailEvent.getCountComment()));
-           holder.itemBinding.tvEventDetail.setText(detailEvent.getNoiDungSuKien());
-           holder.itemBinding.tvViewNumber.setText(String.valueOf(detailEvent.getCountView()));
-           holder.itemBinding.tvDate.setText(detailEvent.getRealTime());
-        if (detailEvent.getLinkNamGoc() != null && !detailEvent.getLinkNamGoc().isEmpty() && detailEvent.getLinkNuGoc() != null && !detailEvent.getLinkNuGoc().isEmpty()) {
-            Glide.with(holder.itemView.getContext()).load(detailEvent.getLinkNamGoc()).error(R.drawable.baseline_account_circle_24).into(holder.itemBinding.avatarImageView);
-//            Glide.with(holder.itemView.getContext()).load(comment.getLinkNuGoc()).error(R.drawable.baseline_account_circle_24).into(holder.itemCommentBinding.imageAvatar2);
-        }
-        else if (urlImgFemale != null && !urlImgFemale.isEmpty() && urlImgMale != null && !urlImgMale.isEmpty()) {
-            Glide.with(holder.itemView.getContext()).load(urlImgMale).error(R.drawable.baseline_account_circle_24).into(holder.itemBinding.avatarImageView);
-//            Glide.with(holder.itemView.getContext()).load(urlImgFemale).error(R.drawable.baseline_account_circle_24).into(holder.itemCommentBinding.imageAvatar2);
-        }
+        int position_view = position;
+        DetailEventList eventsList = eventList.get(position);
+        if (eventsList.getSukien().size() == 0)
+            return;
+        List<DetailEvent> detailEvents = eventsList.getSukien();
+        if (detailEvents.get(0) == null)
+            return;
+        DetailEvent detailEvent = detailEvents.get(0);
+        Glide.with(holder.itemView.getContext()).load(detailEvent.getLinkNamGoc()).into(holder.itemBinding.avatarImageView);
+        holder.itemBinding.tvTenSuKien.setText(detailEvent.getTenSuKien());
+        id_toan_bo_su_kien = eventsList.getSukien().get(0).getIdToanBoSuKien();
+        holder.itemBinding.tvCommentNumber.setText(String.valueOf(detailEvent.getCountComment()));
+        holder.itemBinding.tvEventDetail.setText(detailEvent.getNoiDungSuKien());
+        holder.itemBinding.tvViewNumber.setText(String.valueOf(detailEvent.getCountView()));
+        holder.itemBinding.tvDate.setText(detailEvent.getRealTime());
+        Log.d("line88", "onBindViewHolder: " + detailEvents.size());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if (onEventClickListener != null) {
-                    onEventClickListener.onEventClick(events.get(position_view));
-                }
+            public void onClick(View view) {
+                iOnClickItem.onClickItem(detailEvent);
             }
         });
-       }
+//        holder.itemView.setOnClickListener(v -> {
+//            onItemClickListener.onItemClick(detailEvents.get(position_view));
+//        });
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.d("on_item_click_86", "onClick: " + onItemClickListener);
+//                if(onItemClickListener != null){
+//
+//                    onItemClickListener.onItemClick(detailEvent);
+//                    Toast.makeText(context, "abctrue", Toast.LENGTH_SHORT).show();
+//                }
+//                Toast.makeText(context, "abcfail", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+    }
 
     @Override
     public int getItemCount() {
-        return null == eventList ? 0 : eventList.size() - 1;
+        return null == eventList ? 0 : eventList.size();
     }
     @Override
     public Filter getFilter() {
@@ -207,13 +149,17 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.Even
     }
 
     public static class EventHomeViewHolder extends RecyclerView.ViewHolder {
+//        private final ItemRcvHistoryEventBinding itemRcvHistoryEventBinding;
 
         private final ItemRcvEvent1Binding itemBinding;
-
-        public EventHomeViewHolder(ItemRcvEvent1Binding itemBinding, TabItemBinding tabItem) {
+        public EventHomeViewHolder(ItemRcvEvent1Binding itemBinding) {
             super(itemBinding.getRoot());
             this.itemBinding = itemBinding;
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(DetailEvent detailEvent);
     }
 
 }

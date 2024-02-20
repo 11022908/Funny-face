@@ -128,7 +128,7 @@ public class EventsFragment extends Fragment {
         fragmentEventsBinding.btnPairingSk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToPairingFragment();
+//                goToPairingFragment();
             }
         });
         // Click btn Home
@@ -140,9 +140,9 @@ public class EventsFragment extends Fragment {
         });
     }
 
-    private void goToPairingFragment() {
-        NavHostFragment.findNavController(EventsFragment.this).navigate(R.id.action_eventsFragment_to_pairingFragment);
-    }
+//    private void goToPairingFragment() {
+//        NavHostFragment.findNavController(EventsFragment.this).navigate(R.id.action_eventsFragment_to_pairingFragment);
+//    }
 
     private void goToHomeFragment() {
         NavHostFragment.findNavController(EventsFragment.this).navigate(R.id.action_eventsFragment_to_homeFragment);

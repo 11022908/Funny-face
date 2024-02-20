@@ -50,7 +50,7 @@ public interface ApiService {
             @Field("check_img") String check_img
     );
 
-    @GET("https://metatechvn.store/profile/" + "{id_user}")
+    @GET("https://databaseswap.mangasocial.online/profile/" + "{id_user}")
     Call<DetailUser> getDetailUser(
             @Path("id_user") int id_user
     );
@@ -89,13 +89,13 @@ public interface ApiService {
             @Query("src_img") String src_image
     );
 
-    @GET("https://metatechvn.store/lovehistory/listvideo/" + "{page}")
+    @GET("https://databaseswap.mangasocial.online/lovehistory/listvideo/" + "{page}")
     Call<ListVideoModel2> getListVideo(
             @Path("page") int id,
             @Query("category") int id_categories
     );
 
-    @GET("https://lhvn.online/getdata/genvideo")
+    @GET("https://videoswap.mangasocial.online/getdata/genvideo")
     Call<EventVideo> getVideoSwap(
             @Header("Authorization") String authorization,
             @Query("id_video") String id_video,
@@ -140,7 +140,7 @@ public interface ApiService {
     );
 
 
-    @GET("https://lhvn.online/getdata/genvideo")
+    @GET("https://videoswap.mangasocial.online/getdata/genvideo")
     Call<GetVideoSwapResponse> getUrlVideoSwap(
             @Header("Authorization") String authorization,
             @Query("id_video") int idVideo,
@@ -172,7 +172,7 @@ public interface ApiService {
     );
 
     @Multipart
-    @POST("https://lhvn.online/getdata/genvideo/swap/imagevid")
+    @POST("https://videoswap.mangasocial.online/getdata/genvideo/swap/imagevid")
     Call<GetYourVideoSwapModel> PostVid (
             @Header("Authorization") String authorization,
             @Query("device_them_su_kien") String deviceThemSuKien,

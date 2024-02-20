@@ -11,10 +11,13 @@
         android:title="@string/comment" />
 
     <item
-        android:id="@+id/pairingFragment"
+        android:id="@+id/PairingFragment"
         android:icon="@drawable/library"
         android:title="@string/library" />
-
+<!--    <item-->
+<!--        android:id="@+id/fragmentContainerView5"-->
+<!--        android:icon="@drawable/library"-->
+<!--        android:title="@string/library" />-->
     <item
         android:id="@+id/listVideoFragment"
         android:icon="@drawable/notification"

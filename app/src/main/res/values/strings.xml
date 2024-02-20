@@ -25,6 +25,7 @@
     <string name="event_detail">Our first date was a mix of nervousness and excitement. We shared stories, laughed, and felt a growing connection</string>
     <string name="enter_your_user_name">A user name with a minimum length of 8 characters, containing no special characters, except \"_\"</string>
     <string name="enter_your_email">Follow the email rule: abc@abc.abc</string>
+    <string name="enter_your_name">Name length at less 8 character</string>
     <string name="enter_your_password">A password with a minimum length of 8 characters, containing no special characters, except \"_\"</string>
     <string name="enter_name">Enter name</string>
     <string name="click_here"><![CDATA[<-- Click here]]></string>

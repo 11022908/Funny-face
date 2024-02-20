@@ -75,6 +75,19 @@ public class RegisterFragment extends Fragment {
         clickOnLoginBtn();
         // When users want to see password clearly or not
         showPasswordClearly();
+
+        binding.signUpGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Feature is develop in the future", Toast.LENGTH_SHORT).show();
+            }
+        });
+        binding.signUpFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Feature is develop in the future", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setUpTextWatcher() {

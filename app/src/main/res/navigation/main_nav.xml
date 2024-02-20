@@ -18,8 +18,8 @@
 <!--            app:exitAnim="@anim/fade_out" />-->
 
         <action
-            android:id="@+id/action_homeFragment_to_pairingFragment"
-            app:destination="@id/pairingFragment"
+            android:id="@+id/action_homeFragment_to_PairingFragment"
+            app:destination="@id/PairingFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out" />
         <action
@@ -63,8 +63,8 @@
 <!--            app:enterAnim="@anim/fade_in"-->
 <!--            app:exitAnim="@anim/fade_out" />-->
         <action
-            android:id="@+id/action_commentFragment_to_pairingFragment"
-            app:destination="@id/pairingFragment"
+            android:id="@+id/action_commentFragment_to_PairingFragment"
+            app:destination="@id/PairingFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out" />
         <action
@@ -86,32 +86,32 @@
             app:destination="@id/homeFragment" />
     </fragment>
     <fragment
-        android:id="@+id/pairingFragment"
+        android:id="@+id/PairingFragment"
         android:name="com.thinkdiffai.futurelove.view.fragment.PairingFragment"
         android:label="PairingFragment">
         <action
-            android:id="@+id/action_pairingFragment_to_homeFragment"
+            android:id="@+id/action_PairingFragment_to_homeFragment"
             app:destination="@id/homeFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out" />
         <action
-            android:id="@+id/action_pairingFragment_to_commentFragment"
+            android:id="@+id/action_PairingFragment_to_commentFragment"
             app:destination="@id/commentFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out" />
         <action
-            android:id="@+id/action_pairingFragment_to_timelineFragment"
+            android:id="@+id/action_PairingFragment_to_timelineFragment"
             app:destination="@id/timelineFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out" />
         <action
-            android:id="@+id/action_pairingFragment_to_eventsFragment"
+            android:id="@+id/action_PairingFragment_to_eventsFragment"
             app:destination="@id/eventsFragment" />
         <action
-            android:id="@+id/action_pairingFragment_to_userDetailFragment"
+            android:id="@+id/action_PairingFragment_to_userDetailFragment"
             app:destination="@id/userDetailFragment" />
         <action
-            android:id="@+id/action_pairingFragment_to_listVideoFragment"
+            android:id="@+id/action_PairingFragment_to_listVideoFragment"
             app:destination="@id/listVideoFragment" />
     </fragment>
     <fragment
@@ -129,8 +129,8 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out" />
         <action
-            android:id="@+id/action_timelineFragment_to_pairingFragment"
-            app:destination="@id/pairingFragment"
+            android:id="@+id/action_timelineFragment_to_PairingFragment"
+            app:destination="@id/PairingFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out" />
     </fragment>
@@ -150,8 +150,8 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out" />
         <action
-            android:id="@+id/action_userDetailFragment_to_pairingFragment"
-            app:destination="@id/pairingFragment"
+            android:id="@+id/action_userDetailFragment_to_PairingFragment"
+            app:destination="@id/PairingFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out" />
         <action
@@ -195,8 +195,8 @@
             android:id="@+id/action_eventsFragment_to_commentFragment2"
             app:destination="@id/commentFragment" />
         <action
-            android:id="@+id/action_eventsFragment_to_pairingFragment"
-            app:destination="@id/pairingFragment" />
+            android:id="@+id/action_eventsFragment_to_PairingFragment"
+            app:destination="@id/PairingFragment" />
     </fragment>
     <fragment
         android:id="@+id/addEventFragment"
@@ -240,8 +240,8 @@
 <!--            app:destination="@id/swapFaceFragment" />-->
 
         <action
-            android:id="@+id/action_listVideoFragment_to_pairingFragment"
-            app:destination="@id/pairingFragment" />
+            android:id="@+id/action_listVideoFragment_to_PairingFragment"
+            app:destination="@id/PairingFragment" />
         <action
             android:id="@+id/action_listVideoFragment_to_commentFragment"
             app:destination="@id/commentFragment" />
@@ -338,4 +338,27 @@
         android:name="com.thinkdiffai.futurelove.view.fragment.DetailVideoTemplateFragment"
         android:label="fragment_detail_video"
         tools:layout="@layout/fragment_detail_video" />
+    <fragment
+        android:id="@+id/createEventFragment"
+        android:name="com.thinkdiffai.futurelove.view.fragment.CreateEventFragment"
+        android:label="fragment_create_events"
+        tools:layout="@layout/fragment_create_events" />
+    <fragment
+        android:id="@+id/editEventFragment"
+        android:name="com.thinkdiffai.futurelove.EditEventFragment"
+        android:label="fragment_edit_event"
+        tools:layout="@layout/fragment_edit_event" />
+    <fragment
+        android:id="@+id/videoFragment"
+        android:name="com.thinkdiffai.futurelove.view.fragment.VideoFragment"
+        android:label="VideoFragment" />
+    <fragment
+        android:id="@+id/imageFragment"
+        android:name="com.thinkdiffai.futurelove.view.fragment.ImageFragment"
+        android:label="ImageFragment" />
+<!--    <fragment-->
+<!--        android:id="@+id/PairingFragment"-->
+<!--        android:name="com.thinkdiffai.futurelove.view.fragment.PairingFragment"-->
+<!--        android:label="fragment_container_event"-->
+<!--        tools:layout="@layout/fragment_container_event" />-->
 </navigation>
